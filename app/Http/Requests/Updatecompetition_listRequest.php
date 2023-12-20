@@ -31,7 +31,6 @@ class Updatecompetition_listRequest extends FormRequest
                 'competition_end_date' => ['required'],
                 'competition_amount' => ['required'],
                 'competition_rule' => ['required'],
-                'competition_type' => ['required'],
                 'cl_round' => ['required'],
         ];
     }

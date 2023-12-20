@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="text-4xl  p-4 text-gray-900 dark:text-gray-100">
-                    <form action="{{route('competition.storeData', $competition_list2)}}" method="POST">
+                    <form action="{{route('competition.storeData', $competition_list2)}}" method="POST" enctype="multipart/form-data">
                         
                         <div class="container mx-auto">
                         @csrf
@@ -413,7 +413,7 @@
                             <br>
                             <div class="my-1"></div>
                                 <div class="cols col-span-3 text-center">
-                                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white py-1 px-1 rounded text-xl">ลงทะเบียน</a></button>
+                                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white py-1 px-1 rounded text-xl">ลงทะเบียน</button>
                                 </div>
                         </div>
 

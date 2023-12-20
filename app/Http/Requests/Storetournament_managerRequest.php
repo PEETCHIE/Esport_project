@@ -23,18 +23,13 @@ class Storetournament_managerRequest extends FormRequest
     {
         return [
             //
-            'agency'=>'required',
-            'agency_tel'=>'required',
-            'agency_email'=>'required',
-            'manager_name'=>'required',
-            'manager_tel'=>'required',
-            'manager_email'=>'required',
-            'coordinator_name'=>'required',
-            'coordinator_tel'=>'required',
-            'coordinator_email'=>'required',
-            'coordinator_line'=>'required',
-            'date'=>'required',
-            'coordinator_address'=>'required',
+            'coordinator_name'=>['required' ],
+            'organization_name'=>['required'],
+            'organization_detail'=>['required'],
+            'coordinator_detail'=>['required'],
+            'email'=>['required'],
+            'tel'=>['required'],
+            
         ];
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Requests\Storetournament_managerRequest;
 use App\Http\Requests\Updatetournament_managerRequest;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 class TournamentManagerController extends Controller
 {
     /**
@@ -37,23 +38,18 @@ class TournamentManagerController extends Controller
         $id = IdGenerator::generate($config);
         $managerRegister = tournament_manager::insert([
             'id' => $id,
-            'agency' => $request->agency,
-            'agency_tel' => $request->agency_tel,
-            'agency_email' => $request->agency_email,
-            'manager_name' => $request->manager_name,
-            'manager_tel' => $request->manager_tel,
-            'manager_email' => $request->manager_email,
             'coordinator_name' => $request->coordinator_name,
-            'coordinator_tel' => $request->coordinator_tel,
-            'coordinator_email' => $request->coordinator_email,
-            'coordinator_line' => $request->coordinator_line,
-            'tm_date' => $request->date,
-            'coordinator_address' => $request->coordinator_address,
+            'organization_name' => $request->organization_name,
+            'organization_detail' => $request->organization_detail,
+            'coordinator_detail' => $request->coordinator_detail,
+            'date' => Carbon::now(),
+            'email' => $request->email,
+            'tel' => $request->tel,
             'permission' => 0,
             'user_id' => auth()->id()
         ]);
 
-        return view('/managerRegister/alert')->with('status','ลงทะเบียนสำเร็จ');
+        return back()->with('status','ลงทะเบียนสำเร็จ');
     }
 
     /**

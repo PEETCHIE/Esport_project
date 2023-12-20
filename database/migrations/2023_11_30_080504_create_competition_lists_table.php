@@ -25,6 +25,9 @@ return new class extends Migration
             $table->char('cl_round', 1 );
             $table->enum('amount_contestant', ['1', '2', '3', '4', '5']);
             $table->string('cl_img', 50)->nullable();
+            $table->char('tm_id', 10);
+            $table->foreign('tm_id')->references('id')->on('tournament_managers');
+            
         });
     }
 

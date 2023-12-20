@@ -29,9 +29,8 @@ class Storecompetition_listRequest extends FormRequest
                 'game_name' => ['required'],
                 'start_date' => ['required'],
                 'competition_end_date' => ['required'],
-                'competition_amount' => ['required'],
+                'competition_amount' => ['required', 'MAX:32'],
                 'competition_rule' => ['required'],
-                'competition_type' => ['required'],
                 'cl_round' => ['required'],
                 'amount_contestant' => ['required'],
                 

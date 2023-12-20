@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\competition_list;
+use App\Models\team;
 use App\Http\Requests\Storecompetition_listRequest;
 use App\Http\Requests\Updatecompetition_listRequest;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\chunk;
 use Illuminate\Support\Facades\Storage;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class CompetitionListController extends Controller
 {
@@ -19,8 +22,9 @@ class CompetitionListController extends Controller
     public function index()
     {
         //
-        $list_competitions = DB::table('competition_lists')->get();
-        // collect($list_competitions)->chunk(2);
+        $id = Auth()->id();
+        $tm_id = DB::table('tournament_managers')->where('user_id', $id)->pluck('id')->first();
+        $list_competitions = DB::table('competition_lists')->get()->WHERE('tm_id', $tm_id);
         return view('manager.competition_table', compact('list_competitions'));
     }
 
@@ -39,11 +43,15 @@ class CompetitionListController extends Controller
     public function store(Storecompetition_listRequest $request)
     {
         //
-        // $name = $request->file('cl_img')->getClientOriginalExtension();
-        // $newName = $request->competition_name.'.'.$name;
-        
-        // dd($newName);
-
+        $id = Auth()->id();
+        $tm_id = DB::table('tournament_managers')->where('user_id', $id)->pluck('id')->first();
+        // dd($tm_id);
+        $filename = '';
+        if($request->hasFile('cl_img')){
+            $filename = $request->getSchemeAndHttpHost(). '/asset/img/' . time() . '.' . $request->cl_img->extension();
+            $request->cl_img->move(public_path('/asset/img'), $filename);
+        } 
+        // dd($filename);
         $competition_store = competition_list::insert([
             'competition_name' => $request->competition_name,
             'opening_date' => $request->opening_date,
@@ -53,10 +61,11 @@ class CompetitionListController extends Controller
             'competition_end_date' => $request->competition_end_date,
             'competition_amount' => $request->competition_amount,
             'competition_rule' => $request->competition_rule,
-            'competition_type' => $request->competition_type,
+            'competition_type' => '1',
             'cl_round' => $request->cl_round,
             'amount_contestant' => $request->amount_contestant,
-            // 'cl_img' => $newName,
+            'cl_img' => $filename,
+            'tm_id' => $tm_id, 
         ]);
         // dd($competition_store);
        return redirect()->route('managers_competition.index')->with('status', 'เพิ่มรายการแข่งเรียบร้อย');
@@ -87,21 +96,37 @@ class CompetitionListController extends Controller
     public function update(Updatecompetition_listRequest $request, competition_list $competition_list, $id)
     {
         //
-        $data = DB::table('competition_lists')->WHERE('id', $id)->update([
-            'competition_name'=> $request->competition_name,
-            'opening_date'=> $request->opening_date,
-            'end_date'=> $request->end_date,
-            'game_name'=> $request->game_name,
-            'start_date'=> $request->start_date,
-            'competition_end_date'=> $request->competition_end_date,
-            'competition_amount'=> $request->competition_amount,
-            'competition_rule'=> $request->competition_rule,
-            'competition_type'=> $request->competition_type,
-            'cl_round'=> $request->cl_round,
-            'amount_contestant' => $request->amount_contestant,
-        ]);
-        // dd($data);
-        return redirect()->route('managers_competition.index')->with('status', 'แก้ไขรายการแข่งเรียบร้อย');
+        $currentDate = Carbon::now();
+        $date = competition_list::find($id);
+        $expiryDate = Carbon::parse($date->opening_date);
+        // dd($expiryDate);
+        if($currentDate > $expiryDate){
+            // dd($expiryDate);
+            return redirect()->route('managers_competition.index')->with('status', 'ไม่สามารถแก้ไขข้อมูลได้');
+        }else{
+            // dd($currentDate);
+            $filename = '';
+            if($request->hasFile('cl_img')){
+                $filename = $request->getSchemeAndHttpHost(). '/asset/img/' . time() . '.' . $request->cl_img->extension();
+                $request->cl_img->move(public_path('/asset/img'), $filename);
+            } 
+            $data = DB::table('competition_lists')->WHERE('id', $id)->update([
+                'competition_name'=> $request->competition_name,
+                'opening_date'=> $request->opening_date,
+                'end_date'=> $request->end_date,
+                'game_name'=> $request->game_name,
+                'start_date'=> $request->start_date,
+                'competition_end_date'=> $request->competition_end_date,
+                'competition_amount'=> $request->competition_amount,
+                'competition_rule'=> $request->competition_rule,
+                'competition_type'=> '1',
+                'cl_round'=> $request->cl_round,
+                'amount_contestant' => $request->amount_contestant,
+                'cl_img' => $filename,
+            ]);
+            // dd($data);
+            return redirect()->route('managers_competition.index')->with('status', 'แก้ไขรายการแข่งเรียบร้อย');
+        }
     }
 
     /**
@@ -110,8 +135,14 @@ class CompetitionListController extends Controller
     public function destroy($id)
     {
         //
-        $destroy = DB::table('competition_lists')->WHERE('id', $id)->delete();
-        // dd($destroy);
-        return redirect()->route('managers_competition.index')->with('status', 'ลบรายการแข่งเรียบร้อย');
+        
+        $cl_id = DB::table('teams')->WHERE('cl_id', $id)->get('cl_id')->first();
+        if ($cl_id) {
+            return redirect()->route('managers_competition.index')->with('status', 'ไม่สามารถลบข้อมูลได้เนื่องจากมีทีมเข้าร่วใการแข่งขันแล้ว');
+        } else {
+            $destroy = DB::table('competition_lists')->WHERE('id', $id)->delete();
+            return redirect()->route('managers_competition.index')->with('status', 'ลบรายการแข่งเรียบร้อย');
+        }
+        
     }
 }

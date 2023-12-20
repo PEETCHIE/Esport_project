@@ -35,6 +35,8 @@ Route::get('/', function () {
 Route::get('/list/contestants/table', [TeamController::class, 'index'])->name('contestants');
 Route::get('/description/contestants/detail/{id}', [TeamController::class, 'detailShow'])->name('competition.detail');
 
+Route::get('/grid/teams/list/{id}', [ContestantController::class, 'indexID'])->name('team_grid');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -48,6 +50,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('/register/contestants', TeamController::class);
     Route::get('/register/contestants/create/{id}', [TeamController::class, 'createTeam'])->name('competition.createTeam');
     Route::post('/register/contestants/storeData/{id}', [TeamController::class, 'storeData'])->name('competition.storeData');
+
+    Route::resource('grid/teams', ContestantController::class);
      
 });
 

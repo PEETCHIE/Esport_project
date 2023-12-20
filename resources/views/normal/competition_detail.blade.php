@@ -10,7 +10,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg ">
                 <div class="container mx-auto">
                     <div class="text-gray-800 dark:text-white flex justify ">
-                        <img class="w-1/2 rounded-lg object-cover" src="https://images.unsplash.com/photo-1511556532299-8f662fc26c06?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="product" />
+                        <img class="w-1/2 rounded-lg object-cover" src="{{$competition_list->cl_img}}" alt="product" />
                         <div class="rows py-3">
                             <div class="mx-4">
                                 COMPETITION NAME

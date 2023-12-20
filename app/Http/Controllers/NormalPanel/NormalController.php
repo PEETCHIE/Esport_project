@@ -9,6 +9,6 @@ class NormalController extends Controller
 {
     //
     public function index(){
-        return view('normal.normal_home');
+        return view('home');
     }
 }

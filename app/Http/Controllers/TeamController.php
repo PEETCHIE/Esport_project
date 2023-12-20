@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\team;
 use App\Models\contestant;
+use App\Models\competition_list;
 use App\Http\Requests\StoreteamRequest;
 use App\Http\Requests\UpdateteamRequest;
 use App\Http\Requests\StorecontestantRequest;
@@ -19,16 +20,24 @@ class TeamController extends Controller
     public function index()
     {
         //
-        $competition_lists = DB::table('competition_lists')->get();
-        // dd($competition_lists);
-        return view('normal.grid_competition_list', compact('competition_lists'));
+        $currentDate = Carbon::now();
+        $data = DB::table('competition_lists')->value('opening_date');
+        $expiryDate = Carbon::parse($data);
+        dd($expiryDate, $currentDate);
+        if($currentDate > $expiryDate){
+            dd('Not Opening');
+        }else{
+            $competition_lists = DB::table('competition_lists')->get();
+            dd($competition_lists);
+            return view('normal.grid_competition_list', compact('competition_lists'));
+        } 
+      
     }
 
     public function detailShow($id)
     {
         //
         $competition_list = DB::table('competition_lists')->WHERE('id', $id)->first();
-        // dd($competition_list);
         return view('normal.competition_detail', compact('competition_list'));
     }
 
@@ -45,9 +54,7 @@ class TeamController extends Controller
     {
         //
         $competition_list = DB::table('competition_lists')->WHERE('id', $id)->pluck('amount_contestant')->first();
-        // dd($competition_list);
         $competition_list2 = DB::table('competition_lists')->WHERE('id', $id)->pluck('id')->first();
-        // dd($competition_list2);
         return view('normal.contestants_create', compact('competition_list', 'competition_list2'));
     }
 
@@ -60,9 +67,15 @@ class TeamController extends Controller
         $competition_list = DB::table('competition_lists')->WHERE('id', $id)->pluck('id')->first();
         $amount_contestant = DB::table('competition_lists')->WHERE('id', $id)->pluck('amount_contestant')->first();
 
+        $filename = '';
+        if($request->hasFile('logo')){
+            $filename = $request->getSchemeAndHttpHost(). '/asset/img_logo/' . time() . '.' . $request->logo->extension();
+            $request->logo->move(public_path('/asset/img_logo'), $filename);
+        } 
+        // dd($filename);
         $teams = team::insert([
             't_name' => $request->t_name,
-            // 'logo' => $request->logo,
+            'logo' => $filename,
             't_date' => Carbon::now(),
             'cl_id' =>  $competition_list,
         ]);
