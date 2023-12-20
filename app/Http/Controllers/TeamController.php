@@ -21,17 +21,9 @@ class TeamController extends Controller
     {
         //
         $currentDate = Carbon::now();
-        $data = DB::table('competition_lists')->value('opening_date');
-        $expiryDate = Carbon::parse($data);
-        dd($expiryDate, $currentDate);
-        if($currentDate > $expiryDate){
-            dd('Not Opening');
-        }else{
-            $competition_lists = DB::table('competition_lists')->get();
-            dd($competition_lists);
-            return view('normal.grid_competition_list', compact('competition_lists'));
-        } 
-      
+        $competition_lists = DB::table('competition_lists')->WHERE('opening_date', '<', $currentDate)->WHERE('competition_end_date', '>', $currentDate)->get();
+        // dd($competition_lists);
+        return view('normal.grid_competition_list', compact('competition_lists'));
     }
 
     public function detailShow($id)

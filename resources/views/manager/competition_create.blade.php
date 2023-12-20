@@ -31,7 +31,7 @@
                                 </div>
 
                                 <div class="cols mx-1 col-span-1">
-                                    <x-input-label for="game_name" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">game_name </x-input-label>
+                                    <x-input-label for="game_name" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">game_name</x-input-label>
                                     <input type="text" name="game_name" id="game_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     <x-input-error :messages="$errors->get('game_name')" class="mt-2"/>    
                                 </div>
