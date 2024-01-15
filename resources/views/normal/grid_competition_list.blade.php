@@ -22,8 +22,10 @@
                         <div class="max-w-xs cursor-pointer rounded-lg bg-white p-2 shadow duration-150 hover:scale-105 hover:shadow-md">
                         <img class="h-40 w-60 rounded-lg object-cover object-center" src="{{ $competition_list->cl_img}}" alt="product" />
                         <p class="my-4 pl-4 font-bold text-gray-500">{{ $competition_list->competition_name}}</p>
-                        <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-1 rounded " onclick="#"><a href="{{ route('competition.detail', $competition_list->id)}}">DETAIL</a></button>
-                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-1 rounded " onclick="#"><a href="{{ route('team_grid', $competition_list->id) }}">TEAM LIST</a></button>
+                        <p class="my-4 pl-4 font-bold text-gray-500">{{ $competition_list->game_name}}</p>
+                        <p class="my-4 pl-4 font-bold text-gray-500">{{ $competition_list->start_date}}</p>
+                        <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-1 rounded "><a href="{{ route('competition.detail', $competition_list->id)}}">DETAIL</a></button>
+                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-1 rounded "><a href="{{ route('team_grid', $competition_list->id) }}">TEAM LIST</a></button>
                         </div>
                         
                     </div>

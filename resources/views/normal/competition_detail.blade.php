@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('CONPETITIONS DETAIL') }}
+            {{ __('รายละเอียดการแข่งขัน') }}
         </h2>
     </x-slot>
 
@@ -13,44 +13,44 @@
                         <img class="w-1/2 rounded-lg object-cover" src="{{$competition_list->cl_img}}" alt="product" />
                         <div class="rows py-3">
                             <div class="mx-4">
-                                COMPETITION NAME
+                                รายการแข่งขัน
                             </div>
                             <div class="mx-6">
                                 : {{$competition_list->competition_name}}
                             </div>
                             <div class="mx-4">
-                                GAME NAME
+                                เกม
                             </div>
                             <div class="mx-6">
                                 : {{$competition_list->game_name}}
                             </div>
                             <div class="mx-4">
-                                OPENING
+                                เปิดรับสมัครการแข่งขัน
                             </div>
                             <div class="mx-6">
                                 : {{$competition_list->opening_date}}
                             </div>
                             <div class="mx-4">
-                                END
+                                ปิดรับการสมัครการแข่งขัน
                             </div>
                             <div class="mx-6">
                                 : {{$competition_list->end_date}}
                             </div>
                             <div class="mx-4">
-                                COMPETITION RULE
+                                กฎกติกาการแข่งขัน
                             </div>
                             <div class="mx-6">
                                 : {{$competition_list->competition_rule}}
                             </div>
                             <div class="mx-4">
-                                START DATE
+                                วันเริ่มการแข่งขัน
                             </div>
                             <div class="mx-6">
                                 : {{$competition_list->	start_date}}
                             </div>
 
                             <div class="my-12">
-                                <center><button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-1 rounded " onclick="#"><a href="{{ route('competition.createTeam', $competition_list->id)}}">REGISTER</a></button></center>
+                                <center><button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-1 rounded "><a href="{{ route('competition.createTeam', $competition_list->id)}}">REGISTER</a></button></center>
                             </div>
                         </div>
                     </div>

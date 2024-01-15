@@ -415,11 +415,12 @@
                                 <div class="cols col-span-3 text-center">
                                     <button type="submit" class="bg-green-500 hover:bg-green-700 text-white py-1 px-1 rounded text-xl">ลงทะเบียน</button>
                                 </div>
-                        </div>
+                            </div>
 
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
 </x-app-layout>

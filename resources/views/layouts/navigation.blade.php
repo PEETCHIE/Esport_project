@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-lime-300 dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+<nav x-data="{ open: false }" class="bg-slate-900 dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-28">
@@ -6,7 +6,7 @@
                 <!-- Logo -->    
                 <div class="shrink-0 flex items-center ">
                         <div class="w-24 h-20">
-                            <img src="{{ url('img/E-Sport_Logo.png')}}" alt="" >
+                            <img src="{{ url('img/Logo.png')}}" alt="" >
                         </div>
                 </div>
                 @guest

@@ -1,7 +1,7 @@
-<div class="bg-lime-300">
+<div class="bg-slate-900 text-rose-600">
     <div class="grid grid-cols-9 grid-flow-row">
         <div class="w-20 h-20">
-            <img src="{{ url('img/E-Sport_Logo.png')}}" alt="" >
+            <img src="{{ url('img/Logo.png')}}" alt="" >
         </div>
         
         <div class="pt-6 ">
