@@ -101,10 +101,6 @@ class CompetitionListController extends Controller
         $expiryDate = Carbon::parse($date->opening_date);
         // dd($expiryDate);
         if($currentDate > $expiryDate){
-            // dd($expiryDate);
-            // $data = DB::table('competition_lists')->WHERE('id', $id)->update([
-            //     'status'=> 'active',
-            // ]);
             return redirect()->route('managers_competition.index')->with('status', 'ไม่สามารถแก้ไขข้อมูลได้');
         }else{
             // dd($currentDate);

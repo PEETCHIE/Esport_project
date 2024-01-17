@@ -48,10 +48,20 @@
                             <div class="mx-6">
                                 : {{$competition_list->	start_date}}
                             </div>
+                            
 
-                            <div class="my-12">
-                                <center><button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-1 rounded "><a href="{{ route('competition.createTeam', $competition_list->id)}}">REGISTER</a></button></center>
-                            </div>
+                                <div class="my-12">
+                                    <center><button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-1 rounded">
+                                        @if($count_clid >= $competitionAmountInt) 
+                                            FULL
+                                        @endif
+                                        <a href="{{ route('competition.createTeam', $competition_list->id)}}">
+                                            {{ $count_clid <= $competitionAmountInt ? 'REGISTER' : '' }}
+                                        </a>
+                                    </button></center>
+                                </div>
+
+
                         </div>
                     </div>
                 </div>
