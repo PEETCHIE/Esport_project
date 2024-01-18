@@ -72,7 +72,7 @@ class TeamController extends Controller
             $competitionAmountInt = (int) $competition_amount;
             // dd($competitionAmountInt);
             
-            if($count_clid <= $competitionAmountInt){
+            if($count_clid < $competitionAmountInt){
                 $filename = '';
                 if($request->hasFile('logo')){
                     $filename = $request->getSchemeAndHttpHost(). '/asset/img_logo/' . time() . '.' . $request->logo->extension();
