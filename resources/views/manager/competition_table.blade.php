@@ -59,7 +59,6 @@
                     <td class="px-6 py-4">
                         <div class="flex space-x-2">
                             <a href="{{ route('managers_competition.edit', $list_competition->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">EDIT</a>
-
                             <form method="POST" action="{{ route('managers_competition.destroy', $list_competition->id)}}"> 
                                 @method('delete')
                                 @csrf
