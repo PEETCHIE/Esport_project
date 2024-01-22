@@ -4,20 +4,12 @@
             {{ __('ข้อมูลจัดการแข่งขัน') }}
         </h2>
     </x-slot>
-    
-    @if ($message = Session::get('status'))
-        <center><div>
-            <div class="mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-                <span class="font-medium">{{ $message}}</span> 
-            </div>
-        </div></center>
-    @endif
 
     <div class="d-grid gap-2 col-6 mx-auto py-6">
         {{-- <button style="background-color: #4caf50; color: white;" class="hover:bg-#45a049 font-bold py-2 px-4 rounded">
             อีกแบบ
         </button> --}}
-            <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded  float-right mr-6" onclick="{{ route('managers_competition.create') }}"><a href="{{route('managers_competition.create')}}">ADD</a></button>
+            <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded  float-right mr-6" onclick="{{ route('managers_competition.create') }}"><a href="{{route('managers_competition.create')}}">เพิ่มรายการแข่ง</a></button>
             <br>
     </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -25,16 +17,16 @@
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 mx-auto">
                 <tr>
                     <th scope="col" class="px-6 py-3">
-                        IMAGE
+                        โลโก้ทีม
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        NAME
+                       ชื่อรายการแข่ง
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        DESCRIPTION
+                        รายละเอียด
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        EDIT
+                        แก้ไข
                     </th>
                 </tr>
             </thead>
@@ -58,12 +50,12 @@
                     </td>
                     <td class="px-6 py-4">
                         <div class="flex space-x-2">
-                            <a href="{{ route('managers_competition.edit', $list_competition->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">EDIT</a>
+                            <a href="{{ route('managers_competition.edit', $list_competition->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">แก้ไข</a>
 
                             <form method="POST" action="{{ route('managers_competition.destroy', $list_competition->id)}}"> 
                                 @method('delete')
                                 @csrf
-                                    <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline pl-1">DELETE</button>
+                                    <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline pl-1">ลบ</button>
                             </form>
                         </div>
                     </td>
