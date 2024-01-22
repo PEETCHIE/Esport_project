@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('REGISTER CONTESTANTS') }}
+            {{ __('ลงทะเบียนทีมเข้าแข่งขัน') }}
         </h2>
     </x-slot>
 
@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="text-4xl  p-4 text-gray-900 dark:text-gray-100">
-                    <form action="{{route('competition.storeData', $competition_list2)}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('competition.storeData', $competition_list2)}}" method="POST" enctype="multipart/form-data" id="registrationForm">
                         
                         <div class="container mx-auto">
                         @csrf
@@ -413,7 +413,7 @@
                             <br>
                             <div class="my-1"></div>
                                 <div class="cols col-span-3 text-center">
-                                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white py-1 px-1 rounded text-xl">ลงทะเบียน</button>
+                                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white py-1 px-1 rounded text-xl" id="load">ลงทะเบียน</button>
                                 </div>
                             </div>
 
@@ -422,5 +422,58 @@
             </div>
         </div>
     </div>
+    <script>
+        function showError(message) {
+            Swal.fire({
+                icon: 'error',
+                title: 'เกิดข้อผิดพลาด',
+                text: message,
+            });
+        }
+        document.getElementById('load').addEventListener('click', function (event) {
+            event.preventDefault();
+            var t_name = document.getElementById('t_name').value;
+            var logo = document.getElementById('logo').value;
+            var c_name1 = document.getElementById('c_name1').value;
+            var c_inGameName1 = document.getElementById('c_inGameName1').value;
+            var c_email1 = document.getElementById('c_email1').value;
+            var c_tel1 = document.getElementById('c_tel1').value;
+            var c_name2 = document.getElementById('c_name2').value;
+            var c_inGameName2 = document.getElementById('c_inGameName2 ').value;
+            var c_email2 = document.getElementById('c_email2').value;
+            var c_tel2 = document.getElementById('c_tel2').value;
+            var c_name3 = document.getElementById('c_name3').value;
+            var c_inGameName3 = document.getElementById('c_inGameName3 ').value;
+            var c_email3 = document.getElementById('c_email3').value;
+            var c_tel3 = document.getElementById('c_tel3').value;
+            var c_name4 = document.getElementById('c_name4').value;
+            var c_inGameName4 = document.getElementById('c_inGameName4 ').value;
+            var c_email4 = document.getElementById('c_email4').value;
+            var c_tel4 = document.getElementById('c_tel4').value;
+            var c_name5 = document.getElementById('c_name5').value;
+            var c_inGameName5 = document.getElementById('c_inGameName5 ').value;
+            var c_email5 = document.getElementById('c_email5').value;
+            var c_tel5 = document.getElementById('c_tel5').value;
+
+            if(t_name == ''|| logo == '' || c_name1 == '' || c_inGameName1 == '' || c_email1 == '' || c_tel1 == '' ||
+            c_name2 == '' || c_inGameName2 == '' || c_email2 == '' || c_tel2 == '' ||
+            c_name3 == '' || c_inGameName3 == '' || c_email3 == '' || c_tel3 == '' ||
+            c_name4 == '' || c_inGameName4 == '' || c_email4 == '' || c_tel4 == '' ||
+            c_name5 == '' || c_inGameName5 == '' || c_email5 == '' || c_tel5 ){
+                showError('กรุณากรอกข้อมูลให้ครบถ้วน');
+            } else {
+                Swal.fire({
+                    title: "ลงทะเบียนทีมเข้าแข่งขันเรียบร้อย",
+                    text: "คุณได้ทำการลงทะเบียนเข้าแข่งขันเรียบร้อยแล้ว",
+                    icon: "success"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById('registrationForm').submit();
+                    }
+                });
+            }
+        });
+        
+    </script>
 
 </x-app-layout>
