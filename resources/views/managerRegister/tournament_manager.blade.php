@@ -5,11 +5,18 @@
             {{ __('ลงทะเบียนเป็นผู้จัดการแข่ง') }}
         </h2>
     </x-slot>
+    @if ($message = Session::get('status'))
+    <center><div>
+        <div class="mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+            <span class="font-medium">{{ $message}}</span> 
+        </div>
+    </div></center>
+    @endif
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="text-4xl  p-4 text-gray-900 dark:text-gray-100">
-                    <form action="{{route('managerRegister.store')}}" method="POST" enctype="multipart/form-data" id="registrationForm">
+                    <form action="{{route('managerRegister.store')}}" method="POST" enctype="multipart/form-data">
                         <div class="container mx-auto">
                             @csrf
                             <div class="grid grid-cols-4 grid-flow-row">
@@ -61,44 +68,15 @@
                             <br>
                             <div class="my-1"></div>
                                 <div class="cols col-span-3 text-center">
-                                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white py-1 px-1 rounded text-xl" id="wait">ลงทะเบียน</button>
+                                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white py-1 px-1 rounded text-xl">ลงทะเบียน</button>
                                 </div>
+                            
                         </div>    
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <script>
-        function showError(message) {
-            Swal.fire({
-                icon: 'error',
-                title: 'เกิดข้อผิดพลาด',
-                text: message,
-            });
-        }
-        document.getElementById('wait').addEventListener('click', function (event) {
-            event.preventDefault();
-            var coordinatorName = document.getElementById('coordinator_name').value;
-            var organizationName = document.getElementById('organization_name').value;
-            var organizationDetail = document.getElementById('organization_detail').value;
-            var coordinatorDetail = document.getElementById('coordinator_detail').value;
-            var email = document.getElementById('email').value;
-            var tel = document.getElementById('tel').value;
-
-            if (coordinatorName === '' || organizationName === '' || organizationDetail === '' || coordinatorDetail === '' || email === '' || tel === '') {
-                showError('กรุณากรอกข้อมูลให้ครบถ้วน');
-            } else {
-                Swal.fire({
-                    title: "รอการตรวจสอบ",
-                    text: "กำลังตรวจสอบข้อมูลของคุณ",
-                    icon: "info"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        document.getElementById('registrationForm').submit();
-                    }
-                });
-            }
-        });
-    </script>
+   
+    
 </x-app-layout>

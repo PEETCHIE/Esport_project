@@ -1,13 +1,18 @@
 <x-app-layout>
-    
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('รายชื่อผู้จัดการการแข่งขัน') }}
+            {{ __('LIST TOURNAMENT MANAGERS PERMISSION') }}
         </h2>
     </x-slot>
 
     <br>
-   
+    @if ($message = Session::get('success'))
+            <center><div>
+                <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                    <span class="font-medium">{{$message}}</span> 
+                  </div>
+            </div></center>
+    @endif
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -62,34 +67,11 @@
                     รอการอนุมัติ
                 </td>    
                 <td class="px-6 py-4">
-                <button type="button" class="give-button inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150" onclick="confirmAndRedirect('{{ route('update_confirm_tmg', $list_tmgs->id) }}', 'ต้องการให้สิทธิ์การใช้งานหรือไม่?', 'สิทธิ์การใช้งานถูกให้แก่ผู้ใช้')">ให้สิทธิ์ใช้งาน</button>
-                <button type="button" class="no-button inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150" onclick="confirmAndRedirect('{{ route('update_cancel_tmg', $list_tmgs->id) }}', 'ต้องการไม่ให้สิทธิ์การใช้งานหรือไม่?', 'สิทธิ์การใช้งานถูกยกเลิก')">ไม่ให้สิทธิ์การใช้งาน</button>
-                    <!-- <button type="button" href="{{ route('update_confirm_tmg', $list_tmgs->id) }}" class="give-button inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">ให้สิทธิ์ใช้งาน</button>
-                    <button type="button" href="{{ route('update_cancel_tmg', $list_tmgs->id) }}" class="no-button inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">ไม่ให้สิทธิ์การใช้งาน</button> -->
+                    <a href="{{ route('update_confirm_tmg', $list_tmgs->id) }}" class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">ให้สิทธิ์ใช้งาน</a>
+                    <a href="{{ route('update_cancel_tmg', $list_tmgs->id) }}" class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">ไม่ให้สิทธิ์การใช้งาน</a>
                 </td>
             </tr>
-            <script>
-                function confirmAndRedirect(url, title, successMessage) {
-                    Swal.fire({
-                        title: title,
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'ใช่',
-                        cancelButtonText: 'ไม่'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            Swal.fire({
-                                title: successMessage,
-                                icon: 'success'
-                            }).then(() => {
-                                window.location.href = url;
-                            });
-                        }
-                    });
-                }
-            </script>
+
             @endif
             @endforeach
         </tbody>
@@ -150,31 +132,9 @@
                 </td>
                    
                 <td class="px-6 py-4">
-                    <button type="button" class="no-button inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150" onclick="confirmAndRedirect('{{ route('update_cancel_tmg', $list_tmgs->id) }}', 'ต้องการระงับสิทธิ์การใช้งานหรือไม่?', 'สิทธิ์การใช้งานถูกยกเลิก')">ระงับสิทธิ์การใช้งาน</button>
+                    <a href="{{ route('update_cancel_tmg', $list_tmgs->id) }}" class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">ระงับสิทธิ์การใช้งาน</a>
                 </td>
             </tr>
-            <script>
-                function confirmAndRedirect(url, title, successMessage) {
-                    Swal.fire({
-                        title: title,
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'ใช่',
-                        cancelButtonText: 'ไม่'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            Swal.fire({
-                                title: successMessage,
-                                icon: 'success'
-                            }).then(() => {
-                                window.location.href = url;
-                            });
-                        }
-                    });
-                }
-            </script>
             @endif
             @endforeach
         </tbody>
@@ -234,31 +194,9 @@
                     ไม่อนุมัติ
                 </td>  
                 <td class="px-6 py-4">
-                    <button type="button" class="give-button inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150" onclick="confirmAndRedirect('{{ route('update_confirm_tmg', $list_tmgs->id) }}', 'ต้องการให้สิทธิ์การใช้งานหรือไม่?', 'สิทธิ์การใช้งานถูกให้แก่ผู้ใช้')">ให้สิทธิ์ใช้งาน</button>
+                    <a href="{{ route('update_confirm_tmg', $list_tmgs->id) }}" class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">ให้สิทธิ์การใช้งาน</a>
                 </td>
             </tr>
-            <script>
-                function confirmAndRedirect(url, title, successMessage) {
-                    Swal.fire({
-                        title: title,
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'ใช่',
-                        cancelButtonText: 'ไม่'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            Swal.fire({
-                                title: successMessage,
-                                icon: 'success'
-                            }).then(() => {
-                                window.location.href = url;
-                            });
-                        }
-                    });
-                }
-            </script>
             @endif
             @endforeach
         </tbody>

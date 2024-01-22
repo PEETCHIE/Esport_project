@@ -34,10 +34,11 @@
     <script>
         document.getElementById('swal').addEventListener('click', function(){
             Swal.fire({
-            title: "Good job!",
-            text: "You clicked the button!",
+            position: "top-end",
+            icon: "success",
+            title: "Your work has been saved",
             showConfirmButton: false,
-            icon: "success"
+            timer: 1500
             });
         })
     </script>
