@@ -28,6 +28,7 @@
                         <p class="my-4 pl-4 font-bold text-gray-500">จำนวนทีมที่รับสมัคร : {{ $competition_list->competition_amount}} ทีม</p>
                         <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-1 rounded "><a href="{{ route('competition.detail', $competition_list->id)}}">รายละเอียด</a></button>
                         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-1 rounded "><a href="{{ route('team_grid', $competition_list->id) }}">ทีมที่เข้าร่วม</a></button>
+                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-1 rounded "><a href="{{ route('competition_schedule', $competition_list->id) }}">competition_schedule</a></button>
                         </div>
                         
                     </div>
