@@ -15,17 +15,26 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-[#67e8f9]  dark:bg-gray-900">
-            <div>
-                <a href="/">
-                    <div class="w-44 h-40">
-                        <img src="{{ url('img/Logo.png')}}" alt="" >
-                    </div>
-                </a>
+        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-[#C9193A]  dark:bg-gray-900">
+            <div class="absolute inset-0 z-0">
+                <img src="{{ url('img/Bg.png')}}" alt="" class="w-full h-full">
             </div>
-
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-[#dc2626]  dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
-                {{ $slot }}
+            <div>
+            <div class="relative">
+                    <div class="w-full">
+                        <img src="{{ url('img/b2.png')}}" alt="" class="filter blur-sm">
+                    </div>
+                <div class="absolute  right-1/4 top-1/2 transform translate-x-1/3 -translate-y-1/2 w-full sm:max-w-md">
+                    <div class="mt-6 px-6 py-4 bg-[#01142E] dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg bg-[rgba(0,0,0,0.7)]">
+                        {{ $slot }}
+                    </div>
+                </div>
+                <div class="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 -left-1 w-full sm:max-w-md">
+                    <div class="w-full">
+                        <img src="{{ url('img/character_logo.png')}}" alt="" >
+                    </div>
+                </div>
+            </div>
             </div>
         </div>
     </body>

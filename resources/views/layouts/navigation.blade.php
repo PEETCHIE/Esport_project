@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-slate-900 dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+<nav x-data="{ open: false }" class="bg-slate-900 dark:bg-gray-800 border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-28">
@@ -12,7 +12,7 @@
                 @guest
                     <!-- Navigation Links -->
                     <div class="hidden space-x-3 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('contestants')" :active="request()->routeIs('contestants')">
+                        <x-nav-link class="text-white" :href="route('contestants')" :active="request()->routeIs('contestants')">
                             {{ __('รายการแข่งขัน') }}
                         </x-nav-link>
                     </div>
@@ -23,9 +23,9 @@
                             @auth
                                 <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
                             @else
-                                <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
+                                <a href="{{ route('login') }}" class="text-white font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
                                 @if (Route::has('register'))
-                                    <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
+                                    <a href="{{ route('register') }}" class="text-white ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
                                 @endif
                             @endauth
                         </div>
@@ -36,10 +36,10 @@
                 @else
                     @if(auth()->check() && auth()->user()->role == 'admin')
                         <!-- Navigation Links -->
-                        <div class="hidden space-x-3 sm:-my-px sm:ms-10 sm:flex ">
+                        <div class="hidden space-x-3 sm:-my-px sm:ms-10 flex">
                             <x-nav-link :href="route('admin.home')" :active="request()->routeIs('admin.home')">
                                 {{ __('หน้าหลัก') }}
-                            </x-nav-link>
+                            </x-nav-link>sm:
 
                             <x-nav-link :href="route('list_tmg')" :active="request()->routeIs('list_tmg')">
                                 {{ __('รายชื่อร้องขอเป็นผู้จัดการแข่ง') }}
@@ -51,11 +51,11 @@
                     @if(auth()->check() && auth()->user()->role == 'manager')
                         <!-- Navigation Links -->
                         <div class="hidden space-x-3 sm:-my-px sm:ms-10 sm:flex">
-                            <x-nav-link :href="route('manager.home')" :active="request()->routeIs('manager.home')">
+                            <x-nav-link class="text-white" :href="route('manager.home')" :active="request()->routeIs('manager.home')">
                                 {{ __('หน้าหลัก') }}
                             </x-nav-link>
 
-                            <x-nav-link :href="route('managers_competition.index')" :active="request()->routeIs('managers_competition.index')">
+                            <x-nav-link class="text-white" :href="route('managers_competition.index')" :active="request()->routeIs('managers_competition.index')">
                                 {{ __('จัดการแข่งขัน') }}
                             </x-nav-link>
                         </div>

@@ -14,7 +14,7 @@
     </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 mx-auto">
+            <thead class="text-xs text-black text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 mx-auto bg-[rgba(255,255,255,0.7)]">
                 <tr>
                     <th scope="col" class="px-6 py-3">
                         โลโก้ทีม
@@ -30,7 +30,7 @@
                     </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="text-black">
                 @foreach ($list_competitions as $list_competition)
                 <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -55,7 +55,7 @@
                             <form method="POST" action="{{ route('managers_competition.destroy', $list_competition->id)}}"> 
                                 @method('delete')
                                 @csrf
-                                    <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline pl-1">ลบ</button>
+                                    <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline pl-1" onclick="confirmAndRedirect(event,'ต้องการลบรายการแข่งขันจริงหรือไม่?', 'รายการแข่งขันถูกลบเรียบร้อย')">ลบ</button>
                             </form>
                         </div>
                     </td>
@@ -65,4 +65,29 @@
             </tbody>
         </table>    
     </div>
+    <script>
+        function confirmAndRedirect(event, title, successMessage) {
+            event.preventDefault(); // Prevent the default behavior of the button click
+
+            Swal.fire({
+                title: title,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'ใช่',
+                cancelButtonText: 'ไม่'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: successMessage,
+                        icon: 'success'
+                    }).then(() => {
+                        // Proceed with the redirection after the user confirms
+                        window.location.href = url;
+                    });
+                }
+            });
+        }
+    </script>
 </x-app-layout>
