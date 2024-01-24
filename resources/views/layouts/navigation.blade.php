@@ -17,6 +17,8 @@
                         </x-nav-link>
                     </div>
 
+                  
+
                     @if (Route::has('login'))
                     <div class="flex items-center">
                         <div class="hidden sm:fixed sm:flex sm:ms-6 sm:top-0 sm:right-0 p-11 text-right z-10">
