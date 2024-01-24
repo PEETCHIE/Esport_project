@@ -50,12 +50,9 @@
                     </td>
                     <td class="px-6 py-4">
                         <div class="flex space-x-2">
-<<<<<<< HEAD
-                            <a href="{{ route('managers_competition.edit', $list_competition->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">EDIT</a>
-=======
                             <a href="{{ route('managers_competition.edit', $list_competition->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">แก้ไข</a>
 
->>>>>>> c0969000b95f517e9fa8e742a257c64fe490ba50
+
                             <form method="POST" action="{{ route('managers_competition.destroy', $list_competition->id)}}"> 
                                 @method('delete')
                                 @csrf
