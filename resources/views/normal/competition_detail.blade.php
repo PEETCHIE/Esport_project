@@ -52,11 +52,11 @@
 
                                 <div class="my-12">
                                     <center><button type="submit" class="bg-red-500 hover:bg-gray-700 text-white font-bold py-1 px-1 rounded">
-                                        @if($count_clid > $competitionAmountInt) 
+                                        @if($count_clid >= $competitionAmountInt) 
                                             ทีมเต็ม!!
                                         @endif
                                         <a href="{{ route('competition.createTeam', $competition_list->id)}}">
-                                            {{ $count_clid <= $competitionAmountInt ? 'REGISTER' : '' }}
+                                            {{ $count_clid < $competitionAmountInt ? 'REGISTER' : '' }}
                                         </a>
                                     </button></center>
                                 </div>
