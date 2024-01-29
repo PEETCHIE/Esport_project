@@ -144,6 +144,9 @@
         </div>
     </div>
     <script>
+        let on;
+        let off;
+         
         function showError(message) {
             Swal.fire({
                 icon: 'error',
