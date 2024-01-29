@@ -21,6 +21,14 @@ class ContestantController extends Controller
         return view('normal.grid_teamlist', compact('team_lists'));
     }
 
+    public function detailTeamShow($id)
+    {
+        //
+        $team_details = DB::table('contestants')->WHERE('t_id', $id)->get();
+        // dd($team_detail);
+        return view('normal.team_detail', compact('team_details'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
