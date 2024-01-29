@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('competition_schedules', function (Blueprint $table) {
+        Schema::create('competition_programs', function (Blueprint $table) {
             $table->id();
+            
             $table->timestamps();
         });
     }
@@ -22,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('competition_schedules');
+        Schema::dropIfExists('competition_programs');
     }
 };

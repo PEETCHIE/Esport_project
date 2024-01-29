@@ -10,7 +10,7 @@ use App\Http\Controllers\TournamentManagerController;
 use App\Http\Controllers\CompetitionListController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\ContestantController;
-use App\Http\Controllers\CompetitionScheduleController;
+use App\Http\Controllers\CompetitionProgramController;
 
 
 /*
@@ -38,7 +38,7 @@ Route::get('/', function () {
 Route::get('/list/contestants/table', [TeamController::class, 'index'])->name('contestants');
 Route::get('/description/contestants/detail/{id}', [TeamController::class, 'detailShow'])->name('competition.detail');
 Route::get('/grid/teams/list/{id}', [ContestantController::class, 'indexID'])->name('team_grid');
-Route::get('/competition_schedule/{id}', [CompetitionScheduleController::class, 'index'])->name('competition_schedule');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -69,6 +69,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
 Route::middleware(['auth','role:manager'])->group(function () {
     Route::get('manager/home', [ManagerController::class, 'index'])->name('manager.home');
     Route::resource('/managers_competition', CompetitionListController::class);
+    Route::get('/competition_program/{id}', [CompetitionProgramController::class, 'index'])->name('competition_program');
 });
 
 Route::middleware('auth')->group(function () {
