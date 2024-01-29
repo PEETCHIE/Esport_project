@@ -422,7 +422,7 @@
             </div>
         </div>
     </div>
-    <script>
+    {{-- <script>
         function showError(message) {
             Swal.fire({
                 icon: 'error',
@@ -487,6 +487,6 @@
             }
         });
         
-    </script>
+    </script> --}}
 
 </x-app-layout>
