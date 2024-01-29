@@ -37,7 +37,7 @@
                                 </div>
 
                                 <div class="cols mx-1  col-span-2"> 
-                                    <x-input-label for="start_date" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">วันที่เปิดรับสมัคร</x-input-label>
+                                    <x-input-label for="start_date" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">วันที่เริ่มการแข่งขัน</x-input-label>
                                     <input type="date" name="start_date" id="start_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     <x-input-error :messages="$errors->get('start_date')" class="mt-2"/> 
                                 </div>
@@ -49,9 +49,9 @@
                                 </div>
 
                                 <div class="cols mx-1  col-span-1"> 
-                                    <label for="cl_round" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">เลือกรอบการแข่ง</label>
+                                    <label for="cl_round" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">รูปแบบการแข่งขัน</label>
                                         <select id="cl_round" name="cl_round" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                            <option selected>ROUND</option>
+                                            <option selected>เลือกรูปแบบการแข่ง</option>
                                             <option value="1">BEST OF 1</option>
                                             <option value="3">BEST OF 3</option>
                                             <option value="5">BEST OF 5</option>
@@ -61,14 +61,19 @@
 
                                 <div class="cols mx-1  col-span-1"> 
                                     <x-input-label for="competition_amount" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">จำนวนทีมที่รับสมัคร</x-input-label>
-                                    <input type="number" name="competition_amount" id="competition_amount" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <select id="competition_amount" name="competition_amount" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <option selected>เลือกจำนวนทีมที่ต้องการ</option>
+                                        <option value="8">8 ทีม</option>
+                                        <option value="16">16 ทีม</option>
+                                        <option value="32">32 ทีม</option>
+                                    </select>
                                     <x-input-error :messages="$errors->get('competition_amount')" class="mt-2"/>   
                                 </div>
 
                                 <div class="cols mx-1  col-span-2 ">
                                     <label for="amount_contestant" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">จำนวนผู้เข้าแข่งขัน</label>
                                         <select id="amount_contestant" name="amount_contestant" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                            <option selected>amount_contestant</option>
+                                            <option selected>เลือกจำนวนผู้เข้าแข่งขัน</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
@@ -84,7 +89,7 @@
                                         class="block p-2.5 w-full text-sm text-gray-900 
                                         bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 
                                         focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                                        dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="competition_rule"></textarea>
+                                        dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="กฎกติกาการแข่งขัน"></textarea>
                                         <x-input-error :messages="$errors->get('competition_rule')" class="mt-2"/>   
                                 </div>
 
