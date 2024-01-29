@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-white dark:text-gray-200 leading-tight">
             {{ __('ทีมเข้าแข่งขัน') }}
         </h2>
     </x-slot>
@@ -20,7 +20,7 @@
                 @foreach($team_lists as $team_list)        
                     <div class="mx-auto px-5 justify-center m-3">
                         <div class="max-w-xs cursor-pointer rounded-lg bg-white p-2 shadow duration-150 hover:scale-105 hover:shadow-md">
-                        <img class="h-40 w-60 rounded-lg object-cover object-center" src="{{ $team_list->logo}}" alt="product" />
+                        <img class="h-40 w-52 rounded-lg object-cover object-center" src="{{ $team_list->logo}}" alt="product" />
                         <p class="my-4 pl-4 font-bold text-gray-500">{{ $team_list->t_name}}</p>
                         {{-- <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-1 rounded "><a href="#">TEAM</a></button> --}}
                         </div>

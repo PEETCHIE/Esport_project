@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-white dark:text-gray-200 leading-tight">
             {{ __('ข้อมูลจัดการแข่งขัน') }}
         </h2>
     </x-slot>
@@ -53,11 +53,17 @@
                             <a href="{{ route('managers_competition.edit', $list_competition->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">แก้ไข</a>
 
 
-                            <form method="POST" action="{{ route('managers_competition.destroy', $list_competition->id)}}"> 
+                            <form id="deleteForm{{ $list_competition->id }}" method="POST" action="{{ route('managers_competition.destroy', $list_competition->id)}}"> 
                                 @method('delete')
                                 @csrf
-                                    <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline pl-1" onclick="confirmAndRedirect(event,'ต้องการลบรายการแข่งขันจริงหรือไม่?', 'รายการแข่งขันถูกลบเรียบร้อย')">ลบ</button>
+                                <button type="button" class="font-medium text-blue-600 dark:text-blue-500 hover:underline pl-1" onclick="confirmAndRedirect('deleteForm{{ $list_competition->id }}', 'ต้องการลบรายการแข่งขันจริงหรือไม่?', 'รายการแข่งขันถูกลบเรียบร้อย')">ลบ</button>
                             </form>
+
+                            <!-- <form method="POST" action="{{ route('managers_competition.destroy', $list_competition->id)}}"> 
+                                @method('delete')
+                                @csrf
+                                    <button type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline pl-1" onclick="confirmAndRedirect(event,'ต้องการลบรายการแข่งขันจริงหรือไม่?', 'รายการแข่งขันถูกลบเรียบร้อย')">ลบ</button>
+                            </form> -->
                         </div>
                     </td>
                     
@@ -67,6 +73,34 @@
         </table>    
     </div>
     <script>
+        function confirmAndRedirect(formId, title, successMessage) {
+            var form = document.getElementById(formId);
+            if (!form) {
+                console.error('Form not found');
+                return;
+            }
+            Swal.fire({
+                title: title,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'ใช่',
+                cancelButtonText: 'ไม่'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: successMessage,
+                        icon: 'success'
+                    }).then(() => {
+                        form.submit();
+                    });
+                }
+            });
+        }
+    </script>
+
+    <!-- <script>
         function confirmAndRedirect(event, title, successMessage) {
             event.preventDefault(); // Prevent the default behavior of the button click
 
@@ -90,5 +124,5 @@
                 }
             });
         }
-    </script>
+    </script> -->
 </x-app-layout>

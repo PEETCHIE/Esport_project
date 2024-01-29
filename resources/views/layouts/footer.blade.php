@@ -1,4 +1,4 @@
-<div class="bg-slate-900 text-rose-600">
+<div class="bg-slate-900 text-rose-600 text-white">
     <div class="grid grid-cols-9 grid-flow-row">
         <div class="w-20 h-20">
             <img src="{{ url('img/Logo.png')}}" alt="" >

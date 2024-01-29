@@ -9,7 +9,7 @@
         <img src="{{ url('img/bg_head.png')}}" alt="">
     </div>
     
-    <div class="flex justify-center p-8">
+    <div class="flex justify-center p-8 text-white">
         <div class="px-8">
             <img src="{{ url('img/news1.png')}}" alt="" >
             <a href="#"><p>ทีมน้องใหม่อย่าง BELIKE เอาชนะแชมป์เก่าอย่าง</p>POPPA ไปอย่างช็อคโลก</a>
@@ -28,7 +28,7 @@
             <img src="{{ url('img/bg_register.png')}}" alt="">
         </div>
         <div class="pt-6">
-            <button type="submit" class="bg-gray-900 hover:bg-gray-700 text-rose-600 py-1 px-1 rounded text-xl" id="swal">ลงทะเบียน</button>
+            <button type="submit" class="bg-gray-900 hover:bg-gray-700 text-white py-1 px-1 rounded text-xl" id="swal">ลงทะเบียน</button>
         </div>
     </div>
     <script>

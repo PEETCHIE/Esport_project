@@ -13,6 +13,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@200&display=swap" rel="stylesheet">
         
         <!--Alert-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11"></link>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <!-- Scripts -->
