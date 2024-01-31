@@ -65,8 +65,6 @@
                                 <button type="button" class="font-medium text-blue-600 dark:text-blue-500 hover:underline pl-1" onclick="confirmAndRedirect('deleteForm{{ $list_competition->id }}', 'ต้องการลบรายการแข่งขันจริงหรือไม่?')">ลบ</button>
                             </form>
                             
-                            
-                
                         </div>
                     </td>
                     
@@ -92,33 +90,20 @@
                 cancelButtonText: 'ไม่'
             }).then((result) => {
                 if (result.isConfirmed){
-                    
-                    // Swal.fire({
-                    //     // title: successMessage,
-                    //     // icon: 'success'
-                    // }).then(() => {
-                    //     form.submit();
-                    // });
-                    @if(session('alert'))
-                        Swal.fire({
-                            icon: '{{ session('alert')['icon'] }}',
-                            title: '{{ session('alert')['title'] }}',
-                            text: '{{ session('alert')['text'] }}',
-                        });
-                    @endif
+                        form.submit();  
                 }
             });       
        
         }
         
         
-        // @if(session('alert'))
-        //     Swal.fire({
-        //         icon: '{{ session('alert')['icon'] }}',
-        //         title: '{{ session('alert')['title'] }}',
-        //         text: '{{ session('alert')['text'] }}',
-        //     });
-        // @endif
+        @if(session('alert'))
+            Swal.fire({
+                icon: '{{ session('alert')['icon'] }}',
+                title: '{{ session('alert')['title'] }}',
+                text: '{{ session('alert')['text'] }}',
+            });
+        @endif
 
     </script>
 {{-- 
