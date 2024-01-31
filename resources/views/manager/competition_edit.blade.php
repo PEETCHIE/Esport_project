@@ -150,6 +150,7 @@
                                 
                                 <div class="cols col-span-3 text-center py-2">
                                     <button type="submit" class="bg-green-500 hover:bg-green-700 text-white py-1 px-1 rounded text-xl" id="update">อัพเดตข้อมูล</button>
+                                    <button type="button" class="bg-green-500 hover:bg-green-700 text-white py-1 px-1 rounded text-xl" onclick="history.back()">BACK</button>
                                 </div>
                         </div>    
                     </form>

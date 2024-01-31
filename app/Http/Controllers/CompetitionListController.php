@@ -142,16 +142,16 @@ class CompetitionListController extends Controller
             // Alert::error('Message','ไม่สามารถลบข้อมูลได้เนื่องจากมีทีมเข้าร่วใการแข่งขันแล้ว');
             return redirect()->route('managers_competition.index')->with('alert', [
                 'icon' => 'error',
-                'title' => 'Your error message',
-                'text' => 'ไม่สามารถลบข้อมูลได้เนื่องจากมีทีมเข้าร่วใการแข่งขันแล้ว',
+                'title' => 'ไม่สามารถลบข้อมูลได้',
+                'text' => 'คุณไม่สามารถลบข้อมูลได้เนื่องจากมีทีมเข้าแข่งขันแล้ว',
             ]);;
         } else {
             $destroy = DB::table('competition_lists')->WHERE('id', $id)->delete();
             // Alert::success('Message','ลบรายการแข่งเรียบร้อย');
             return redirect()->route('managers_competition.index')->with('alert', [
                 'icon' => 'success',
-                'title' => 'Your success message',
-                'text' => 'ลบรายการแข่งเรียบร้อย',
+                'title' => 'ลบรายการแข่งขันเรียบร้อย',
+                'text' =>  'รายการแข่งขันถูกลบเรียบร้อย',
             ]);
         }
         
