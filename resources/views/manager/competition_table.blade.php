@@ -106,8 +106,8 @@
         @endif
 
     </script>
-{{-- 
-     <script>
+
+     {{-- <script>
          function confirmAndRedirect(event, title, successMessage) {
              event.preventDefault(); // Prevent the default behavior of the button click
 
@@ -132,4 +132,5 @@
              });
          }
      </script>  --}}
+
 </x-app-layout>
