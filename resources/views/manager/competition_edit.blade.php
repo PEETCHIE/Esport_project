@@ -51,7 +51,7 @@
 
                                 <div class="cols mx-1  col-span-1"> 
                                     <label for="cl_round" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">เลือกรอบการแข่ง</label>
-                                        <select id="cl_round" " name="cl_round" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <select id="cl_round" name="cl_round" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                             @if($competition_list->cl_round == 1)
                                                 <option selected value="1">BEST OF 1</option>
                                                 <option value="3">BEST OF 3</option>
@@ -71,7 +71,7 @@
 
                                 <div class="cols mx-1  col-span-1"> 
                                     <x-input-label for="competition_amount" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">จำนวนทีมที่เข้าแข่งขัน</x-input-label>
-                                    <select id="competition_amount" " name="competition_amount" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <select id="competition_amount"  name="competition_amount" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         @if($competition_list->competition_amount == 8)
                                             <option selected value="8">8 ทีม</option>
                                             <option value="16">16 ทีม</option>
