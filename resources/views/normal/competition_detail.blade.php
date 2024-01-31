@@ -61,8 +61,6 @@
                             <div class="mx-6">
                                 : {{$competition_list->	amount_contestant}}
                             </div>
-                            
-
                                 <div class="my-12">
                                     <center>
                                     <button type="submit" class="@if($count_clid >= $competitionAmountInt) bg-red-500 hover:bg-red-700 @else bg-green-500 hover:bg-gray-700 @endif text-white font-bold py-1 px-1 rounded">

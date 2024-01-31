@@ -20,8 +20,10 @@
                 @foreach($team_details as $team_detail)        
                     <div class="mx-auto px-5 justify-center m-3">
                         <div class="max-w-xs cursor-pointer rounded-lg bg-white p-2 shadow duration-150 hover:scale-105 hover:shadow-md">
-                        <p class="my-4 pl-4 font-bold text-gray-500">{{ $team_detail->c_name}}</p>
-                        <p class="my-4 pl-4 font-bold text-gray-500">{{ $team_detail->c_inGameName}}</p>
+                        <p class="my-4 pl-4 font-bold text-gray-500">ชื่อ: {{ $team_detail->c_name}}</p>
+                        <p class="my-4 pl-4 font-bold text-gray-500">ชื่อในเกม: {{ $team_detail->c_inGameName}}</p>
+                        <p class="my-4 pl-4 font-bold text-gray-500">อีเมล: {{ $team_detail->c_email}}</p>
+                        <p class="my-4 pl-4 font-bold text-gray-500">เบอร์: {{ $team_detail->c_tel}}</p>
                         {{-- <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-1 rounded "><a href="{{ route('team_detail', $team_list->id) }}">TEAM</a></button> --}}
                         </div>
                     </div>
