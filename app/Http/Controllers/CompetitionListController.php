@@ -13,7 +13,7 @@ use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
-
+use RealRashid\SweetAlert\Facades\Alert;
 class CompetitionListController extends Controller
 {
     /**
@@ -25,7 +25,8 @@ class CompetitionListController extends Controller
         $id = Auth()->id();
         $tm_id = DB::table('tournament_managers')->where('user_id', $id)->pluck('id')->first();
         $list_competitions = DB::table('competition_lists')->get()->WHERE('tm_id', $tm_id);
-        return view('manager.competition_table', compact('list_competitions'));
+        $currentDate = Carbon::now();
+        return view('manager.competition_table', compact('list_competitions','currentDate'));
     }
 
     /**
@@ -136,11 +137,22 @@ class CompetitionListController extends Controller
         //
         
         $cl_id = DB::table('teams')->WHERE('cl_id', $id)->get('cl_id')->first();
+        // dd($cl_id);
         if ($cl_id) {
-            return redirect()->route('managers_competition.index')->with('status', 'ไม่สามารถลบข้อมูลได้เนื่องจากมีทีมเข้าร่วใการแข่งขันแล้ว');
+            // Alert::error('Message','ไม่สามารถลบข้อมูลได้เนื่องจากมีทีมเข้าร่วใการแข่งขันแล้ว');
+            return redirect()->route('managers_competition.index')->with('alert', [
+                'icon' => 'error',
+                'title' => 'Your error message',
+                'text' => 'ไม่สามารถลบข้อมูลได้เนื่องจากมีทีมเข้าร่วใการแข่งขันแล้ว',
+            ]);;
         } else {
             $destroy = DB::table('competition_lists')->WHERE('id', $id)->delete();
-            return redirect()->route('managers_competition.index')->with('status', 'ลบรายการแข่งเรียบร้อย');
+            // Alert::success('Message','ลบรายการแข่งเรียบร้อย');
+            return redirect()->route('managers_competition.index')->with('alert', [
+                'icon' => 'success',
+                'title' => 'Your success message',
+                'text' => 'ลบรายการแข่งเรียบร้อย',
+            ]);
         }
         
     }
