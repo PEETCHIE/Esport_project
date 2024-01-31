@@ -50,21 +50,18 @@
                     </td>
                     <td class="px-6 py-4">
                         <div class="flex space-x-2">
-                            
                             @if($list_competition->opening_date < $currentDate )
-                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">แก้ไขไม่ได้</a>
+                                <a href="#" id="NoEdit_{{ $list_competition->id }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">แก้ไข</a>
                                 {{-- <button type="button" class="font-medium text-blue-600 dark:text-blue-500 hover:underline pl-1" >แก้ไข</button> --}}
                             @else
                                 <a href="{{ route('managers_competition.edit', $list_competition->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">แก้ไข</a>
                             @endif
 
-                            
                             <form id="deleteForm{{ $list_competition->id }}" method="POST" action="{{ route('managers_competition.destroy', $list_competition->id)}}"> 
                                 @method('delete')
                                 @csrf
-                                <button type="button" class="font-medium text-blue-600 dark:text-blue-500 hover:underline pl-1" onclick="confirmAndRedirect('deleteForm{{ $list_competition->id }}', 'ต้องการลบรายการแข่งขันจริงหรือไม่?')">ลบ</button>
+                                <button type="button" class="font-medium text-red-600 dark:text-red-500 hover:underline pl-1" onclick="confirmAndRedirect('deleteForm{{ $list_competition->id }}', 'ต้องการลบรายการแข่งขันจริงหรือไม่?')">ลบ</button>
                             </form>
-                            
                         </div>
                     </td>
                     
@@ -73,6 +70,20 @@
             </tbody>
         </table>    
     </div>
+
+    <script>
+        document.querySelectorAll('[id^="NoEdit_"]').forEach(function(element) {
+        element.addEventListener('click', function(event) {
+        event.preventDefault();
+
+            Swal.fire({
+                title: "ไม่สามารถแก้ไขได้",
+                text: "คุณไม่สามารถแก้ไขได้เนื่องจากถึงวันที่เปิดรับสมัครแล้ว",
+                icon: "error"
+            });
+            });
+        });
+    </script>
     <script>
         function confirmAndRedirect(formId, title, successMessage) {
             var form = document.getElementById(formId);
@@ -95,42 +106,16 @@
             });       
        
         }
-        
-        
-        @if(session('alert'))
-            Swal.fire({
-                icon: '{{ session('alert')['icon'] }}',
-                title: '{{ session('alert')['title'] }}',
-                text: '{{ session('alert')['text'] }}',
-            });
-        @endif
+        // @if(session('alert'))
+        //     Swal.fire({
+        //         icon: '{{ session('alert')['icon'] }}',
+        //         title: '{{ session('alert')['title'] }}',
+        //         text: '{{ session('alert')['text'] }}',
+        //     });
+        // @endif
 
     </script>
 
-     {{-- <script>
-         function confirmAndRedirect(event, title, successMessage) {
-             event.preventDefault(); // Prevent the default behavior of the button click
-
-            Swal.fire({
-                 title: title,
-                icon: 'warning',
-                 showCancelButton: true,
-                 confirmButtonColor: '#3085d6',
-                 cancelButtonColor: '#d33',
-                 confirmButtonText: 'ใช่',
-                 cancelButtonText: 'ไม่'
-             }).then((result) => {
-                 if (result.isConfirmed) {
-                     Swal.fire({
-                         title: successMessage,
-                         icon: 'success'
-                     }).then(() => {
-                         // Proceed with the redirection after the user confirms
-                         window.location.href = url;
-                     });
-                 }
-             });
-         }
-     </script>  --}}
-
+    
+   
 </x-app-layout>

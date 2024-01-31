@@ -6,13 +6,6 @@
     </x-slot>
 
     <div class="py-12">
-        @if ($message = Session::get('status'))
-        <center><div>
-            <div class="mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-                <span class="font-medium">{{ $message}}</span> 
-            </div>
-        </div></center>
-        @endif
         <div class="max-w-12xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 
@@ -62,6 +55,7 @@
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg ">
                         <div class="container mx-auto">
                             <div class="text-gray-800 dark:text-white flex justify ">
+
                                 <img class="w-1/2 rounded-lg p-3" src="{{$competition_list->cl_img}}" alt="photo_list" />
                                 <!-- <img class="w-1/2 rounded-lg object-cover p-3" src="{{$competition_list->cl_img}}" alt="product" /> -->
                                 <div class="rows py-3">
