@@ -1,21 +1,26 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Competition schedule') }}
+            {{ __('Competition Program') }}
         </h2>
     </x-slot>
-    <table class="table table-bordered">
-        <tbody>
-            @foreach($detail as $index)
-            <div>
-                Team 1: {{ $index-> team1_id}}
-                NAME 1 : {{ $index-> team1_name}}<br>
-                Team 2: {{ $index-> team2_id }}
-                NAME 2 : {{ $index-> team2_name}}
-                <br><br>
-            </div>
-        @endforeach
-        
-        </tbody>
-    </table>
+
+    
+    {{-- @if(isset($alert))
+    <div class="alert alert-{{ $alert['icon'] }}">
+        <strong>{{ $alert['title'] }}</strong> {{ $alert['text'] }}
+    </div>
+    @endif --}}
+   
 </x-app-layout>
+
+<script>
+    
+    @if(session('alert'))
+            Swal.fire({
+                icon: '{{ session('alert')['icon'] }}',
+                title: '{{ session('alert')['title'] }}',
+                text: '{{ session('alert')['text'] }}',
+            });
+        @endif
+</script>

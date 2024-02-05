@@ -4,81 +4,122 @@ namespace App\Http\Controllers;
 
 use App\Models\team;
 use App\Models\competition_program;
+use App\Models\competition_list;
+use App\Models\tournament_in_team;
 use App\Http\Requests\Storecompetition_programRequest;
 use App\Http\Requests\Updatecompetition_programRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Session;
+use Carbon\Carbon;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CompetitionProgramController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
-        return view('competition_program');
-    }
-
-    public function randomTeam($id){
-        $count = DB::table('teams')->WHERE('cl_id',$id)
-        ->join('competition_lists', 'teams.cl_id', '=', 'competition_lists.id')
-        ->groupBy('teams.cl_id')
-        ->select(DB::raw('COUNT(*) as count'))
-        ->count();
-        // dd($count_clid);
-        $teams = Team::where('cl_id', $id)->pluck('t_name','id')->toArray();  
-        $randomTeams = collect($teams)->shuffle();
-        $pairs = [];
-
-        if ($count % 2 == 0) {
-            while ($randomTeams->isNotEmpty()) {
-                $team1 = $randomTeams->shift();
-                $team2 = $randomTeams->shift();
-
-                $team1Id = array_search($team1, $teams);
-                $team2Id = array_search($team2, $teams);
-                        
-                $pairs[] = [
-                    'team1_id' => $team1Id,
-                    'team1_name' => $team1,
-                    'team2_id' => $team2Id,
-                    'team2_name' => $team2,
-                    'cl_id' => $id,
-                ];
+        $currentDate = Carbon::now();
+        $competition_list = competition_list::find($id);
+        $expiryDate = Carbon::parse($competition_list->end_date);
+        // dd($currentDate);
+        if($currentDate > $expiryDate){
+            (int)$count_amount = DB::table('competition_lists')->WHERE('id', $id)->value('competition_amount');
+            $half_countAmount = $count_amount / 2;
+            $competition_list_id = DB::table('competition_lists')->WHERE('id', $id)->pluck('id')->first();
+            if($count_amount % 2 == 0){
+                for($i=1; $i<= $half_countAmount;){
+                    $competition_program = competition_program::insert([
+                        'round' => 'R1',
+                        'matches' => $i,
+                        'match_date' => Carbon::now()->toDateString(),
+                        'match_time' =>  Carbon::now()->toTimeString(),
+                        'cl_id' => $competition_list_id
+                    ]);
+                    $i += 1;
+                }
+            }else{
+                for($i=1; $i<= $half_countAmount;){
+                    // $competition_program = competition_program::insert([
+                    //     'round' => 'R1',
+                    //     'matches' => $i,
+                    //     'match_date' => Carbon::now()->toDateString(),
+                    //     'match_time' =>  Carbon::now()->toTimeString(),
+                    //     'cl_id' => $competition_list_id
+                    // ]);
+                    $i += 1;
+                }
             }
-            // dd($pairs);
-            // DB::table('competition_schedules')->insert($pairs);
-            $detail = DB::table('competition_schedules')->get();
-            return view('normal.competition_schedule', compact('detail'));
-        } else {
-            $teamOne = $randomTeams->pop();
-            $teamOneId = array_search($teamOne, $teams);
-
-            $pairs[] = [
-                'team1_id' => $teamOneId,
-                'team1_name' => $teamOne,
-                'team2_id' => null,
-                'team2_name' => null,
-                'cl_id' => $id,
-            ];
+            // dd($competition_program);
             
-            while ($randomTeams->isNotEmpty()) {
-                $team1 = $randomTeams->shift();
-                $team2 = $randomTeams->shift();
+            $count = DB::table('teams')->WHERE('cl_id',$id)
+            ->join('competition_lists', 'teams.cl_id', '=', 'competition_lists.id')
+            ->groupBy('teams.cl_id')
+            ->select(DB::raw('COUNT(*) as count'))
+            ->count();
+            // dd($count);  
+            $teams = Team::where('cl_id', $id)->pluck('t_name','id')->toArray();  
+            $randomTeams = collect($teams)->shuffle();
+            $pairs = [];
 
-                $team1Id = array_search($team1, $teams);
-                $team2Id = array_search($team2, $teams);
-                            
-                $pairs[] = [
-                    'team1_id' => $team1Id,
-                    'team1_name' => $team1,
-                    'team2_id' => $team2Id,
-                    'team2_name' => $team2,
-                    'cl_id' => $id,
-                ];
+            $i = 0;
+            $cp_id = competition_program::pluck('id')->toArray();
+            if ($count % 2 == 0) {
+                while ($randomTeams->isNotEmpty()) {
+                    $t_name = $randomTeams->shift();
+                    $t_Id = array_search($t_name, $teams);
+
+                    $cp_id_count = DB::table('tournament_in_teams')
+                    ->where('cp_id', $cp_id[$i])
+                    ->count();
+
+                    if ($cp_id_count >= 2) {
+                        $i++;
+                    }
+                    $tournament_in_team = tournament_in_team::insert([
+                        't_id' => $t_Id,
+                        'cp_id' => $cp_id[$i]
+                    ]);                    
+                }
+                return view('manager.competition_program', compact('pairs'));
+            } else {
+                $teamOne = $randomTeams->pop();
+                $teamOneId = array_search($teamOne, $teams);
+
+                while ($randomTeams->isNotEmpty()) {
+                    $t_name = $randomTeams->shift();
+                    $t_Id = array_search($t_name, $teams);
+
+                    $cp_id_count = DB::table('tournament_in_teams')
+                    ->where('cp_id', $cp_id[$i])
+                    ->count();
+
+                    if ($cp_id_count >= 2) {
+                        $i++;
+                    }
+                    $tournament_in_team = tournament_in_team::insert([
+                        't_id' => $t_Id,
+                        'cp_id' => $cp_id[$i]
+                    ]);                  
+                }
+                
+                $tournament_in_team = tournament_in_team::insert([
+                    't_id' => $teamOneId,
+                    'cp_id' => $cp_id[$i]
+                ]); 
+                dd($pairs);
+                return view('manager.competition_program', compact('pairs'));
             }
+        }else{
+            return redirect()->route('managers_competition.index')->with('alert', [
+                    'icon' => 'info',
+                    'title' => 'Your success message',
+                    'text' => 'ไม่สามารถดูได้ เนื่องจากยังไม่ทราบจำนวนทีมที่แน่นวนในการจัดตารางการแข่งขัน',
+                ]);
         }
+        
     }
 
     /**

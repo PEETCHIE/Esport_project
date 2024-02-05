@@ -28,6 +28,9 @@
                     <th scope="col" class="px-6 py-3">
                         แก้ไข
                     </th>
+                    <th scope="col" class="px-6 py-3">
+                        ตารางการแข่งขัน
+                    </th>
                 </tr>
             </thead>
             <tbody class="text-black">
@@ -63,6 +66,11 @@
                                 <button type="button" class="font-medium text-red-600 dark:text-red-500 hover:underline pl-1" onclick="confirmAndRedirect('deleteForm{{ $list_competition->id }}', 'ต้องการลบรายการแข่งขันจริงหรือไม่?')">ลบ</button>
                             </form>
                         </div>
+                    </td>
+                    <td>
+                        <form  id="test" action="{{ route('competition_program', $list_competition->id)}}"> 
+                            <button type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline pl-1" onclick="">ตารางการแข่งขัน</button>
+                        </form>
                     </td>
                     
                 </tr>
@@ -106,13 +114,14 @@
             });       
        
         }
-        // @if(session('alert'))
-        //     Swal.fire({
-        //         icon: '{{ session('alert')['icon'] }}',
-        //         title: '{{ session('alert')['title'] }}',
-        //         text: '{{ session('alert')['text'] }}',
-        //     });
-        // @endif
+        @if(session('alert'))
+            Swal.fire({
+                icon: '{{ session('alert')['icon'] }}',
+                title: '{{ session('alert')['title'] }}',
+                text: '{{ session('alert')['text'] }}',
+            });
+        @endif
+
 
     </script>
 
