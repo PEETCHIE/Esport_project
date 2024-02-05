@@ -41,6 +41,7 @@ Route::get('/grid/teams/list/{id}', [ContestantController::class, 'indexID'])->n
 Route::get('/team/detail/{id}', [ContestantController::class, 'detailTeamShow'])->name('team_detail');
 
 
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

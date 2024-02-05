@@ -4,7 +4,7 @@
             {{ __('รายละเอียดการแข่งขัน') }}
         </h2>
     </x-slot>
-
+    
     <div class="py-12">
         <div class="max-w-12xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg ">
@@ -63,17 +63,17 @@
                             </div>
                                 <div class="my-12">
                                     <center>
-                                    <button type="submit" class="@if($count_clid >= $competitionAmountInt) bg-red-500 hover:bg-red-700 @else bg-green-500 hover:bg-gray-700 @endif text-white font-bold py-1 px-1 rounded">
-                                        <!-- <button type="submit" class="bg-green-500 hover:bg-gray-700 text-white font-bold py-1 px-1 rounded"> -->
-                                        @if($count_clid >= $competitionAmountInt) 
-                                            ทีมเต็ม!!
-                                        @endif
-                                        <a href="{{ route('competition.createTeam', $competition_list->id)}}">
-                                            {{ $count_clid < $competitionAmountInt ? 'สมัครทีม' : '' }}
-                                        </a>
-                                    </button></center>
+                                        <button type="submit" class="@if($count_clid >= $competitionAmountInt) bg-red-500 hover:bg-red-700 @else bg-green-500 hover:bg-gray-700 @endif text-white font-bold py-1 px-1 rounded">
+                                            <!-- <button type="submit" class="bg-green-500 hover:bg-gray-700 text-white font-bold py-1 px-1 rounded"> -->
+                                            @if($count_clid >= $competitionAmountInt) 
+                                                ทีมเต็ม!!
+                                            @endif
+                                            <a href="{{ route('competition.createTeam', $competition_list->id)}}">
+                                                {{ $count_clid < $competitionAmountInt ? 'สมัครทีม' : '' }}
+                                            </a>
+                                        </button>
+                                    </center>
                                 </div>
-
 
                         </div>
                     </div>
