@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('teams', function (Blueprint $table) {
-            $table->id();
+            $table->char('id', 10)->primary();
             $table->string('t_name', 50);
             $table->string('logo', 200)->nullable();
             $table->date('t_date');
-            $table->unsignedBigInteger('cl_id');
+            $table->char('cl_id',10);
             $table->foreign('cl_id')->references('id')->on('competition_lists');
         });
     }

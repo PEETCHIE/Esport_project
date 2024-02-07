@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('competition_programs', function (Blueprint $table) {
-            $table->id();
+            $table->char('id',10)->primary();
             $table->char('round');
             $table->String('matches');
             $table->date('match_date');
             $table->time('match_time');
-            $table->unsignedBigInteger('cl_id');
+            $table->char('cl_id',10);
             $table->foreign('cl_id')->references('id')->on('competition_lists');
             $table->timestamps();
         });

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
+
 class CompetitionListController extends Controller
 {
     /**
@@ -53,7 +54,10 @@ class CompetitionListController extends Controller
             $request->cl_img->move(public_path('/asset/img'), $filename);
         } 
         // dd($filename);
+        $config_competition_list = ['table'=>'competition_programs', 'length'=>8, 'prefix'=>'CPL-'];
+        $competition_list_id = IdGenerator::generate($config_competition_list);
         $competition_store = competition_list::insert([
+            'id' => $competition_list_id,
             'competition_name' => $request->competition_name,
             'opening_date' => $request->opening_date,
             'end_date' => $request->end_date,

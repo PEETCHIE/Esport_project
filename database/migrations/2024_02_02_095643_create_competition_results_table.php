@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('competition_results', function (Blueprint $table) {
             $table->id();
             $table->char('score');
-            $table->unsignedBigInteger('tit_id');
+            $table->char('tit_id', 10);
             $table->foreign('tit_id')->references('id')->on('tournament_in_teams');
             $table->timestamps();
         });
