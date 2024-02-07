@@ -48,11 +48,13 @@
 
 
     
-    {{-- @if(isset($alert))
-    <div class="alert alert-{{ $alert['icon'] }}">
-        <strong>{{ $alert['title'] }}</strong> {{ $alert['text'] }}
-    </div>
-    @endif --}}
+    @foreach($buckets as $bucket)
+            @foreach($bucket as $item)
+                {{-- {{ $item->id }}  --}}
+                {{ $item->t_id }} 
+                {{-- {{ $item->cp_id }} <br> --}}
+            @endforeach
+        @endforeach
    
 </x-app-layout>
 

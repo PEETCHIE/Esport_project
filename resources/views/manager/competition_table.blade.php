@@ -68,39 +68,9 @@
                         </div>
                     </td>
                     <td>
-                    <form id="test" action="{{ route('competition_program', $list_competition->id)}}"> 
-                        <button id="btnChange" class="font-medium text-blue-600 dark:text-blue-500 hover:underline pl-1" onclick="changeButton()">ตารางการแข่งขัน</button>
-                    </form>
-
-                    <!-- <script>
-                        document.addEventListener("DOMContentLoaded", function() {
-                            var btn = document.getElementById('btnChange');
-                            if (localStorage.getItem('buttonClicked')) {
-                                btn.innerHTML = "อัพเดตตารางแข่งขัน";
-                                btn.onclick = updateButton;
-                            } else {
-                                btn.onclick = changeButton;
-                            }
-                        });
-
-                        function changeButton() {
-                            var btn = document.getElementById('btnChange');
-                            btn.innerHTML = "อัพเดตตารางแข่งขัน";
-                            btn.onclick = updateButton;
-                            localStorage.setItem('buttonClicked', true);
-
-                        }
-
-                        function updateButton() {
-                            alert("ปุ่มถูกคลิกแล้ว");
-                            // ทำสิ่งที่คุณต้องการเมื่อคลิกปุ่มอัพเดตตารางแข่งขัน
-
-                            // ปิดการใช้งานปุ่มอัพเดตตารางแข่งขัน
-                            var btn = document.getElementById('btnChange');
-                            btn.disabled = true;
-                        }
-                    </script> -->
-
+                        <form  id="test" action="{{ route('competition_program', $list_competition->id)}}"> 
+                            <button type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline pl-1" onclick="">ตารางการแข่งขัน</button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach

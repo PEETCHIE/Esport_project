@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('competition_lists', function (Blueprint $table) {
-            $table->id();
+            $table->char('id',10)->primary();
             $table->string('competition_name', 50);
             $table->date('opening_date');
             $table->date('end_date');
@@ -26,7 +26,6 @@ return new class extends Migration
             $table->enum('amount_contestant', ['1', '2', '3', '4', '5']);
             $table->string('cl_img', 50)->nullable();
             $table->char('tm_id', 10);
-            $table->enum('status', ['active', 'non active'])->default('non active');
             $table->foreign('tm_id')->references('id')->on('tournament_managers');
             
         });
