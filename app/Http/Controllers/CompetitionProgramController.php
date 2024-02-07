@@ -27,50 +27,56 @@ class CompetitionProgramController extends Controller
         $expiryDate = Carbon::parse($competition_list->end_date);
         // dd($currentDate);
         if($currentDate > $expiryDate){
-            (int)$count_amount = DB::table('competition_lists')->WHERE('id', $id)->value('competition_amount');
-            $half_countAmount = $count_amount / 2;
-            $competition_list_id = $id;
-            
-
-            if($count_amount % 2 == 0){
-                for($i=1; $i<= $half_countAmount;){
-                    // $competition_program = competition_program::insert([
-                    //     'round' => 'R1',
-                    //     'matches' => $i,
-                    //     'match_date' => Carbon::now()->toDateString(),
-                    //     'match_time' =>  Carbon::now()->toTimeString(),
-                    //     'cl_id' => $competition_list_id
-                    // ]);
-                    $i += 1;
-                }
-            }else{
-                // $mod_half =  $half_countAmount % 2;
-                // for($i=1; $i<= $half_countAmount;){
-                //     $competition_program = competition_program::insert([
-                //         'round' => 'R1',
-                //         'matches' => $i,
-                //         'match_date' => Carbon::now()->toDateString(),
-                //         'match_time' =>  Carbon::now()->toTimeString(),
-                //         'cl_id' => $competition_list_id
-                //     ]);
-                //     $i += 1;  
-                // }
-                // $competition_program = competition_program::insert([
-                //     'round' => 'R2',
-                //     'matches' => $half_countAmount + 0.5,
-                //     'match_date' => Carbon::now()->toDateString(),
-                //     'match_time' =>  Carbon::now()->toTimeString(),
-                //     'cl_id' => $competition_list_id
-                // ]);
-                
-            }
-            // dd($competition_program);
-            
             $count = DB::table('teams')->WHERE('cl_id',$id)
             ->join('competition_lists', 'teams.cl_id', '=', 'competition_lists.id')
             ->groupBy('teams.cl_id')
             ->select(DB::raw('COUNT(*) as count'))
             ->count();
+            
+            $half_countAmount = $count / 2;
+            $competition_list_id = $id;
+            if($count % 2 == 0){
+                for($i=1; $i<= $half_countAmount;$i++   ){
+                    $config_cp_id = ['table'=>'competition_programs', 'length'=>8, 'prefix'=>'RM-'];
+                    $cp_id = IdGenerator::generate($config_cp_id);
+                    $competition_program = competition_program::insert([
+                        'id' => $cp_id,
+                        'round' => 'R1',
+                        'matches' => $i,
+                        'match_date' => Carbon::now()->toDateString(),
+                        'match_time' =>  Carbon::now()->toTimeString(),
+                        'cl_id' => $competition_list_id
+                    ]);
+                }
+            }else{
+                $mod_half =  $half_countAmount % 2;
+                for($i=1; $i<= $half_countAmount; $i++){
+                    $config_cp_id = ['table'=>'competition_programs', 'length'=>8, 'prefix'=>'RM-'];
+                    $cp_id = IdGenerator::generate($config_cp_id);
+                    $competition_program = competition_program::insert([
+                        'id' => $cp_id,
+                        'round' => 'R1',
+                        'matches' => $i,
+                        'match_date' => Carbon::now()->toDateString(),
+                        'match_time' =>  Carbon::now()->toTimeString(),
+                        'cl_id' => $competition_list_id
+                    ]);
+                }
+                $config_cp_id = ['table'=>'competition_programs', 'length'=>8, 'prefix'=>'RM-'];
+                $cp_id = IdGenerator::generate($config_cp_id);
+                $competition_program = competition_program::insert([
+                    'id' => $cp_id,
+                    'round' => 'R2',
+                    'matches' => $half_countAmount + 0.5,
+                    'match_date' => Carbon::now()->toDateString(),
+                    'match_time' =>  Carbon::now()->toTimeString(),
+                    'cl_id' => $competition_list_id
+                ]);
+                
+            }
+            // dd($competition_program);
+            
+            
             // dd($count);  
             $teams = Team::where('cl_id', $id)->pluck('t_name','id')->toArray();  
             $randomTeams = collect($teams)->shuffle();
@@ -156,11 +162,15 @@ class CompetitionProgramController extends Controller
         $buckets = [];
 
         foreach ($programs as $program) {
-            $bucket = DB::table('tournament_in_teams')->where('cp_id', $program)->get();
+            $bucket = DB::table('tournament_in_teams')->where('cp_id', $program)
+                ->join('teams', 'tournament_in_teams.t_id', '=', 'teams.id')
+                ->join('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')
+                ->select('t_name','logo','matches')
+                ->get();
             $buckets[] = $bucket;
         }
 
-        
+        // dd($buckets);
 
         return view('manager.competition_program', compact('buckets'));
     }

@@ -71,7 +71,7 @@ class TeamController extends Controller
             $competition_amount = DB::table('competition_lists')->WHERE('id', $id)->value('competition_amount');
             $competitionAmountInt = (int) $competition_amount;
             // dd($competitionAmountInt);
-            $config_team = ['table'=>'competition_programs', 'length'=>8, 'prefix'=>'TEAM-'];
+            $config_team = ['table'=>'teams', 'length'=>8, 'prefix'=>'TEAM-'];
             $team_id = IdGenerator::generate($config_team);
             if($count_clid < $competitionAmountInt){
                 $filename = '';
@@ -91,7 +91,10 @@ class TeamController extends Controller
 
                 switch($amount_contestant){
                     case('1'):
+                        $config_contestant = ['table'=>'contestants', 'length'=>8, 'prefix'=>'CON-'];
+                        $new_cont_id = IdGenerator::generate($config_contestant);
                         $contesttantInsert1 = contestant::insert([
+                            'id' => $new_cont_id,
                             'c_name' => $request1->c_name1,
                             'c_inGameName' => $request1->c_inGameName1,
                             'c_email' => $request1->c_email1,
@@ -103,7 +106,7 @@ class TeamController extends Controller
 
                     case('2'):
                         for ($i = 0; $i < 2; $i++) {
-                            $config_contestant = ['table'=>'competition_programs', 'length'=>8, 'prefix'=>'CON-'];
+                            $config_contestant = ['table'=>'contestants', 'length'=>8, 'prefix'=>'CON-'];
                             $new_cont_id = IdGenerator::generate($config_contestant); // สร้าง ID ใหม่ทุกครั้งก่อนที่จะ insert
                             $contesttantInsert = contestant::insert([
                                 'id' => $new_cont_id,
@@ -118,7 +121,7 @@ class TeamController extends Controller
                     break;
                     case('3'):
                         for ($i = 0; $i < 3; $i++) {
-                            $config_contestant = ['table'=>'competition_programs', 'length'=>8, 'prefix'=>'CON-'];
+                            $config_contestant = ['table'=>'contestants', 'length'=>8, 'prefix'=>'CON-'];
                             $new_cont_id = IdGenerator::generate($config_contestant); // สร้าง ID ใหม่ทุกครั้งก่อนที่จะ insert
                             $contesttantInsert = contestant::insert([
                                 'id' => $new_cont_id,
@@ -133,7 +136,7 @@ class TeamController extends Controller
                     break;
                     case('4'):
                         for ($i = 0; $i < 4; $i++) {
-                            $config_contestant = ['table'=>'competition_programs', 'length'=>8, 'prefix'=>'CON-'];
+                            $config_contestant = ['table'=>'contestants', 'length'=>8, 'prefix'=>'CON-'];
                             $new_cont_id = IdGenerator::generate($config_contestant); // สร้าง ID ใหม่ทุกครั้งก่อนที่จะ insert
                             $contesttantInsert = contestant::insert([
                                 'id' => $new_cont_id,
@@ -148,7 +151,7 @@ class TeamController extends Controller
                     break;
                     case('5'):
                         for ($i = 0; $i < 5; $i++) {
-                            $config_contestant = ['table'=>'competition_programs', 'length'=>8, 'prefix'=>'CON-'];
+                            $config_contestant = ['table'=>'contestants', 'length'=>8, 'prefix'=>'CON-'];
                             $new_cont_id = IdGenerator::generate($config_contestant); // สร้าง ID ใหม่ทุกครั้งก่อนที่จะ insert
                             $contesttantInsert = contestant::insert([
                                 'id' => $new_cont_id,
