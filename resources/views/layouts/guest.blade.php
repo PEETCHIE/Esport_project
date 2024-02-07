@@ -24,7 +24,7 @@
                     <div class="w-full">
                         <img src="{{ url('img/b2.png')}}" alt="" class="filter blur-sm">
                     </div>
-                <div class="absolute  right-1/4 top-1/2 transform translate-x-1/3 -translate-y-1/2 w-full sm:max-w-md">
+                <div class="absolute right-1/4 top-1/2 transform translate-x-1/3 -translate-y-1/2 w-full sm:max-w-md">
                     <div class="mt-6 px-6 py-4 bg-[#01142E] dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg bg-[rgba(0,0,0,0.7)]">
                         {{ $slot }}
                     </div>
