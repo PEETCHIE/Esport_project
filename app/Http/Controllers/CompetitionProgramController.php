@@ -163,11 +163,14 @@ class CompetitionProgramController extends Controller
         $buckets = [];
 
         foreach ($programs as $program) {
-            $bucket = DB::table('tournament_in_teams')->where('cp_id', $program)->get();
+            $bucket = DB::table('tournament_in_teams')->where('cp_id', $program)
+                ->join('teams', 'tournament_in_teams.t_id', '=', 'teams.id')
+                ->select('t_name','logo')
+                ->get();
             $buckets[] = $bucket;
         }
 
-        
+        // dd($buckets);
 
         return view('manager.competition_program', compact('buckets'));
     }

@@ -9,7 +9,8 @@
     @foreach($buckets as $bucket)
             @foreach($bucket as $item)
                 {{-- {{ $item->id }}  --}}
-                {{ $item->t_id }} 
+                {{ $item->t_name }} 
+                {{ $item->logo }} <br> 
                 {{-- {{ $item->cp_id }} <br> --}}
             @endforeach
         @endforeach
