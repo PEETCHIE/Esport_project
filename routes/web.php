@@ -72,6 +72,7 @@ Route::middleware(['auth','role:manager'])->group(function () {
     Route::get('manager/home', [ManagerController::class, 'index'])->name('manager.home');
     Route::resource('/managers_competition', CompetitionListController::class);
     Route::get('/competition_program/{id}', [CompetitionProgramController::class, 'index'])->name('competition_program');
+    Route::get('/competition_program/show/{id}', [CompetitionProgramController::class, 'showProgram'])->name('show_competition_program');
 });
 
 Route::middleware('auth')->group(function () {

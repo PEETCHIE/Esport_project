@@ -69,7 +69,10 @@
                     </td>
                     <td>
                         <form  id="test" action="{{ route('competition_program', $list_competition->id)}}"> 
-                            <button type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline pl-1" onclick="">ตารางการแข่งขัน</button>
+                            <button type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline pl-1" onclick="">ทำตารางการแข่งขัน</button>
+                        </form>
+                        <form  id="test" action="{{ route('show_competition_program', $list_competition->id)}}"> 
+                            <button type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline pl-1" onclick="">ดูตารางการแข่งขัน</button>
                         </form>
                     </td>
                     
