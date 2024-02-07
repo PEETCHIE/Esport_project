@@ -32,34 +32,34 @@ class CompetitionProgramController extends Controller
 
             if($count_amount % 2 == 0){
                 for($i=1; $i<= $half_countAmount;){
-                    // $competition_program = competition_program::insert([
-                    //     'round' => 'R1',
-                    //     'matches' => $i,
-                    //     'match_date' => Carbon::now()->toDateString(),
-                    //     'match_time' =>  Carbon::now()->toTimeString(),
-                    //     'cl_id' => $competition_list_id
-                    // ]);
+                    $competition_program = competition_program::insert([
+                        'round' => 'R1',
+                        'matches' => $i,
+                        'match_date' => Carbon::now()->toDateString(),
+                        'match_time' =>  Carbon::now()->toTimeString(),
+                        'cl_id' => $competition_list_id
+                    ]);
                     $i += 1;
                 }
             }else{
-                // $mod_half =  $half_countAmount % 2;
-                // for($i=1; $i<= $half_countAmount;){
-                //     $competition_program = competition_program::insert([
-                //         'round' => 'R1',
-                //         'matches' => $i,
-                //         'match_date' => Carbon::now()->toDateString(),
-                //         'match_time' =>  Carbon::now()->toTimeString(),
-                //         'cl_id' => $competition_list_id
-                //     ]);
-                //     $i += 1;  
-                // }
-                // $competition_program = competition_program::insert([
-                //     'round' => 'R2',
-                //     'matches' => $half_countAmount + 0.5,
-                //     'match_date' => Carbon::now()->toDateString(),
-                //     'match_time' =>  Carbon::now()->toTimeString(),
-                //     'cl_id' => $competition_list_id
-                // ]);
+                $mod_half =  $half_countAmount % 2;
+                for($i=1; $i<= $half_countAmount;){
+                    $competition_program = competition_program::insert([
+                        'round' => 'R1',
+                        'matches' => $i,
+                        'match_date' => Carbon::now()->toDateString(),
+                        'match_time' =>  Carbon::now()->toTimeString(),
+                        'cl_id' => $competition_list_id
+                    ]);
+                    $i += 1;  
+                }
+                $competition_program = competition_program::insert([
+                    'round' => 'R2',
+                    'matches' => $half_countAmount + 0.5,
+                    'match_date' => Carbon::now()->toDateString(),
+                    'match_time' =>  Carbon::now()->toTimeString(),
+                    'cl_id' => $competition_list_id
+                ]);
                 
             }
             // dd($competition_program);
