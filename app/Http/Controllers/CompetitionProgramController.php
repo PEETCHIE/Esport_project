@@ -27,12 +27,15 @@ class CompetitionProgramController extends Controller
         $expiryDate = Carbon::parse($competition_list->end_date);
         // dd($currentDate);
         if($currentDate > $expiryDate){
-            (int)$count_amount = DB::table('competition_lists')->WHERE('id', $id)->value('competition_amount');
-            $half_countAmount = $count_amount / 2;
-            $competition_list_id = $id;
+            $count = DB::table('teams')->WHERE('cl_id',$id)
+            ->join('competition_lists', 'teams.cl_id', '=', 'competition_lists.id')
+            ->groupBy('teams.cl_id')
+            ->select(DB::raw('COUNT(*) as count'))
+            ->count();
             
-
-            if($count_amount % 2 == 0){
+            $half_countAmount = $count / 2;
+            $competition_list_id = $id;
+            if($count % 2 == 0){
                 for($i=1; $i<= $half_countAmount;$i++   ){
                     $config_cp_id = ['table'=>'competition_programs', 'length'=>8, 'prefix'=>'RM-'];
                     $cp_id = IdGenerator::generate($config_cp_id);
@@ -73,11 +76,7 @@ class CompetitionProgramController extends Controller
             }
             // dd($competition_program);
             
-            $count = DB::table('teams')->WHERE('cl_id',$id)
-            ->join('competition_lists', 'teams.cl_id', '=', 'competition_lists.id')
-            ->groupBy('teams.cl_id')
-            ->select(DB::raw('COUNT(*) as count'))
-            ->count();
+            
             // dd($count);  
             $teams = Team::where('cl_id', $id)->pluck('t_name','id')->toArray();  
             $randomTeams = collect($teams)->shuffle();
