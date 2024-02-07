@@ -159,21 +159,21 @@ class CompetitionProgramController extends Controller
     }
 
     public function showProgram($id){
-        $matches = DB::table('competition_programs')->WHERE('cl_id', $id)->get();
         $programs = DB::table('competition_programs')->where('cl_id', $id)->pluck('id')->toArray();
         $buckets = [];
 
         foreach ($programs as $program) {
             $bucket = DB::table('tournament_in_teams')->where('cp_id', $program)
                 ->join('teams', 'tournament_in_teams.t_id', '=', 'teams.id')
-                ->select('t_name','logo')
+                ->join('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')
+                ->select('t_name','logo','matches')
                 ->get();
             $buckets[] = $bucket;
         }
 
-        // dd($matches);
+        // dd($buckets);
 
-        return view('manager.competition_program', compact('buckets','matches'));
+        return view('manager.competition_program', compact('buckets'));
     }
 
     /**

@@ -4,12 +4,12 @@
             {{ __('Competition Program') }}
         </h2>
     </x-slot>
-    @foreach ($matches as $match)
-        {{ $match->matches }}
-    @endforeach
+  
     
     @foreach($buckets as $bucket)
+        
         @foreach($bucket as $item)
+            {{$item->matches}}
             {{ $item->t_name }} 
             {{ $item->logo }} <br> 
         @endforeach
