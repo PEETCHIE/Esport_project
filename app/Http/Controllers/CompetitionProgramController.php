@@ -159,6 +159,7 @@ class CompetitionProgramController extends Controller
     }
 
     public function showProgram($id){
+        $matches = DB::table('competition_programs')->WHERE('cl_id', $id)->get();
         $programs = DB::table('competition_programs')->where('cl_id', $id)->pluck('id')->toArray();
         $buckets = [];
 
@@ -170,9 +171,9 @@ class CompetitionProgramController extends Controller
             $buckets[] = $bucket;
         }
 
-        // dd($buckets);
+        // dd($matches);
 
-        return view('manager.competition_program', compact('buckets'));
+        return view('manager.competition_program', compact('buckets','matches'));
     }
 
     /**
