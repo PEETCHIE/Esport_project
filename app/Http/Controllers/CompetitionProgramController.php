@@ -165,9 +165,32 @@ class CompetitionProgramController extends Controller
             $bucket = DB::table('tournament_in_teams')->where('cp_id', $program)
                 ->join('teams', 'tournament_in_teams.t_id', '=', 'teams.id')
                 ->join('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')
-                ->select('t_name','logo','matches')
+                ->select('t_name','logo','matches', 'competition_programs.round')
                 ->get();
-            $buckets[] = $bucket;
+
+            // $buckets[] = $bucket;
+
+            // แยกข้อมูลตาม R1 และ R2
+            $r1_bucket = [];
+            $r2_bucket = [];
+
+            foreach ($bucket as $item) {
+                if ($item->round == 'R1') {
+                    $r1_bucket[] = $item;
+                } else if ($item->round == 'R2') {
+                    $r2_bucket[] = $item;
+                }
+            }
+
+            // เก็บข้อมูลใน $buckets
+            $buckets[] = [
+                'R1' => $r1_bucket,
+                'R2' => $r2_bucket
+            ];
+
+            
+            
+    
         }
 
         // dd($buckets);
