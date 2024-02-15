@@ -164,7 +164,7 @@ class CompetitionProgramController extends Controller
         ->toArray();
 
         $buckets = [];
-
+        
         foreach ($programs as $program) {
             $bucket = DB::table('tournament_in_teams')
                 ->where('cp_id', $program)
@@ -200,6 +200,7 @@ class CompetitionProgramController extends Controller
             ];
             // dd($bucket);
         }
+
         // Filter teams with the same cp_id
         $teamsWithSameCpId = [];
         foreach ($buckets as $bucket) {
@@ -211,6 +212,7 @@ class CompetitionProgramController extends Controller
             // dd($teamsWithSameCpId);
         }
         return view('manager.competition_program', compact('buckets','teamsWithSameCpId'));
+
     }
 
     /**
@@ -240,17 +242,31 @@ class CompetitionProgramController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(competition_program $competition_program)
+    public function edit($id)
     {
         //
+        $cp_edit = DB::table('competition_programs')->WHERE('id', $id)->first();
+        // dd($cp_edit); 
+        return view('manager.competition_program_edit', compact('cp_edit'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Updatecompetition_programRequest $request, competition_program $competition_program)
+    public function update(Updatecompetition_programRequest $request, competition_program $competition_program, $id)
     {
         //
+        $data = DB::table('competition_programs')->WHERE('id', $id)->update([
+            'match_date'=> $request->match_date,
+            'match_time'=> $request->match_time,
+        ]);
+        // dd($data);
+        return redirect()->route('managers_competition.index')->with('alert', [
+            'icon' => 'success
+            ',
+            'title' => 'Your success message',
+            'text' => 'แก้ไขข้อมูลเรียบร้อยแล้ว',
+        ]);
     }
 
     /**

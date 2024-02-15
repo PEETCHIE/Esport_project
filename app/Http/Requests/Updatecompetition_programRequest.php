@@ -11,7 +11,7 @@ class Updatecompetition_programRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,6 +23,8 @@ class Updatecompetition_programRequest extends FormRequest
     {
         return [
             //
+            'match_date' => ['required'],
+            'match_time' => ['required'],
         ];
     }
 }
