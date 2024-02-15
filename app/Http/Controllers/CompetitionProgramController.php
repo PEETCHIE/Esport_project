@@ -158,44 +158,59 @@ class CompetitionProgramController extends Controller
     }
 
     public function showProgram($id){
-        $programs = DB::table('competition_programs')->where('cl_id', $id)->pluck('id')->toArray();
+        $programs = DB::table('competition_programs')
+        ->where('cl_id', $id)
+        ->pluck('id')
+        ->toArray();
+
         $buckets = [];
 
         foreach ($programs as $program) {
-            $bucket = DB::table('tournament_in_teams')->where('cp_id', $program)
+            $bucket = DB::table('tournament_in_teams')
+                ->where('cp_id', $program)
                 ->join('teams', 'tournament_in_teams.t_id', '=', 'teams.id')
-                ->join('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')
-                ->select('t_name','logo','matches', 'competition_programs.round')
+                ->join('competition_programs', 'tournament_in_teams.cp_id', '=','competition_programs.id')
+                ->select('t_name','logo','matches','round','cp_id','t_id')
                 ->get();
-
-            // $buckets[] = $bucket;
 
             // แยกข้อมูลตาม R1 และ R2
             $r1_bucket = [];
             $r2_bucket = [];
+            $r3_bucket = [];
+            $r4_bucket = [];
 
             foreach ($bucket as $item) {
                 if ($item->round == 'R1') {
                     $r1_bucket[] = $item;
                 } else if ($item->round == 'R2') {
                     $r2_bucket[] = $item;
+                } else if ($item->round == 'R3') {
+                    $r3_bucket[] = $item;
+                } else if ($item->round == 'R4') {
+                    $r4_bucket[] = $item;
                 }
             }
 
             // เก็บข้อมูลใน $buckets
             $buckets[] = [
                 'R1' => $r1_bucket,
-                'R2' => $r2_bucket
+                'R2' => $r2_bucket,
+                'R3' => $r3_bucket,
+                'R4' => $r4_bucket
             ];
-
-            
-            
-    
+            // dd($bucket);
         }
-
-        // dd($buckets);
-
-        return view('manager.competition_program', compact('buckets'));
+        // Filter teams with the same cp_id
+        $teamsWithSameCpId = [];
+        foreach ($buckets as $bucket) {
+            foreach ($bucket as $innerBucket) {
+                foreach ($innerBucket as $item) {
+                    $teamsWithSameCpId[$item->cp_id][] = $item->t_name;
+                }
+            }
+            // dd($teamsWithSameCpId);
+        }
+        return view('manager.competition_program', compact('buckets','teamsWithSameCpId'));
     }
 
     /**
