@@ -26,6 +26,12 @@
                         </div>
                     @endforeach
                 </div>
+                @if($index == 0 && !$buttonDisplayed)
+                    <div class="absolute transform translate-x-1 -translate-y-2">
+                        <button type="submit" data-modal-target="default-modal" data-modal-toggle="default-modal" data-id="{{ $item->cp_id }}" class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">edit</button>
+                    </div>
+                @php $buttonDisplayed = true; @endphp
+                @endif
             @endforeach
         </div>
         <div class="absolute translate-x-[50px] translate-y-[130px]">

@@ -190,8 +190,6 @@ class CompetitionProgramController extends Controller
                     $r4_bucket[] = $item;
                 }
             }
-
-            // เก็บข้อมูลใน $buckets
             $buckets[] = [
                 'R1' => $r1_bucket,
                 'R2' => $r2_bucket,
@@ -200,6 +198,7 @@ class CompetitionProgramController extends Controller
             ];
             // dd($bucket);
         }
+        $cp_edit = DB::table('competition_programs')->WHERE('id', $id)->first();
 
         // Filter teams with the same cp_id
         $teamsWithSameCpId = [];
@@ -247,7 +246,7 @@ class CompetitionProgramController extends Controller
         //
         $cp_edit = DB::table('competition_programs')->WHERE('id', $id)->first();
         // dd($cp_edit); 
-        return view('manager.competition_program_edit', compact('cp_edit'));
+        return view('manager.competition_program', compact('cp_edit'));
     }
 
     /**
@@ -262,8 +261,7 @@ class CompetitionProgramController extends Controller
         ]);
         // dd($data);
         return redirect()->route('managers_competition.index')->with('alert', [
-            'icon' => 'success
-            ',
+            'icon' => 'success',
             'title' => 'Your success message',
             'text' => 'แก้ไขข้อมูลเรียบร้อยแล้ว',
         ]);

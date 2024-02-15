@@ -35,7 +35,7 @@
         </div>
     </div>
 
-    <!-- Main modal -->
+    {{-- <!-- Main modal -->
     <div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden absolute  right-1/2 top-1/2 transform translate-x-1/2 -translate-y-1 justify-center items-center w-[700px] h-[700px] md:inset-0">
         <div class="relative p-4 w-full max-w-2xl max-h-full">
             <!-- Modal content -->
@@ -164,5 +164,5 @@
                 });
             });
         });
-    </script>
+    </script> --}}
 </x-app-layout>
