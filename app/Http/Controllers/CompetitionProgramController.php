@@ -165,12 +165,10 @@ class CompetitionProgramController extends Controller
             $bucket = DB::table('tournament_in_teams')->where('cp_id', $program)
                 ->join('teams', 'tournament_in_teams.t_id', '=', 'teams.id')
                 ->join('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')
-                ->select('t_name','logo','matches', 'competition_programs.round')
+                ->select('t_name','logo','matches', 'competition_programs.round', 'cp_id')
                 ->get();
 
             // $buckets[] = $bucket;
-
-            // แยกข้อมูลตาม R1 และ R2
             $r1_bucket = [];
             $r2_bucket = [];
 
@@ -181,20 +179,15 @@ class CompetitionProgramController extends Controller
                     $r2_bucket[] = $item;
                 }
             }
-
-            // เก็บข้อมูลใน $buckets
             $buckets[] = [
                 'R1' => $r1_bucket,
                 'R2' => $r2_bucket
             ];
-
-            
-            
-    
         }
+        $cp_edit = DB::table('competition_programs')->WHERE('id', $id)->first();
 
         // dd($buckets);
-        return view('manager.competition_program', compact('buckets'));
+        return view('manager.competition_program', compact('buckets', 'cp_edit'));
     }
 
     /**
@@ -229,7 +222,7 @@ class CompetitionProgramController extends Controller
         //
         $cp_edit = DB::table('competition_programs')->WHERE('id', $id)->first();
         // dd($cp_edit); 
-        return view('manager.competition_program_edit', compact('cp_edit'));
+        return view('manager.competition_program', compact('cp_edit'));
     }
 
     /**
@@ -244,8 +237,7 @@ class CompetitionProgramController extends Controller
         ]);
         // dd($data);
         return redirect()->route('managers_competition.index')->with('alert', [
-            'icon' => 'success
-            ',
+            'icon' => 'success',
             'title' => 'Your success message',
             'text' => 'แก้ไขข้อมูลเรียบร้อยแล้ว',
         ]);

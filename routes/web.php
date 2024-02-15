@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Http\Request;
+use GuzzleHttp\Client;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +13,8 @@ use App\Http\Controllers\CompetitionListController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\ContestantController;
 use App\Http\Controllers\CompetitionProgramController;
+use App\Http\Controllers\LivestreamController;
+use App\Http\Controllers\TwitchController;
 
 
 /*
@@ -39,7 +43,8 @@ Route::get('/list/contestants/table', [TeamController::class, 'index'])->name('c
 Route::get('/description/contestants/detail/{id}', [TeamController::class, 'detailShow'])->name('competition.detail');
 Route::get('/grid/teams/list/{id}', [ContestantController::class, 'indexID'])->name('team_grid');
 Route::get('/team/detail/{id}', [ContestantController::class, 'detailTeamShow'])->name('team_detail');
-
+Route::get('/livestream', [LivestreamController::class, 'index'])->name('livestream.index');
+Route::get('/twitch/streams', [TwitchController::class, 'getStreams'])->name('twitch-streams');
 
 
 Route::get('/dashboard', function () {

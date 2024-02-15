@@ -8,17 +8,25 @@
     <div class="grid grid-cols-4 gap-4">
     @foreach($buckets as $bucket)
         <div class="mx-8 w-48 grid-cols-4 gap-3">
-            @foreach($bucket['R1'] as $item)
+            @php $buttonDisplayed = false; @endphp
+            @foreach($bucket['R1'] as $index => $item)
                 <b>{{$item->matches}}</b>
                 <div class="border rounded bg-[#01142E] border-[#01142E] text-white flex justify-between grid-cols-2 gap-2">
                     <div class="flex items-center justify-center mx-auto">
                         <img src="{{ $item->logo }}" class="w-5 h-5" alt="">
                         <span class="ml-2">{{ $item->t_name }}</span>
+                        <span class="ml-2">{{ $item->cp_id }}</span>
                     </div>
                     <div class="border bg-white text-black flex items-center justify-center w-10">
                         0
                     </div>
                 </div>
+                @if($index == 0 && !$buttonDisplayed)
+                    <div class="absolute transform translate-x-1 -translate-y-2">
+                        <button type="submit" data-modal-target="default-modal" data-modal-toggle="default-modal" data-id="{{ $item->cp_id }}" class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">edit</button>
+                    </div>
+                @php $buttonDisplayed = true; @endphp
+                @endif
             @endforeach
         </div>
         <div class="mx-8 w-48 grid-cols-2 gap-3"> <!-- แก้ grid-cols-4 เป็น grid-cols-2 -->
@@ -33,15 +41,22 @@
                         0
                     </div>
                 </div>
+                @if($index == 0 && !$buttonDisplayed)
+                <form action="{{route('edit_competition_program', $item->cp_id)}}">
+                    <div class="absolute transform translate-x-1 -translate-y-2">
+                        <button type="button" data-modal-target="default-modal" data-modal-toggle="default-modal" data-id="{{ $item->cp_id }}" class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">edit</button>
+                    </div>
+                @php $buttonDisplayed = true; @endphp
+                </form>
+                @endif
             @endforeach
-            <div class="absolute transform translate-x-1 -translate-y-12">
-                <button type="button" data-modal-target="default-modal" data-modal-toggle="default-modal" class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">edit</button>
-            </div><br>
         </div>
     @endforeach
 </div>
         
 </x-app-layout>
+
+
 <!-- Main modal -->
 <div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full translate-x-[450px] translate-y-[150px]">
                     <div class="relative p-4 w-full max-w-2xl max-h-full">
@@ -125,7 +140,7 @@
             });
         });
     </script>         
-<!-- <script>
+ <script>
         @if(session('alert'))
             Swal.fire({
                 icon: '{{ session('alert')['icon'] }}',
