@@ -12,7 +12,7 @@
                         <div class="container mx-auto">
                             @csrf
                             @method('patch')
-                            
+                            {{ $cp_edit->id}}
                             <div class="grid grid-cols-2 grid-flow-row">
                                 <div class="cols mx-1 col-span-1">
                                     <x-input-label for="match_date" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">วันที่แข่ง</x-input-label>

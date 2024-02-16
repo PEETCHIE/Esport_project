@@ -11,35 +11,31 @@
                 <div class="mx-8 w-48 grid-cols-4 gap-3">
                     @foreach($bucket['R1'] as $item)
                     {{$item->cp_id}}
-                        <br>
-                        <div class="border rounded bg-[#01142E] border-[#01142E] text-white flex justify-between grid-cols-2 gap-2">
-                            <div class="flex items-center justify-center mx-auto">
-                                <img src="{{ $item->logo }}" class="w-5 h-5" alt="">
-                                <span class="ml-2">{{ $item->t_name }}</span>
-                            </div>
-                            <div class="border bg-white text-black flex items-center justify-center w-10">
-                                0
-                            </div>
+                    <br>
+                    <div class="border rounded bg-[#01142E] border-[#01142E] text-white flex justify-between grid-cols-2 gap-2">
+                        <div class="flex items-center justify-center mx-auto">
+                            <img src="{{ $item->logo }}" class="w-5 h-5" alt="">
+                            <span class="ml-2">{{ $item->t_name }}</span>
                         </div>
-                        <div class="absolute transform translate-x-1 -translate-y-[29px]">
-                            <button type="button"  data-modal-toggle="default-modal" data-match-id="{{ $item->cp_id }}" data-team-id="{{ $item->t_id }}" class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">edit</button>
+                        <div class="border bg-white text-black flex items-center justify-center w-10">
+                            0
                         </div>
-                    @endforeach
-                </div>
-                @if($index == 0 && !$buttonDisplayed)
-                    <div class="absolute transform translate-x-1 -translate-y-2">
-                        <button type="submit" data-modal-target="default-modal" data-modal-toggle="default-modal" data-id="{{ $item->cp_id }}" class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">edit</button>
                     </div>
-                @php $buttonDisplayed = true; @endphp
-                @endif
+                    @endforeach
+                    <div class="absolute transform translate-x-1 -translate-y-[50px]">
+                        <button onclick="openModal('{{ $item->cp_id }}')" class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
+                            แก้ไข
+                        </button>
+                    </div>
+                </div>
             @endforeach
         </div>
-        <div class="absolute translate-x-[50px] translate-y-[130px]">
-            <div class="border-t-[3px] w-[100px] -translate-y-[67px] translate-x-[249px]"></div>
-            <div class="border-t-[3px] w-[100px]  translate-y-8 translate-x-[249px]"></div>
-            <div class="border-r-[3px] h-[104px] -translate-y-[72px] translate-x-[250px]"></div>
-            <div class="border-t-[3px] w-[25px] -translate-y-[125px] translate-x-[350px]"></div>
-        </div>
+            <div class="absolute translate-x-[50px] translate-y-[130px]">
+                <div class="border-t-[3px] w-[100px] -translate-y-[67px] translate-x-[249px]"></div>
+                <div class="border-t-[3px] w-[100px]  translate-y-8 translate-x-[249px]"></div>
+                <div class="border-r-[3px] h-[104px] -translate-y-[72px] translate-x-[250px]"></div>
+                <div class="border-t-[3px] w-[25px] -translate-y-[125px] translate-x-[350px]"></div>
+            </div>
         <div>
             @foreach($buckets as $bucket)
                 <div class="mx-8 w-48 grid-cols-4 gap-3 mt-[55px]">
@@ -55,8 +51,10 @@
                                 0
                             </div>
                         </div>
-                        <div class="absolute transform translate-x-1 -translate-y-[29px]">
-                            <button type="button"  data-modal-toggle="default-modal" data-match-id="{{ $item->cp_id }}" data-team-id="{{ $item->t_id }}" class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">edit</button>
+                        <div class="absolute transform translate-x-1 translate-y-[3px]">
+                            <button onclick="openModal('{{ $item->cp_id }}')" class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
+                                แก้ไข
+                            </button>
                         </div>
                     @endforeach
                 </div>
@@ -91,7 +89,63 @@
     </div>
 </x-app-layout>
 
-<form action="" method="POST" enctype="multipart/form-data">
+            @foreach($teamsWithSameCpId as $cp_id => $teams)
+            <div id="modal-content-{{ $cp_id }}" class="modal-content hidden fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center">
+                    <div class="bg-white rounded-lg w-1/2 md:w-1/3 p-4 md:p-5 space-y-4 relative">
+                        <button onclick="closeModal()" class="absolute top-0 right-0 mt-2 mr-2 text-gray-500 hover:text-gray-700 w-[50px] h-[50px]">
+                            &times;
+                        </button>
+            <form id="update-form-{{ $cp_id }}" action="{{ route('update_competition_program',  $cp_id) }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            @method('patch')
+                        <p class="text-lg font-bold">แก้ไขข้อมูล</p>
+                        <hr>
+                        <div class="p-4 md:p-5 space-y-4">
+                            @foreach($teams as $team)
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <label for="team">ทีม</label>
+                                        <img src="{{ $team['logo'] }}" alt="{{ $team['name'] }}" class="w-10 h-10 mr-2">
+                                        <span class="ml-2">{{ $team['name'] }}</span>
+                                    </div>
+                                    <input type="text" class="border border-gray-300 rounded px-2 py-1" placeholder="คะแนน">
+                                </div>
+                            @endforeach
+                            <div class="flex justify-center items-center">
+                                <label class="mx-auto">แก้ไขเวลา</label>
+                                <input type="time" name="match_time" id="match_time" class="text-gray-500 hover:text-gray-700 h-5 mr-2 ml-2"></input>
+                                <label>แก้ไขวันที่</label>
+                                <input type="date" name="match_date" id="match_date" class="ml-4 text-gray-500 hover:text-gray-700 h-5"></input>
+                            </div>
+                        </div>
+                        <hr><br>
+                        <div class="flex justify-center">
+                            <button onclick="submitUpdateForm('{{ $cp_id }}')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                อัพเดต
+                            </button>
+                        </div>  
+                    </div>
+                </div>
+             </form>
+        @endforeach
+       
+
+        <script>
+            function openModal(cp_id) {
+                var modal = document.getElementById("modal-content-" + cp_id);
+                modal.classList.remove("hidden");
+            }
+            function submitUpdateForm(cp_id) {
+                var form = document.getElementById("update-form-" + cp_id);
+                form.submit();
+            }
+            function closeModal() {
+                var modal = document.querySelector(".modal-content:not(.hidden)");
+                modal.classList.add("hidden");
+            }
+        </script>
+
+{{--<form action="" method="POST" enctype="multipart/form-data">
     Main modal
     <div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full translate-x-[450px] translate-y-[150px]">
         <div class="relative p-4 w-full max-w-2xl max-h-full">
@@ -194,7 +248,4 @@
             });
         });
     });
-</script>
-=======
-
->>>>>>> 093a071e1e6d670d51ddb4ac78e70b19659ff4ae
+</script>--}}
