@@ -195,19 +195,23 @@ class CompetitionProgramController extends Controller
                 'R3' => $r3_bucket,
                 'R4' => $r4_bucket
             ];
-            // dd($bucket);
         }
-        $cp_edit = DB::table('competition_programs')->WHERE('id', $id)->first();
-
         // Filter teams with the same cp_id
         $teamsWithSameCpId = [];
+        // $programWithSameId = [];
+        $tt = DB::table('tournament_in_teams')->pluck('cp_id')->toArray();
+        // dd($cp);
         foreach ($buckets as $bucket) {
             foreach ($bucket as $innerBucket) {
                 foreach ($innerBucket as $item) {
-                    $teamsWithSameCpId[$item->cp_id][] = $item->t_name;
+                    if(in_array($item->cp_id, $tt)){
+                        $teamsWithSameCpId[$item->cp_id][] = [
+                            'name' => $item->t_name,
+                            'logo' => $item->logo,
+                        ];
+                    } 
                 }
             }
-            // dd($teamsWithSameCpId);
         }
         return view('manager.competition_program', compact('buckets', 'teamsWithSameCpId'));
     }
@@ -244,7 +248,7 @@ class CompetitionProgramController extends Controller
         //
         $cp_edit = DB::table('competition_programs')->WHERE('id', $id)->first();
         // dd($cp_edit); 
-        return view('manager.competition_program', compact('cp_edit'));
+        return view('manager.competition_program_edit', compact('cp_edit'));
     }
 
     /**
@@ -258,11 +262,7 @@ class CompetitionProgramController extends Controller
             'match_time' => $request->match_time,
         ]);
         // dd($data);
-        return redirect()->route('managers_competition.index')->with('alert', [
-            'icon' => 'success',
-            'title' => 'Your success message',
-            'text' => 'แก้ไขข้อมูลเรียบร้อยแล้ว',
-        ]);
+        return back();
     }
 
     /**

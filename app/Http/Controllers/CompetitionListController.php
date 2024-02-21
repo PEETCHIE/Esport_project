@@ -54,8 +54,9 @@ class CompetitionListController extends Controller
             $request->cl_img->move(public_path('/asset/img'), $filename);
         }
         // dd($filename);
-        $config_competition_list = ['table' => 'competition_programs', 'length' => 8, 'prefix' => 'CPL-'];
+        $config_competition_list = ['table'=>'competition_lists', 'length'=>8, 'prefix'=>'CPL-'];
         $competition_list_id = IdGenerator::generate($config_competition_list);
+        // dd($competition_list_id );
         $competition_store = competition_list::insert([
             'id' => $competition_list_id,
             'competition_name' => $request->competition_name,
