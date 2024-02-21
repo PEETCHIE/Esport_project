@@ -26,18 +26,18 @@ class CompetitionProgramController extends Controller
         $competition_list = competition_list::find($id);
         $expiryDate = Carbon::parse($competition_list->end_date);
         // dd($currentDate);
-        if($currentDate > $expiryDate){
-            $count = DB::table('teams')->WHERE('cl_id',$id)
-            ->join('competition_lists', 'teams.cl_id', '=', 'competition_lists.id')
-            ->groupBy('teams.cl_id')
-            ->select(DB::raw('COUNT(*) as count'))
-            ->count();
-            
+        if ($currentDate > $expiryDate) {
+            $count = DB::table('teams')->WHERE('cl_id', $id)
+                ->join('competition_lists', 'teams.cl_id', '=', 'competition_lists.id')
+                ->groupBy('teams.cl_id')
+                ->select(DB::raw('COUNT(*) as count'))
+                ->count();
+
             $half_countAmount = $count / 2;
             $competition_list_id = $id;
-            if($count % 2 == 0){
-                for($i=1; $i<= $half_countAmount;$i++   ){
-                    $config_cp_id = ['table'=>'competition_programs', 'length'=>8, 'prefix'=>'RM-'];
+            if ($count % 2 == 0) {
+                for ($i = 1; $i <= $half_countAmount; $i++) {
+                    $config_cp_id = ['table' => 'competition_programs', 'length' => 8, 'prefix' => 'RM-'];
                     $cp_id = IdGenerator::generate($config_cp_id);
                     $competition_program = competition_program::insert([
                         'id' => $cp_id,
@@ -48,10 +48,10 @@ class CompetitionProgramController extends Controller
                         'cl_id' => $competition_list_id
                     ]);
                 }
-            }else{
+            } else {
                 $mod_half =  $half_countAmount % 2;
-                for($i=1; $i<= $half_countAmount; $i++){
-                    $config_cp_id = ['table'=>'competition_programs', 'length'=>8, 'prefix'=>'RM-'];
+                for ($i = 1; $i <= $half_countAmount; $i++) {
+                    $config_cp_id = ['table' => 'competition_programs', 'length' => 8, 'prefix' => 'RM-'];
                     $cp_id = IdGenerator::generate($config_cp_id);
                     $competition_program = competition_program::insert([
                         'id' => $cp_id,
@@ -62,7 +62,7 @@ class CompetitionProgramController extends Controller
                         'cl_id' => $competition_list_id
                     ]);
                 }
-                $config_cp_id = ['table'=>'competition_programs', 'length'=>8, 'prefix'=>'RM-'];
+                $config_cp_id = ['table' => 'competition_programs', 'length' => 8, 'prefix' => 'RM-'];
                 $cp_id = IdGenerator::generate($config_cp_id);
                 $competition_program = competition_program::insert([
                     'id' => $cp_id,
@@ -72,13 +72,12 @@ class CompetitionProgramController extends Controller
                     'match_time' =>  Carbon::now()->toTimeString(),
                     'cl_id' => $competition_list_id
                 ]);
-                
             }
             // dd($competition_program);
-            
-            
+
+
             // dd($count);  
-            $teams = Team::where('cl_id', $id)->pluck('t_name','id')->toArray();  
+            $teams = Team::where('cl_id', $id)->pluck('t_name', 'id')->toArray();
             $randomTeams = collect($teams)->shuffle();
             $pairs = [];
             $i = 0;
@@ -86,7 +85,7 @@ class CompetitionProgramController extends Controller
 
             if ($count % 2 == 0) {
                 while ($randomTeams->isNotEmpty()) {
-                    $config_tit_id = ['table'=>'tournament_in_teams', 'length'=>8, 'prefix'=>'TIT-'];
+                    $config_tit_id = ['table' => 'tournament_in_teams', 'length' => 8, 'prefix' => 'TIT-'];
                     $tit_id = IdGenerator::generate($config_tit_id);
 
                     $t_name = $randomTeams->shift();
@@ -101,7 +100,7 @@ class CompetitionProgramController extends Controller
                         'id' => $tit_id,
                         't_id' => $t_Id,
                         'cp_id' => $cp_id[$i]
-                    ]);                    
+                    ]);
                 }
                 return redirect()->route('managers_competition.index')->with('alert', [
                     'icon' => 'success',
@@ -109,12 +108,12 @@ class CompetitionProgramController extends Controller
                     'text' => 'SUCCESS',
                 ]);
             } else {
-                
+
                 $teamOne = $randomTeams->pop();
                 $teamOneId = array_search($teamOne, $teams);
 
                 while ($randomTeams->isNotEmpty()) {
-                    $config_tit_id = ['table'=>'tournament_in_teams', 'length'=>8, 'prefix'=>'TIT-'];
+                    $config_tit_id = ['table' => 'tournament_in_teams', 'length' => 8, 'prefix' => 'TIT-'];
                     $tit_id = IdGenerator::generate($config_tit_id);
 
                     $t_name = $randomTeams->shift();
@@ -131,46 +130,46 @@ class CompetitionProgramController extends Controller
                         'id' => $tit_id,
                         't_id' => $t_Id,
                         'cp_id' => $cp_id[$i]
-                    ]);                  
+                    ]);
                 }
-                $config_tit_id = ['table'=>'tournament_in_teams', 'length'=>8, 'prefix'=>'TIT-'];
+                $config_tit_id = ['table' => 'tournament_in_teams', 'length' => 8, 'prefix' => 'TIT-'];
                 $tit_id = IdGenerator::generate($config_tit_id);
                 $tournament_in_team = tournament_in_team::insert([
                     'id' => $tit_id,
                     't_id' => $teamOneId,
-                    'cp_id' => $cp_id[$i+1]
-                ]); 
-                
+                    'cp_id' => $cp_id[$i + 1]
+                ]);
+
                 return redirect()->route('managers_competition.index')->with('alert', [
                     'icon' => 'success',
                     'title' => 'Your success message',
                     'text' => 'SUCCESS',
                 ]);
             }
-        }else{
+        } else {
             return redirect()->route('managers_competition.index')->with('alert', [
-                    'icon' => 'info',
-                    'title' => 'Your success message',
-                    'text' => 'ไม่สามารถดูได้ เนื่องจากยังไม่ทราบจำนวนทีมที่แน่นอนในการจัดตารางการแข่งขัน',
-                ]);
+                'icon' => 'info',
+                'title' => 'Your success message',
+                'text' => 'ไม่สามารถดูได้ เนื่องจากยังไม่ทราบจำนวนทีมที่แน่นอนในการจัดตารางการแข่งขัน',
+            ]);
         }
-        
     }
 
-    public function showProgram($id){
+    public function showProgram($id)
+    {
         $programs = DB::table('competition_programs')
-        ->where('cl_id', $id)
-        ->pluck('id')
-        ->toArray();
+            ->where('cl_id', $id)
+            ->pluck('id')
+            ->toArray();
 
         $buckets = [];
-        
+
         foreach ($programs as $program) {
             $bucket = DB::table('tournament_in_teams')
                 ->where('cp_id', $program)
                 ->join('teams', 'tournament_in_teams.t_id', '=', 'teams.id')
-                ->join('competition_programs', 'tournament_in_teams.cp_id', '=','competition_programs.id')
-                ->select('t_name','logo','matches','round','cp_id','t_id')
+                ->join('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')
+                ->select('t_name', 'logo', 'matches', 'round', 'cp_id', 't_id')
                 ->get();
 
             // แยกข้อมูลตาม R1 และ R2
@@ -210,8 +209,7 @@ class CompetitionProgramController extends Controller
             }
             // dd($teamsWithSameCpId);
         }
-        return view('manager.competition_program', compact('buckets','teamsWithSameCpId'));
-
+        return view('manager.competition_program', compact('buckets', 'teamsWithSameCpId'));
     }
 
     /**
@@ -256,8 +254,8 @@ class CompetitionProgramController extends Controller
     {
         //
         $data = DB::table('competition_programs')->WHERE('id', $id)->update([
-            'match_date'=> $request->match_date,
-            'match_time'=> $request->match_time,
+            'match_date' => $request->match_date,
+            'match_time' => $request->match_time,
         ]);
         // dd($data);
         return redirect()->route('managers_competition.index')->with('alert', [

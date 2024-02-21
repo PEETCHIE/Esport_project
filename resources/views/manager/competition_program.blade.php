@@ -7,12 +7,13 @@
 
     <div class="grid grid-cols-4 gap-1">
         <div>
-            @foreach($buckets as $bucket)
+            @foreach ($buckets as $bucket)
                 <div class="mx-8 w-48 grid-cols-4 gap-3">
-                    @foreach($bucket['R1'] as $item)
-                    {{$item->cp_id}}
+                    @foreach ($bucket['R1'] as $item)
+                        {{ $item->cp_id }}
                         <br>
-                        <div class="border rounded bg-[#01142E] border-[#01142E] text-white flex justify-between grid-cols-2 gap-2">
+                        <div
+                            class="border rounded bg-[#01142E] border-[#01142E] text-white flex justify-between grid-cols-2 gap-2">
                             <div class="flex items-center justify-center mx-auto">
                                 <img src="{{ $item->logo }}" class="w-5 h-5" alt="">
                                 <span class="ml-2">{{ $item->t_name }}</span>
@@ -22,16 +23,12 @@
                             </div>
                         </div>
                         <div class="absolute transform translate-x-1 -translate-y-[29px]">
-                            <button type="button"  data-modal-toggle="default-modal" data-match-id="{{ $item->cp_id }}" data-team-id="{{ $item->t_id }}" class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">edit</button>
+                            <button type="button" data-modal-toggle="default-modal" data-match-id="{{ $item->cp_id }}"
+                                data-team-id="{{ $item->t_id }}"
+                                class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">edit</button>
                         </div>
                     @endforeach
                 </div>
-                @if($index == 0 && !$buttonDisplayed)
-                    <div class="absolute transform translate-x-1 -translate-y-2">
-                        <button type="submit" data-modal-target="default-modal" data-modal-toggle="default-modal" data-id="{{ $item->cp_id }}" class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">edit</button>
-                    </div>
-                @php $buttonDisplayed = true; @endphp
-                @endif
             @endforeach
         </div>
         <div class="absolute translate-x-[50px] translate-y-[130px]">
@@ -41,12 +38,13 @@
             <div class="border-t-[3px] w-[25px] -translate-y-[125px] translate-x-[350px]"></div>
         </div>
         <div>
-            @foreach($buckets as $bucket)
+            @foreach ($buckets as $bucket)
                 <div class="mx-8 w-48 grid-cols-4 gap-3 mt-[55px]">
-                    @foreach($bucket['R2'] as $item)
-                    {{$item->cp_id}}
+                    @foreach ($bucket['R2'] as $item)
+                        {{ $item->cp_id }}
                         <br>
-                        <div class="border rounded bg-[#01142E] border-[#01142E] text-white flex justify-between grid-cols-2 gap-2">
+                        <div
+                            class="border rounded bg-[#01142E] border-[#01142E] text-white flex justify-between grid-cols-2 gap-2">
                             <div class="flex items-center justify-center mx-auto">
                                 <img src="{{ $item->logo }}" class="w-5 h-5" alt="">
                                 <span class="ml-2">{{ $item->t_name }}</span>
@@ -56,7 +54,9 @@
                             </div>
                         </div>
                         <div class="absolute transform translate-x-1 -translate-y-[29px]">
-                            <button type="button"  data-modal-toggle="default-modal" data-match-id="{{ $item->cp_id }}" data-team-id="{{ $item->t_id }}" class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">edit</button>
+                            <button type="button" data-modal-toggle="default-modal" data-match-id="{{ $item->cp_id }}"
+                                data-team-id="{{ $item->t_id }}"
+                                class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">edit</button>
                         </div>
                     @endforeach
                 </div>
@@ -64,28 +64,30 @@
         </div>
         <div>
             <div class="mx-8 w-48 grid-cols-4 gap-3">
-                <div class="border rounded bg-[#01142E] border-[#01142E] text-white flex justify-between grid-cols-2 gap-2">
+                <div
+                    class="border rounded bg-[#01142E] border-[#01142E] text-white flex justify-between grid-cols-2 gap-2">
                     <div class="flex items-center justify-center mx-auto">
                         <img src="#" class="w-5 h-5" alt="">
                         <span class="ml-2">round3</span>
                     </div>
                     <div class="border bg-white text-black flex items-center justify-center w-10">
-                            0
+                        0
                     </div>
-                </div>      
+                </div>
             </div>
         </div>
         <div>
             <div class="mx-8 w-48 grid-cols-4 gap-3">
-                <div class="border rounded bg-[#01142E] border-[#01142E] text-white flex justify-between grid-cols-2 gap-2">
+                <div
+                    class="border rounded bg-[#01142E] border-[#01142E] text-white flex justify-between grid-cols-2 gap-2">
                     <div class="flex items-center justify-center mx-auto">
                         <img src="#" class="w-5 h-5" alt="">
                         <span class="ml-2">round4</span>
                     </div>
                     <div class="border bg-white text-black flex items-center justify-center w-10">
-                            0
+                        0
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
     </div>
@@ -93,7 +95,8 @@
 
 <form action="" method="POST" enctype="multipart/form-data">
     Main modal
-    <div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full translate-x-[450px] translate-y-[150px]">
+    <div id="default-modal" tabindex="-1" aria-hidden="true"
+        class="hidden overflow-y-auto overflow-x-hidden fixed right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full translate-x-[450px] translate-y-[150px]">
         <div class="relative p-4 w-full max-w-2xl max-h-full">
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -102,18 +105,23 @@
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                         ข้อมูลการแข่งขัน
                     </h3>
-                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
-                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    <button type="button"
+                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                        data-modal-hide="default-modal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                         </svg>
                         <span class="sr-only">Close modal</span>
                     </button>
                 </div>
                 <!-- Modal body -->
-                @foreach($buckets as $bucket)
-                    @foreach($bucket as $innerBucket)
-                        @foreach($innerBucket as $item)
-                        <div id="modal-content-{{ $item->cp_id }}-{{ $item->t_id }}" class="modal-content hidden">
+                @foreach ($buckets as $bucket)
+                    @foreach ($bucket as $innerBucket)
+                        @foreach ($innerBucket as $item)
+                            <div id="modal-content-{{ $item->cp_id }}-{{ $item->t_id }}"
+                                class="modal-content hidden">
                                 <div class="p-4 md:p-5 space-y-4">
                                     <div class="flex items-center justify-between">
                                         <div class="flex items-center">
@@ -121,7 +129,8 @@
                                             <img src="{{ $item->logo }}" class="w-5 h-5" alt="">
                                             <span class="ml-2">{{ $item->t_name }}</span>
                                         </div>
-                                        <input type="text" class="border border-gray-300 rounded px-2 py-1" placeholder="คะแนน">
+                                        <input type="text" class="border border-gray-300 rounded px-2 py-1"
+                                            placeholder="คะแนน">
                                     </div>
                                     <div class="flex justify-end">
                                         <button class="text-gray-500 hover:text-gray-700">แก้ไขเวลา</button>
@@ -134,7 +143,8 @@
                 @endforeach
                 <!-- Modal footer -->
                 <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                    <button data-modal-hide="default-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">อัพเดต</button>
+                    <button data-modal-hide="default-modal" type="button"
+                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">อัพเดต</button>
                 </div>
             </div>
         </div>
@@ -195,6 +205,3 @@
         });
     });
 </script>
-=======
-
->>>>>>> 093a071e1e6d670d51ddb4ac78e70b19659ff4ae
