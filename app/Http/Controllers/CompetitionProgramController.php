@@ -204,12 +204,14 @@ class CompetitionProgramController extends Controller
         foreach ($buckets as $bucket) {
             foreach ($bucket as $innerBucket) {
                 foreach ($innerBucket as $item) {
-                    if(in_array($item->cp_id, $tt)){
+                    if (in_array($item->cp_id, $tt)) {
                         $teamsWithSameCpId[$item->cp_id][] = [
+                            'id' => $item->t_id,
                             'name' => $item->t_name,
                             'logo' => $item->logo,
+
                         ];
-                    } 
+                    }
                 }
             }
         }
