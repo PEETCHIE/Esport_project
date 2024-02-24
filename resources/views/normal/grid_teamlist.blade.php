@@ -4,32 +4,90 @@
             {{ __('ทีมเข้าแข่งขัน') }}
         </h2>
     </x-slot>
-
     <div class="py-12">
-        @if ($message = Session::get('status'))
-        <center><div>
-            <div class="mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-                <span class="font-medium">{{ $message}}</span> 
-            </div>
-        </div></center>
-        @endif
         <div class="max-w-12xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                
-                <div class="grid grid-cols-5 grid-flow-row dark:text-gray-200 leading-tight grid-md flex flex-wrap">
-                @foreach($team_lists as $team_list)        
-                    <div class="mx-auto px-5 justify-center m-3">
-                        <div class="max-w-xs cursor-pointer rounded-lg bg-[#C9193A] p-2 shadow duration-150 hover:scale-105 hover:shadow-md">
-                        <img class="h-40 w-52 rounded-lg object-cover object-center" src="{{ $team_list->logo}}" alt="product" />
-                        <p class="my-4 pl-4 font-bold text-white">ชื่อทีม: {{ $team_list->t_name}}</p>
-                        <button type="submit" class="bg-blue-500 hover:bg-gray-700 text-white font-bold py-1 px-1 rounded"><a href="{{ route('team_detail', $team_list->id) }}">ข้อมูล</a></button>
+                <!-- Navbar -->
+                <div class="flex flex-nowrap border-b border-gray-200 dark:border-gray-600">
+                    <div class="p-4">
+                        <a href="#tab1" class="text-gray-900 dark:text-white font-bold">ทีมเข้าแข่งขัน</a>
+                    </div>
+                    <div class="p-4">
+                        <a href="#tab2" class="text-gray-500 dark:text-gray-400 font-bold">ตารางแข่งขัน</a>
+                    </div>
+                </div>
+                <!-- Content -->
+                <div class="p-4">
+                    <!-- Content for Tab 1 -->
+                    <div id="tab1" class="tab-content">
+                        <div class="grid grid-cols-5 grid-flow-row dark:text-gray-200 leading-tight grid-md flex flex-wrap">
+                            @foreach($team_lists as $team_list)        
+                            <div class="mx-auto px-5 justify-center m-3">
+                                <div class="max-w-xs cursor-pointer rounded-lg bg-[#C9193A] p-2 shadow duration-150 hover:scale-105 hover:shadow-md">
+                                    <img class="h-40 w-52 rounded-lg object-cover object-center" src="{{ $team_list->logo}}" alt="product" />
+                                    <p class="my-4 pl-4 font-bold text-white">ชื่อทีม: {{ $team_list->t_name}}</p>
+                                    <button type="submit" class="bg-blue-500 hover:bg-gray-700 text-white font-bold py-1 px-1 rounded"><a href="{{ route('team_detail', $team_list->id) }}">ข้อมูล</a></button>
+                                </div>
+                            </div>
+                            @endforeach            
                         </div>
                     </div>
-                @endforeach            
-                </div>
-                
+                    <!-- Content for Tab 2 -->
+                    <div id="tab2" class="hidden tab-content">
+                        <div class="grid grid-cols-4 gap-1">
+                            <!-- เนื้อหาสำหรับแท็บ 2 ไปต่อที่นี่ -->
+                            <div>
+                                {{--@foreach($buckets as $bucket)
+                                    <div class="mx-8 w-48 grid-cols-4 gap-3">
+                                    <p>ตารางแข่งขัน</p>
+                                        @foreach($bucket['R1'] as $item)
+                                        <br>
+                                        <div class="border rounded bg-[#01142E] border-[#01142E] text-white flex justify-between grid-cols-2 gap-2">
+                                            <div class="flex items-center justify-center mx-auto">
+                                                <img src="{{ $item->logo }}" class="w-5 h-5" alt="">
+                                                <span class="ml-2">{{ $item->t_name }}</span>
+                                            </div>
+                                            <div class="border bg-white text-black flex items-center justify-center w-10">
+                                                0
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                @endforeach--}}
+                            </div>
+                            <p>นี่คือส่วนเนื้อหาที่คุณต้องการให้แสดงเมื่อคลิกที่แท็บที่สอง</p>
+                        </div>
+                    </div>
+                </div>                
             </div>
-
         </div>
     </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // เลือกทุกลิงก์ของแท็บ
+        const tabLinks = document.querySelectorAll('.flex .p-4 a');
+
+        // ฟังก์ชันสำหรับการเปิดแท็บ
+        function openTab(e) {
+            e.preventDefault();
+            const tabId = this.getAttribute('href').replace('#', '');
+            const tabContent = document.getElementById(tabId);
+
+            // ปิดแท็บทั้งหมด
+            document.querySelectorAll('.tab-content').forEach(function(tab) {
+                tab.classList.add('hidden');
+            });
+
+            // เปิดแท็บที่ถูกคลิก
+            tabContent.classList.remove('hidden');
+        }
+
+        // แนบการคลิกไปยังทุกลิงก์ของแท็บ
+        tabLinks.forEach(function(link) {
+            link.addEventListener('click', openTab);
+        });
+    });
+</script>
 </x-app-layout>
+
+

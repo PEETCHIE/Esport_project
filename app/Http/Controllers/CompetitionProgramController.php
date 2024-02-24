@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Illuminate\Http\Request;
 
 class CompetitionProgramController extends Controller
 {
@@ -83,6 +84,7 @@ class CompetitionProgramController extends Controller
             $pairs = [];
             $i = 0;
             $cp_id = DB::table('competition_programs')->WHERE('cl_id', $id)->pluck('id')->toArray();
+            
 
             if ($count % 2 == 0) {
                 while ($randomTeams->isNotEmpty()) {
@@ -133,6 +135,7 @@ class CompetitionProgramController extends Controller
                         'cp_id' => $cp_id[$i]
                     ]);                  
                 }
+                
                 $config_tit_id = ['table'=>'tournament_in_teams', 'length'=>8, 'prefix'=>'TIT-'];
                 $tit_id = IdGenerator::generate($config_tit_id);
                 $tournament_in_team = tournament_in_team::insert([
@@ -197,25 +200,22 @@ class CompetitionProgramController extends Controller
                 'R4' => $r4_bucket
             ];
         }
-        // Filter teams with the same cp_id
-        $teamsWithSameCpId = [];
-        // $programWithSameId = [];
-        $tt = DB::table('tournament_in_teams')->pluck('cp_id')->toArray();
-        // dd($cp);
-        foreach ($buckets as $bucket) {
-            foreach ($bucket as $innerBucket) {
-                foreach ($innerBucket as $item) {
-                    if(in_array($item->cp_id, $tt)){
-                        $teamsWithSameCpId[$item->cp_id][] = [
-                            'name' => $item->t_name,
-                            'logo' => $item->logo,
-                        ];
-                    } 
-                }
-            }
-        }
-        return view('manager.competition_program', compact('buckets','teamsWithSameCpId'));
-
+        // $teamsWithSameCpId = [];
+        // $tt = DB::table('tournament_in_teams')->pluck('cp_id')->toArray();
+        // foreach ($buckets as $bucket) {
+        //     foreach ($bucket as $innerBucket) {
+        //         foreach ($innerBucket as $item) {
+        //             $teamsWithSameCpId[$item->cp_id][] = $item;
+        //             // if(in_array($item->cp_id, $tt)){
+        //             //     $teamsWithSameCpId[$item->cp_id][] = [
+        //             //         'name' => $item->t_name,
+        //             //         'logo' => $item->logo,
+        //             //     ];
+        //             // } 
+        //         }
+        //     }
+        // }
+        return view('manager.competition_program', compact('buckets'));
     }
 
     /**
@@ -249,6 +249,7 @@ class CompetitionProgramController extends Controller
     {
         //
         $cp_edit = DB::table('competition_programs')->WHERE('id', $id)->first();
+        
         // dd($cp_edit); 
         return view('manager.competition_program_edit', compact('cp_edit'));
     }
@@ -258,12 +259,14 @@ class CompetitionProgramController extends Controller
      */
     public function update(Updatecompetition_programRequest $request, competition_program $competition_program, $id)
     {
-        //
+        
         $data = DB::table('competition_programs')->WHERE('id', $id)->update([
             'match_date'=> $request->match_date,
             'match_time'=> $request->match_time,
+            'link' => $request->link,
         ]);
-        // dd($data);
+         
+        // dd($result);
         return back();
     }
 

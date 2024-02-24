@@ -28,7 +28,6 @@ class ContestantController extends Controller
         // dd($team_detail);
         return view('normal.team_detail', compact('team_details'));
     }
-
     /**
      * Show the form for creating a new resource.
      */
