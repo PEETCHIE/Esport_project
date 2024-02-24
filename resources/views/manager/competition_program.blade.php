@@ -4,10 +4,9 @@
             {{ __('จัดการตารางข้อมูลการแข่งขัน') }}
         </h2>
     </x-slot>
-
     <div class="grid grid-cols-4 gap-1">
         <div>
-            @foreach($buckets as $bucket)
+            @foreach ($buckets as $bucket)
                 <div class="mx-8 w-48 grid-cols-4 gap-3">
                     @foreach($bucket['R1'] as $item)
                     <br>
@@ -26,6 +25,9 @@
                         </button>
                     </div>
                     @endforeach
+                    <div class="absolute transform translate-x-1 -translate-y-[50px]">
+                        <button onclick="openModal('{{ $item->cp_id }}')"
+                            class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
                     <div class="absolute transform translate-x-[70px] -translate-y-[54px]">
                         <button onclick="openEditModal('{{ $item->cp_id }}-{{ $item->t_id }}')" class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
                             แก้ไข
@@ -41,11 +43,14 @@
                 <div class="border-t-[3px] w-[25px] -translate-y-[125px] translate-x-[350px]"></div>
             </div> -->
         <div>
-            @foreach($buckets as $bucket)
+            @foreach ($buckets as $bucket)
                 <div class="mx-8 w-48 grid-cols-4 gap-3 mt-[55px]">
                     @foreach($bucket['R2'] as $item)
+                    @foreach ($bucket['R2'] as $item)
+                        {{ $item->cp_id }}
                         <br>
-                        <div class="border rounded bg-[#01142E] border-[#01142E] text-white flex justify-between grid-cols-2 gap-2">
+                        <div
+                            class="border rounded bg-[#01142E] border-[#01142E] text-white flex justify-between grid-cols-2 gap-2">
                             <div class="flex items-center justify-center mx-auto">
                                 <img src="{{ $item->logo }}" class="w-5 h-5" alt="">
                                 <span class="ml-2">{{ $item->t_name }}</span>
@@ -55,7 +60,8 @@
                             </div>
                         </div>
                         <div class="absolute transform translate-x-1 translate-y-[3px]">
-                            <button onclick="openModal('{{ $item->cp_id }}')" class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
+                            <button onclick="openModal('{{ $item->cp_id }}')"
+                                class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
                                 แก้ไข
                             </button>
                         </div>
@@ -65,28 +71,30 @@
         </div>
         <div>
             <div class="mx-8 w-48 grid-cols-4 gap-3">
-                <div class="border rounded bg-[#01142E] border-[#01142E] text-white flex justify-between grid-cols-2 gap-2">
+                <div
+                    class="border rounded bg-[#01142E] border-[#01142E] text-white flex justify-between grid-cols-2 gap-2">
                     <div class="flex items-center justify-center mx-auto">
                         <img src="#" class="w-5 h-5" alt="">
                         <span class="ml-2">round3</span>
                     </div>
                     <div class="border bg-white text-black flex items-center justify-center w-10">
-                            0
+                        0
                     </div>
-                </div>      
+                </div>
             </div>
         </div>
         <div>
             <div class="mx-8 w-48 grid-cols-4 gap-3">
-                <div class="border rounded bg-[#01142E] border-[#01142E] text-white flex justify-between grid-cols-2 gap-2">
+                <div
+                    class="border rounded bg-[#01142E] border-[#01142E] text-white flex justify-between grid-cols-2 gap-2">
                     <div class="flex items-center justify-center mx-auto">
                         <img src="#" class="w-5 h-5" alt="">
                         <span class="ml-2">round4</span>
                     </div>
                     <div class="border bg-white text-black flex items-center justify-center w-10">
-                            0
+                        0
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
     </div>

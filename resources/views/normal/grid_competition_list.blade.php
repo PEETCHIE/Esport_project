@@ -4,12 +4,17 @@
             {{ __('ลงทะเบียนผู้เข้าแข่งขัน') }}
         </h2>
     </x-slot>
-    
+
     <div class="py-12">
         <div class="max-w-12xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="grid grid-cols-4 grid-flow-row dark:text-gray-200 leading-tight grid-md flex flex-wrap ">
                 @foreach($competition_lists as $competition_list)  
+                    @foreach ($competition_lists as $competition_list)
+                        <?php
+                        $count_clid = count($competition_lists);
+                        $competitionAmountInt = $competition_list->competition_amount;
+                    ?>
                     <div class="mx-auto px-5 justify-center m-3">
                         <div class="max-w-xs cursor-pointer rounded-lg bg-[#C9193A]  p-2 shadow duration-150 hover:scale-105 hover:shadow-md">
                             <img class="h-40 w-60 mx-auto rounded-lg object-cover object-center mb-2" src="{{ $competition_list->cl_img}}" alt="product" />
@@ -127,3 +132,4 @@
     }
 </script>      
 </x-app-layout>
+

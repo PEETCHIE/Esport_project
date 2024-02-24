@@ -50,10 +50,10 @@ class CompetitionListController extends Controller
         $tm_id = DB::table('tournament_managers')->where('user_id', $id)->pluck('id')->first();
         // dd($tm_id);
         $filename = '';
-        if($request->hasFile('cl_img')){
-            $filename = $request->getSchemeAndHttpHost(). '/asset/img/' . time() . '.' . $request->cl_img->extension();
+        if ($request->hasFile('cl_img')) {
+            $filename = $request->getSchemeAndHttpHost() . '/asset/img/' . time() . '.' . $request->cl_img->extension();
             $request->cl_img->move(public_path('/asset/img'), $filename);
-        } 
+        }
         // dd($filename);
         $config_competition_list = ['table'=>'competition_lists', 'length'=>8, 'prefix'=>'CPL-'];
         $competition_list_id = IdGenerator::generate($config_competition_list);
@@ -72,10 +72,10 @@ class CompetitionListController extends Controller
             'cl_round' => $request->cl_round,
             'amount_contestant' => $request->amount_contestant,
             'cl_img' => $filename,
-            'tm_id' => $tm_id, 
+            'tm_id' => $tm_id,
         ]);
         // dd($competition_store);
-       return redirect()->route('managers_competition.index')->with('status', 'เพิ่มรายการแข่งเรียบร้อย');
+        return redirect()->route('managers_competition.index')->with('status', 'เพิ่มรายการแข่งเรียบร้อย');
     }
 
     /**
@@ -89,7 +89,7 @@ class CompetitionListController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit( $id)
+    public function edit($id)
     {
         //
         $competition_list = DB::table('competition_lists')->WHERE('id', $id)->first();
@@ -107,26 +107,26 @@ class CompetitionListController extends Controller
         $date = competition_list::find($id);
         $expiryDate = Carbon::parse($date->opening_date);
         // dd($expiryDate);
-        if($currentDate > $expiryDate){
+        if ($currentDate > $expiryDate) {
             return redirect()->route('managers_competition.index')->with('status', 'ไม่สามารถแก้ไขข้อมูลได้');
-        }else{
+        } else {
             // dd($currentDate);
             $filename = '';
-            if($request->hasFile('cl_img')){
-                $filename = $request->getSchemeAndHttpHost(). '/asset/img/' . time() . '.' . $request->cl_img->extension();
+            if ($request->hasFile('cl_img')) {
+                $filename = $request->getSchemeAndHttpHost() . '/asset/img/' . time() . '.' . $request->cl_img->extension();
                 $request->cl_img->move(public_path('/asset/img'), $filename);
-            } 
+            }
             $data = DB::table('competition_lists')->WHERE('id', $id)->update([
-                'competition_name'=> $request->competition_name,
-                'opening_date'=> $request->opening_date,
-                'end_date'=> $request->end_date,
-                'game_name'=> $request->game_name,
-                'start_date'=> $request->start_date,
-                'competition_end_date'=> $request->competition_end_date,
-                'competition_amount'=> $request->competition_amount,
-                'competition_rule'=> $request->competition_rule,
-                'competition_type'=> '1',
-                'cl_round'=> $request->cl_round,
+                'competition_name' => $request->competition_name,
+                'opening_date' => $request->opening_date,
+                'end_date' => $request->end_date,
+                'game_name' => $request->game_name,
+                'start_date' => $request->start_date,
+                'competition_end_date' => $request->competition_end_date,
+                'competition_amount' => $request->competition_amount,
+                'competition_rule' => $request->competition_rule,
+                'competition_type' => '1',
+                'cl_round' => $request->cl_round,
                 'amount_contestant' => $request->amount_contestant,
                 'cl_img' => $filename,
             ]);
@@ -141,7 +141,7 @@ class CompetitionListController extends Controller
     public function destroy($id)
     {
         //
-        
+
         $cl_id = DB::table('teams')->WHERE('cl_id', $id)->get('cl_id')->first();
         // dd($cl_id);
         if ($cl_id) {
@@ -160,6 +160,5 @@ class CompetitionListController extends Controller
                 'text' =>  'รายการแข่งขันถูกลบเรียบร้อย',
             ]);
         }
-        
     }
 }
