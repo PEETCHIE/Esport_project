@@ -13,7 +13,7 @@ return new class extends Migration
     {
         //
         Schema::table('competition_results', function($table) {
-            $table->char('score_team1', 10)->change(); 
+            $table->char('score', 10)->change(); 
         });
     }    
 
@@ -24,7 +24,7 @@ return new class extends Migration
     {
         //
         Schema::table('competition_results', function($table) {
-            $table->string('score_team1')->change();
+            $table->string('score')->change();
         });
     }
 };

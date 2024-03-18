@@ -199,22 +199,25 @@ class CompetitionProgramController extends Controller
                 'R4' => $r4_bucket
             ];
         }
-        // $teamsWithSameCpId = [];
-        // $tt = DB::table('tournament_in_teams')->pluck('cp_id')->toArray();
-        // foreach ($buckets as $bucket) {
-        //     foreach ($bucket as $innerBucket) {
-        //         foreach ($innerBucket as $item) {
-        //             $teamsWithSameCpId[$item->cp_id][] = $item;
-        //             // if(in_array($item->cp_id, $tt)){
-        //             //     $teamsWithSameCpId[$item->cp_id][] = [
-        //             //         'name' => $item->t_name,
-        //             //         'logo' => $item->logo,
-        //             //     ];
-        //             // } 
-        //         }
-        //     }
-        // }
-        return view('manager.competition_program', compact('buckets'));
+        // Filter teams with the same cp_id
+        $teamsWithSameCpId = [];
+        // $programWithSameId = [];
+        $tt = DB::table('tournament_in_teams')->pluck('cp_id')->toArray();
+        // dd($cp);
+        foreach ($buckets as $bucket) {
+            foreach ($bucket as $innerBucket) {
+                foreach ($innerBucket as $item) {
+                    if (in_array($item->cp_id, $tt)) {
+                        $teamsWithSameCpId[$item->cp_id][] = [
+                            'id' => $item->t_id,
+                            'name' => $item->t_name,
+                            'logo' => $item->logo,
+                        ];
+                    }
+                }
+            }
+        }
+        return view('manager.competition_program', compact('buckets', 'teamsWithSameCpId'));
     }
 
     /**
