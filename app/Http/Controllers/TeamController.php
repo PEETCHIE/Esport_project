@@ -27,6 +27,13 @@ class TeamController extends Controller
         $currentDate = Carbon::now();
         $competition_lists = DB::table('competition_lists')->WHERE('opening_date', '<', $currentDate)->WHERE('competition_end_date', '>', $currentDate)->get();
         // dd($competition_lists);
+        if ($competition_lists == null) {
+            $id = $competition_lists->first()->id;
+            $count_clid = DB::table('teams')->WHERE('cl_id', $id)->join('competition_lists', 'teams.cl_id', '=', 'competition_lists.id')->groupBy('teams.cl_id')->select(DB::raw('COUNT(*) as count'))->count();
+            $competition_amount = DB::table('competition_lists')->WHERE('id', $id)->value('competition_amount');
+            $competitionAmountInt = (int) $competition_amount;
+        }
+
         return view('normal.grid_competition_list', compact('competition_lists'));
     }
 
@@ -34,7 +41,7 @@ class TeamController extends Controller
     {
         //
         $competition_list = DB::table('competition_lists')->WHERE('id', $id)->first();
-        $count_clid = DB::table('teams')->WHERE('cl_id',$id)->join('competition_lists', 'teams.cl_id', '=', 'competition_lists.id')->groupBy('teams.cl_id')->select(DB::raw('COUNT(*) as count'))->count();
+        $count_clid = DB::table('teams')->WHERE('cl_id', $id)->join('competition_lists', 'teams.cl_id', '=', 'competition_lists.id')->groupBy('teams.cl_id')->select(DB::raw('COUNT(*) as count'))->count();
         $competition_amount = DB::table('competition_lists')->WHERE('id', $id)->value('competition_amount');
         $competitionAmountInt = (int) $competition_amount;
         return view('normal.competition_detail', compact('competition_list', 'count_clid', 'competitionAmountInt'));
@@ -60,25 +67,25 @@ class TeamController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function storeData(StoreteamRequest $request ,StorecontestantRequest $request1, $id)
+    public function storeData(StoreteamRequest $request, StorecontestantRequest $request1, $id)
     {
         //
         try {
             $competition_list = DB::table('competition_lists')->WHERE('id', $id)->pluck('id')->first();
             $amount_contestant = DB::table('competition_lists')->WHERE('id', $id)->pluck('amount_contestant')->first();
-            $count_clid = DB::table('teams')->WHERE('cl_id',$id)->join('competition_lists', 'teams.cl_id', '=', 'competition_lists.id')->groupBy('teams.cl_id')->select(DB::raw('COUNT(*) as count'))->count();
+            $count_clid = DB::table('teams')->WHERE('cl_id', $id)->join('competition_lists', 'teams.cl_id', '=', 'competition_lists.id')->groupBy('teams.cl_id')->select(DB::raw('COUNT(*) as count'))->count();
             // dd($count_clid);
             $competition_amount = DB::table('competition_lists')->WHERE('id', $id)->value('competition_amount');
             $competitionAmountInt = (int) $competition_amount;
             // dd($competitionAmountInt);
-            $config_team = ['table'=>'teams', 'length'=>8, 'prefix'=>'TEAM-'];
+            $config_team = ['table' => 'teams', 'length' => 8, 'prefix' => 'TEAM-'];
             $team_id = IdGenerator::generate($config_team);
-            if($count_clid < $competitionAmountInt){
+            if ($count_clid < $competitionAmountInt) {
                 $filename = '';
-                if($request->hasFile('logo')){
-                    $filename = $request->getSchemeAndHttpHost(). '/asset/img_logo/' . time() . '.' . $request->logo->extension();
+                if ($request->hasFile('logo')) {
+                    $filename = $request->getSchemeAndHttpHost() . '/asset/img_logo/' . time() . '.' . $request->logo->extension();
                     $request->logo->move(public_path('/asset/img_logo'), $filename);
-                } 
+                }
                 // dd($filename);
                 $teams = team::insert([
                     'id' => $team_id,
@@ -89,9 +96,9 @@ class TeamController extends Controller
                 ]);
 
 
-                switch($amount_contestant){
-                    case('1'):
-                        $config_contestant = ['table'=>'contestants', 'length'=>8, 'prefix'=>'CON-'];
+                switch ($amount_contestant) {
+                    case ('1'):
+                        $config_contestant = ['table' => 'contestants', 'length' => 8, 'prefix' => 'CON-'];
                         $new_cont_id = IdGenerator::generate($config_contestant);
                         $contesttantInsert1 = contestant::insert([
                             'id' => $new_cont_id,
@@ -102,11 +109,11 @@ class TeamController extends Controller
                             't_id' => DB::table('teams')->orderBy('id', 'desc')->first()->id
                         ]);
                         // dd($contesttantInsert1);
-                    break;
+                        break;
 
-                    case('2'):
+                    case ('2'):
                         for ($i = 0; $i < 2; $i++) {
-                            $config_contestant = ['table'=>'contestants', 'length'=>8, 'prefix'=>'CON-'];
+                            $config_contestant = ['table' => 'contestants', 'length' => 8, 'prefix' => 'CON-'];
                             $new_cont_id = IdGenerator::generate($config_contestant); // สร้าง ID ใหม่ทุกครั้งก่อนที่จะ insert
                             $contesttantInsert = contestant::insert([
                                 'id' => $new_cont_id,
@@ -118,10 +125,10 @@ class TeamController extends Controller
                             ]);
                         }
                         // dd($contesttantInsert1, $contesttantINsert2);
-                    break;
-                    case('3'):
+                        break;
+                    case ('3'):
                         for ($i = 0; $i < 3; $i++) {
-                            $config_contestant = ['table'=>'contestants', 'length'=>8, 'prefix'=>'CON-'];
+                            $config_contestant = ['table' => 'contestants', 'length' => 8, 'prefix' => 'CON-'];
                             $new_cont_id = IdGenerator::generate($config_contestant); // สร้าง ID ใหม่ทุกครั้งก่อนที่จะ insert
                             $contesttantInsert = contestant::insert([
                                 'id' => $new_cont_id,
@@ -133,10 +140,10 @@ class TeamController extends Controller
                             ]);
                         }
                         // dd($contesttantInsert1, $contesttantINsert2, $contesttantINsert3);
-                    break;
-                    case('4'):
+                        break;
+                    case ('4'):
                         for ($i = 0; $i < 4; $i++) {
-                            $config_contestant = ['table'=>'contestants', 'length'=>8, 'prefix'=>'CON-'];
+                            $config_contestant = ['table' => 'contestants', 'length' => 8, 'prefix' => 'CON-'];
                             $new_cont_id = IdGenerator::generate($config_contestant); // สร้าง ID ใหม่ทุกครั้งก่อนที่จะ insert
                             $contesttantInsert = contestant::insert([
                                 'id' => $new_cont_id,
@@ -148,10 +155,10 @@ class TeamController extends Controller
                             ]);
                         }
                         // dd($contesttantInsert1, $contesttantINsert2, $contesttantINsert3, $contesttantINsert4);
-                    break;
-                    case('5'):
+                        break;
+                    case ('5'):
                         for ($i = 0; $i < 5; $i++) {
-                            $config_contestant = ['table'=>'contestants', 'length'=>8, 'prefix'=>'CON-'];
+                            $config_contestant = ['table' => 'contestants', 'length' => 8, 'prefix' => 'CON-'];
                             $new_cont_id = IdGenerator::generate($config_contestant); // สร้าง ID ใหม่ทุกครั้งก่อนที่จะ insert
                             $contesttantInsert = contestant::insert([
                                 'id' => $new_cont_id,
@@ -163,15 +170,15 @@ class TeamController extends Controller
                             ]);
                         }
                         // dd($contesttantInsert1, $contesttantINsert2, $contesttantINsert3, $contesttantINsert4, $contesttantINsert5);
-                    break;    
+                        break;
                 }
                 return redirect()->route('contestants.index')->with('status', 'Insert Complete');
-            }else{
+            } else {
                 return redirect()->route('contestants.index')->with('status', 'MAXIMUM TEAM');
             }
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             Log::debug($e->getMessage());
-            echo $e->getMessage();  
+            echo $e->getMessage();
         }
     }
 

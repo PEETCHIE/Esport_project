@@ -9,12 +9,7 @@
         <div class="max-w-12xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="grid grid-cols-4 grid-flow-row dark:text-gray-200 leading-tight grid-md flex flex-wrap ">
-                @foreach($competition_lists as $competition_list)  
                     @foreach ($competition_lists as $competition_list)
-                        <?php
-                        $count_clid = count($competition_lists);
-                        $competitionAmountInt = $competition_list->competition_amount;
-                    ?>
                     <div class="mx-auto px-5 justify-center m-3">
                         <div class="max-w-xs cursor-pointer rounded-lg bg-[#C9193A]  p-2 shadow duration-150 hover:scale-105 hover:shadow-md">
                             <img class="h-40 w-60 mx-auto rounded-lg object-cover object-center mb-2" src="{{ $competition_list->cl_img}}" alt="product" />
@@ -37,8 +32,12 @@
             </div>
         </div>
     </div>
-
 @foreach($competition_lists as $competition_list)  
+    @php
+        $count_clid = DB::table('teams')->where('cl_id', $competition_list->id)->count();
+        $competitionAmountInt = $competition_list->competition_amount;
+    @endphp
+    
 <div id="myModal-{{ $competition_list->id }}" class="modal-content hidden fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center">
   <div class="modal-content">
     <button onclick="closeModal('{{ $competition_list->id }}')" class="absolute top-[30px] right-[20px] mt-2 mr-2 text-gray-500 hover:text-gray-700 w-[100px] h-[100px]">
@@ -101,7 +100,7 @@
                             </div>
                             <div class="my-12">
                                 <center>
-                                {{--<button type="submit" class="@if($count_clid >= $competitionAmountInt) bg-red-500 hover:bg-red-700 @else bg-green-500 hover:bg-gray-700 @endif text-white font-bold py-1 px-1 rounded">
+                                <button type="submit" class="@if($count_clid >= $competitionAmountInt) bg-red-500 hover:bg-red-700 @else bg-green-500 hover:bg-gray-700 @endif text-white font-bold py-1 px-1 rounded">
                                     <!-- <button type="submit" class="bg-green-500 hover:bg-gray-700 text-white font-bold py-1 px-1 rounded"> -->
                                     @if($count_clid >= $competitionAmountInt) 
                                         ทีมเต็ม!!
@@ -109,7 +108,7 @@
                                     <a href="{{ route('competition.createTeam', $competition_list->id)}}">
                                         {{ $count_clid < $competitionAmountInt ? 'สมัครทีม' : '' }}
                                     </a>
-                                </button>--}}
+                                </button>
                                 </center>
                             </div>
                         </div>
@@ -132,4 +131,3 @@
     }
 </script>      
 </x-app-layout>
-

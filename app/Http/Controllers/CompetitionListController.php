@@ -28,7 +28,7 @@ class CompetitionListController extends Controller
         $list_competitions = DB::table('competition_lists')->get()->WHERE('tm_id', $tm_id);
         $currentDate = Carbon::now();
 
-        return view('manager.competition_table', compact('list_competitions','currentDate'));
+        return view('manager.competition_table', compact('list_competitions', 'currentDate'));
     }
 
     /**
@@ -55,7 +55,7 @@ class CompetitionListController extends Controller
             $request->cl_img->move(public_path('/asset/img'), $filename);
         }
         // dd($filename);
-        $config_competition_list = ['table'=>'competition_lists', 'length'=>8, 'prefix'=>'CPL-'];
+        $config_competition_list = ['table' => 'competition_lists', 'length' => 8, 'prefix' => 'CPL-'];
         $competition_list_id = IdGenerator::generate($config_competition_list);
         // dd($competition_list_id );
         $competition_store = competition_list::insert([
