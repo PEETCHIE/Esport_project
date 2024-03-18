@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Illuminate\Http\Request;
 
 class CompetitionProgramController extends Controller
 {
@@ -209,7 +210,6 @@ class CompetitionProgramController extends Controller
                             'id' => $item->t_id,
                             'name' => $item->t_name,
                             'logo' => $item->logo,
-
                         ];
                     }
                 }
