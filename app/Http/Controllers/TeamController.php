@@ -44,6 +44,7 @@ class TeamController extends Controller
         $count_clid = DB::table('teams')->WHERE('cl_id', $id)->join('competition_lists', 'teams.cl_id', '=', 'competition_lists.id')->groupBy('teams.cl_id')->select(DB::raw('COUNT(*) as count'))->count();
         $competition_amount = DB::table('competition_lists')->WHERE('id', $id)->value('competition_amount');
         $competitionAmountInt = (int) $competition_amount;
+        
         return view('normal.competition_detail', compact('competition_list', 'count_clid', 'competitionAmountInt'));
     }
 
