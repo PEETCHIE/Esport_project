@@ -27,7 +27,8 @@ class CompetitionListController extends Controller
         $tm_id = DB::table('tournament_managers')->where('user_id', $id)->pluck('id')->first();
         $list_competitions = DB::table('competition_lists')->get()->WHERE('tm_id', $tm_id);
         $currentDate = Carbon::now();
-        return view('manager.competition_table', compact('list_competitions', 'currentDate'));
+
+        return view('manager.competition_table', compact('list_competitions','currentDate'));
     }
 
     /**

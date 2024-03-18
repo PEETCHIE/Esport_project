@@ -27,9 +27,6 @@ use App\Http\Controllers\TwitchController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-
-
 Route::get('/welcome', function () {
     return view('welcome');
 });
@@ -39,12 +36,15 @@ Route::get('/', function () {
 });
 
 
+
+
 Route::get('/list/contestants/table', [TeamController::class, 'index'])->name('contestants');
 Route::get('/description/contestants/detail/{id}', [TeamController::class, 'detailShow'])->name('competition.detail');
 Route::get('/grid/teams/list/{id}', [ContestantController::class, 'indexID'])->name('team_grid');
 Route::get('/team/detail/{id}', [ContestantController::class, 'detailTeamShow'])->name('team_detail');
 Route::get('/livestream', [LivestreamController::class, 'index'])->name('livestream.index');
 Route::get('/twitch/streams', [TwitchController::class, 'getStreams'])->name('twitch-streams');
+
 
 
 Route::get('/dashboard', function () {
