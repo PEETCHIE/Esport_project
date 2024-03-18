@@ -15,7 +15,6 @@ use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Http\Request;
-use Illuminate\Http\Request;
 
 class CompetitionProgramController extends Controller
 {
