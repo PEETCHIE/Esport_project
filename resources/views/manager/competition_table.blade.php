@@ -50,6 +50,7 @@
                         <p>วันสิ้น: {{ $list_competition->competition_end_date}}</p>
                         <p>จำนวนทีม: {{ $list_competition->competition_amount}}</p>
                         <p>จำนวนคนในทีม: {{ $list_competition->amount_contestant}}</p>
+                        <p class="text text-red-800">จำนวนทีมที่สมัครเข้ามาปัจจุบัน:</p>
                     </td>
                     <td class="px-6 py-4">
                         <div class="flex space-x-2">
