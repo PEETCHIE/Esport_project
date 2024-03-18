@@ -27,7 +27,12 @@ class TeamController extends Controller
         $currentDate = Carbon::now();
         $competition_lists = DB::table('competition_lists')->WHERE('opening_date', '<', $currentDate)->WHERE('competition_end_date', '>', $currentDate)->get();
         // dd($competition_lists);
-        return view('normal.grid_competition_list', compact('competition_lists'));
+        $id = $competition_lists->first()->id;
+        $count_clid = DB::table('teams')->WHERE('cl_id',$id)->join('competition_lists', 'teams.cl_id', '=', 'competition_lists.id')->groupBy('teams.cl_id')->select(DB::raw('COUNT(*) as count'))->count();
+        $competition_amount = DB::table('competition_lists')->WHERE('id', $id)->value('competition_amount');
+        $competitionAmountInt = (int) $competition_amount;
+
+        return view('normal.grid_competition_list', compact('competition_lists','count_clid', 'competitionAmountInt'));
     }
 
     public function detailShow($id)
@@ -37,6 +42,7 @@ class TeamController extends Controller
         $count_clid = DB::table('teams')->WHERE('cl_id',$id)->join('competition_lists', 'teams.cl_id', '=', 'competition_lists.id')->groupBy('teams.cl_id')->select(DB::raw('COUNT(*) as count'))->count();
         $competition_amount = DB::table('competition_lists')->WHERE('id', $id)->value('competition_amount');
         $competitionAmountInt = (int) $competition_amount;
+        
         return view('normal.competition_detail', compact('competition_list', 'count_clid', 'competitionAmountInt'));
     }
 
