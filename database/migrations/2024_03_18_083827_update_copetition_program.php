@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         //
-        Schema::table('competition_results', function($table) {
-            $table->char('score', 10)->change(); 
+        Schema::table('competition_programs', function($table) {
+            $table->char('link'); 
         });
-    }    
+    }
 
     /**
      * Reverse the migrations.
@@ -23,8 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         //
-        Schema::table('competition_results', function($table) {
-            $table->string('score')->change();
+        Schema::table('competition_programs', function($table) {
+            $table->dropColumn('link'); 
         });
     }
 };

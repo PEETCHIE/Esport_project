@@ -6,6 +6,7 @@ use App\Models\team;
 use App\Models\competition_program;
 use App\Models\competition_list;
 use App\Models\tournament_in_team;
+use App\Models\competition_results;
 use App\Http\Requests\Storecompetition_programRequest;
 use App\Http\Requests\Updatecompetition_programRequest;
 use Illuminate\Support\Facades\DB;
@@ -75,15 +76,13 @@ class CompetitionProgramController extends Controller
                 ]);
             }
             // dd($competition_program);
-
-
             // dd($count);  
             $teams = Team::where('cl_id', $id)->pluck('t_name', 'id')->toArray();
             $randomTeams = collect($teams)->shuffle();
             $pairs = [];
             $i = 0;
             $cp_id = DB::table('competition_programs')->WHERE('cl_id', $id)->pluck('id')->toArray();
-            
+
 
             if ($count % 2 == 0) {
                 while ($randomTeams->isNotEmpty()) {
@@ -102,6 +101,13 @@ class CompetitionProgramController extends Controller
                         'id' => $tit_id,
                         't_id' => $t_Id,
                         'cp_id' => $cp_id[$i]
+                    ]);
+                    $config_RS = ['table' => 'competition_results', 'length' => 8, 'prefix' => 'RS-'];
+                    $rs_id = IdGenerator::generate($config_RS);
+                    $result = competition_results::insert([
+                        'id' => $rs_id,
+                        'score' => 0,
+                        'tit_id' => $tit_id,
                     ]);
                 }
                 return redirect()->route('managers_competition.index')->with('alert', [
@@ -133,15 +139,30 @@ class CompetitionProgramController extends Controller
                         't_id' => $t_Id,
                         'cp_id' => $cp_id[$i]
                     ]);
+
+                    $config_RS = ['table' => 'competition_results', 'length' => 8, 'prefix' => 'RS-'];
+                    $rs_id = IdGenerator::generate($config_RS);
+                    $result = competition_results::insert([
+                        'id' => $rs_id,
+                        'score' => 0,
+                        'tit_id' => $tit_id,
+                    ]);
                 }
-                
-                $config_tit_id = ['table'=>'tournament_in_teams', 'length'=>8, 'prefix'=>'TIT-'];
+
+                $config_tit_id = ['table' => 'tournament_in_teams', 'length' => 8, 'prefix' => 'TIT-'];
                 $tit_id = IdGenerator::generate($config_tit_id);
                 $tournament_in_team = tournament_in_team::insert([
                     'id' => $tit_id,
                     't_id' => $teamOneId,
                     'cp_id' => $cp_id[$i + 1]
                 ]);
+                $config_RS = ['table' => 'competition_results', 'length' => 8, 'prefix' => 'RS-'];
+                    $rs_id = IdGenerator::generate($config_RS);
+                    $result = competition_results::insert([
+                        'id' => $rs_id,
+                        'score' => 0,
+                        'tit_id' => $tit_id,
+                    ]);
 
                 return redirect()->route('managers_competition.index')->with('alert', [
                     'icon' => 'success',
@@ -172,7 +193,8 @@ class CompetitionProgramController extends Controller
                 ->where('cp_id', $program)
                 ->join('teams', 'tournament_in_teams.t_id', '=', 'teams.id')
                 ->join('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')
-                ->select('t_name', 'logo', 'matches', 'round', 'cp_id', 't_id')
+                ->join('competition_results', 'competition_results.tit_id', '=', 'tournament_in_teams.id')
+                ->select('t_name', 'logo', 'matches', 'round', 'cp_id', 't_id', 'score')
                 ->get();
 
             // แยกข้อมูลตาม R1 และ R2
@@ -199,7 +221,6 @@ class CompetitionProgramController extends Controller
                 'R4' => $r4_bucket
             ];
         }
-        // Filter teams with the same cp_id
         $teamsWithSameCpId = [];
         // $programWithSameId = [];
         $tt = DB::table('tournament_in_teams')->pluck('cp_id')->toArray();
@@ -212,12 +233,13 @@ class CompetitionProgramController extends Controller
                             'id' => $item->t_id,
                             'name' => $item->t_name,
                             'logo' => $item->logo,
+                            'score' => $item->score
                         ];
                     }
                 }
             }
         }
-        return view('manager.competition_program', compact('buckets', 'teamsWithSameCpId'));
+        return view('manager.competition_program', compact('buckets'));
     }
 
     /**
@@ -251,7 +273,7 @@ class CompetitionProgramController extends Controller
     {
         //
         $cp_edit = DB::table('competition_programs')->WHERE('id', $id)->first();
-        
+
         // dd($cp_edit); 
         return view('manager.competition_program_edit', compact('cp_edit'));
     }
@@ -261,13 +283,13 @@ class CompetitionProgramController extends Controller
      */
     public function update(Updatecompetition_programRequest $request, competition_program $competition_program, $id)
     {
-        
+
         $data = DB::table('competition_programs')->WHERE('id', $id)->update([
-            'match_date'=> $request->match_date,
-            'match_time'=> $request->match_time,
+            'match_date' => $request->match_date,
+            'match_time' => $request->match_time,
             'link' => $request->link,
         ]);
-         
+
         // dd($result);
         return back();
     }

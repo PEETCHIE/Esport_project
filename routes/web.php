@@ -15,6 +15,7 @@ use App\Http\Controllers\ContestantController;
 use App\Http\Controllers\CompetitionProgramController;
 use App\Http\Controllers\LivestreamController;
 use App\Http\Controllers\TwitchController;
+use App\Http\Controllers\CompetitionResultsController;
 
 
 /*
@@ -80,6 +81,8 @@ Route::middleware(['auth','role:manager'])->group(function () {
     Route::get('/competition_program/show/{id}', [CompetitionProgramController::class, 'showProgram'])->name('show_competition_program');
     Route::get('/competition_program/edit/{id}', [CompetitionProgramController::class, 'edit'])->name('edit_competition_program');
     Route::patch('/competition_program/update/{id}', [CompetitionProgramController::class, 'update'])->name('update_competition_program');
+    Route::get('/competition_program/store/{id}', [CompetitionResultsController::class, 'store'])->name('store');
+
 });
 
 Route::middleware('auth')->group(function () {

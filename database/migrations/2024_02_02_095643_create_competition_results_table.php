@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('competition_results', function (Blueprint $table) {
-            $table->id();
+            $table->char('id')->primary();
             $table->char('score');
             $table->char('tit_id', 10);
             $table->foreign('tit_id')->references('id')->on('tournament_in_teams');

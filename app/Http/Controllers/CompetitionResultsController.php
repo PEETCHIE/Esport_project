@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\competition_results;
 use App\Http\Requests\Storecompetition_resultsRequest;
 use App\Http\Requests\Updatecompetition_resultsRequest;
+use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class CompetitionResultsController extends Controller
 {
@@ -27,9 +30,16 @@ class CompetitionResultsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Storecompetition_resultsRequest $request)
+    public function store($id)
     {
         //
+        $tit_ids = DB::table('tournament_in_teams')->where('t_id', $id)->pluck('id')->toArray();
+        $RS_Update = DB::table('competition_results')
+            ->whereIn('tit_id', $tit_ids)
+            ->increment('score', 1);
+
+        return redirect()->back();
+        // dd($RS_Update);
     }
 
     /**
