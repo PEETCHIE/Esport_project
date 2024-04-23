@@ -50,9 +50,12 @@ class CompetitionListController extends Controller
         $id = Auth()->id();
         $tm_id = DB::table('tournament_managers')->where('user_id', $id)->pluck('id')->first();
         // dd($tm_id);
+        $slug = Str::slug($request->competition_name);
         $filename = '';
         if ($request->hasFile('cl_img')) {
-            $filename = $request->getSchemeAndHttpHost() . '/asset/img/' . time() . '.' . $request->cl_img->extension();
+            $domainAndProtocol = $request->getSchemeAndHttpHost();
+            $filename = $domainAndProtocol . '/asset/img/' . $slug . '_' . time() . '.' . $request->cl_img->extension();
+    
             $request->cl_img->move(public_path('/asset/img'), $filename);
         }
         // dd($filename);
@@ -116,6 +119,8 @@ class CompetitionListController extends Controller
             if ($request->hasFile('cl_img')) {
                 $filename = $request->getSchemeAndHttpHost() . '/asset/img/' . time() . '.' . $request->cl_img->extension();
                 $request->cl_img->move(public_path('/asset/img'), $filename);
+            } else{
+                return 'No file Selected';
             }
             $data = DB::table('competition_lists')->WHERE('id', $id)->update([
                 'competition_name' => $request->competition_name,

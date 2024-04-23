@@ -112,8 +112,8 @@ class CompetitionProgramController extends Controller
                 }
                 return redirect()->route('managers_competition.index')->with('alert', [
                     'icon' => 'success',
-                    'title' => 'Your success message',
-                    'text' => 'SUCCESS',
+                    'title' => 'จัดตารางการแข่งขันเรียบร้อย',
+                    'text' => 'หากคุณจัดตารางการแข่งขันแล้วจะไม่สามารถจัดได้อีกครั้ง',
                 ]);
             } else {
 
@@ -194,7 +194,7 @@ class CompetitionProgramController extends Controller
                 ->join('teams', 'tournament_in_teams.t_id', '=', 'teams.id')
                 ->join('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')
                 ->join('competition_results', 'competition_results.tit_id', '=', 'tournament_in_teams.id')
-                ->select('t_name', 'logo', 'matches', 'round', 'cp_id', 't_id', 'score')
+                ->select('t_name', 'logo', 'matches', 'round', 'cp_id', 't_id', 'score','link','match_date','match_time')
                 ->get();
 
             // แยกข้อมูลตาม R1 และ R2
@@ -233,7 +233,10 @@ class CompetitionProgramController extends Controller
                             'id' => $item->t_id,
                             'name' => $item->t_name,
                             'logo' => $item->logo,
-                            'score' => $item->score
+                            'score' => $item->score,
+                            'link' => $item->link,
+                            'match_date' => $item->match_date,
+                            'match_time' => $item->match_time
                         ];
                     }
                 }

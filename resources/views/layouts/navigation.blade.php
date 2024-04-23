@@ -12,10 +12,10 @@
                 @guest
                     <!-- Navigation Links -->
                     <div class="hidden space-x-3 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('contestants')" :active="request()->routeIs('contestants')">
+                        <x-nav-link :href="route('contestants')" :active="request()->routeIs('contestants')" class="font-normal text-[20px]">
                             {{ __('รายการแข่งขัน') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('twitch-streams')" :active="request()->routeIs('contestants')">
+                        <x-nav-link :href="route('twitch-streams')" :active="request()->routeIs('contestants')" class="font-normal text-[20px]">
                             {{ __('ถ่ายทอดสด') }}
                         </x-nav-link>
                     </div>
@@ -26,12 +26,12 @@
                     <div class="flex items-center">
                         <div class="hidden sm:fixed sm:flex sm:ms-6 sm:top-0 sm:right-0 p-11 text-right z-10">
                             @auth
-                                <a href="{{ url('/dashboard') }}" class="font-semiboldx  text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
+                                <a href="{{ url('/dashboard') }}" class="font-normal text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
                                 
                             @else
-                                <a href="{{ route('login') }}" class="font-semibold text-white hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
+                                <a href="{{ route('login') }}" class="font-normal text-white hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Login</a>
                                 @if (Route::has('register'))
-                                    <a href="{{ route('register') }}" class="ml-4 font-semibold text-white hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
+                                    <a href="{{ route('register') }}" class="font-normal ml-4 text-white hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
                                 @endif
                             @endauth
                         </div>
@@ -43,11 +43,11 @@
                     @if(auth()->check() && auth()->user()->role == 'admin')
                         <!-- Navigation Links -->
                         <div class="hidden space-x-3 sm:-my-px sm:ms-10 sm:flex ">
-                            <x-nav-link :href="route('admin.home')" :active="request()->routeIs('admin.home')">
+                            <x-nav-link :href="route('admin.home')" :active="request()->routeIs('admin.home')" class="font-normal text-[20px]">
                                 {{ __('หน้าหลัก') }}
                             </x-nav-link>
 
-                            <x-nav-link :href="route('list_tmg')" :active="request()->routeIs('list_tmg')">
+                            <x-nav-link :href="route('list_tmg')" :active="request()->routeIs('list_tmg')" class="font-normal text-[20px]">
                                 {{ __('รายชื่อร้องขอเป็นผู้จัดการแข่ง') }}
                             </x-nav-link>
                         </div>
@@ -57,11 +57,11 @@
                     @if(auth()->check() && auth()->user()->role == 'manager')
                         <!-- Navigation Links -->
                         <div class="hidden space-x-3 sm:-my-px sm:ms-10 sm:flex ">
-                            <x-nav-link :href="route('manager.home')" :active="request()->routeIs('manager.home')">
+                            <x-nav-link :href="route('manager.home')" :active="request()->routeIs('manager.home')" class="font-normal text-[20px]">
                                 {{ __('หน้าหลัก') }}
                             </x-nav-link>
 
-                            <x-nav-link :href="route('managers_competition.index')" :active="request()->routeIs('managers_competition.index')">
+                            <x-nav-link :href="route('managers_competition.index')" :active="request()->routeIs('managers_competition.index')" class="font-normal text-[20px]">
                                 {{ __('จัดการแข่งขัน') }}
                             </x-nav-link>
                         </div>
@@ -71,15 +71,15 @@
                     @if(auth()->check() && auth()->user()->role == 'normal')
                         <!-- Navigation Links -->
                         <div class="hidden space-x-3 sm:-my-px sm:ms-10 sm:flex">
-                            <x-nav-link :href="route('normal.home')" :active="request()->routeIs('normal.home')">
+                            <x-nav-link :href="route('normal.home')" :active="request()->routeIs('normal.home')" class="font-normal text-[20px]">
                                 {{ __('หน้าหลัก') }}
                             </x-nav-link>
 
-                            <x-nav-link :href="route('contestants.index')" :active="request()->routeIs('tmg')">
+                            <x-nav-link :href="route('contestants.index')" :active="request()->routeIs('tmg')" class="font-normal text-[20px]">
                                 {{ __('รายการแข่งขัน') }}
                             </x-nav-link>
 
-                            <x-nav-link :href="route('managerRegister.create')" :active="request()->routeIs('tmg')">
+                            <x-nav-link :href="route('managerRegister.create')" :active="request()->routeIs('tmg')" class="font-normal text-[20px]">
                                 {{ __('ลงทะเบียนเป็นผู้จัดการแข่ง') }}
                             </x-nav-link>
                         </div>
@@ -93,7 +93,7 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div>
+                            <div class="font-normal">{{ Auth::user()->name }}</div>
 
                             <div class="ms-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -104,17 +104,17 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
+                        <x-dropdown-link :href="route('profile.edit')" class="font-normal text-[20px]">
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
-                        <form method="POST" action="{{ route('logout') }}">
+                        <form method="POST" action="{{ route('logout') }}" class="font-normal text-[20px]">
                             @csrf
 
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
-                                                this.closest('form').submit();">
+                                                this.closest('form').submit();" class="font-normal text-[20px]">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
@@ -137,7 +137,7 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="font-normal text-[20px]">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
         </div>
@@ -150,7 +150,7 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
+                <x-responsive-nav-link :href="route('profile.edit')" class="font-normal text-[20px]">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
 

@@ -137,20 +137,46 @@
                                     <x-input-error :messages="$errors->get('competition_rule')" class="mt-2"/>  
                                 </div>
 
-                                <div class="cols mx-1  col-span-1 "> 
-                                    <x-input-label for="cl_img" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">โลโก้ทีม</x-input-label>
-                                    <input type="file" name="cl_img" value="{{ $competition_list->cl_img}}" onChange="loadFile(event)" id="cl_img" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <x-input-error :messages="$errors->get('cl_img')" class="mt-2"/>  
+                                <div class="flex flex-col items-center transform translate-x-[50px]">
+                                    <div class="cols mx-1  col-span-1"> 
+                                        <x-input-label for="cl_img" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">รูปรายการ</x-input-label>
+                                            <input type="file" value="{{ $competition_list->cl_img}}"
+                                            name="cl_img" id="cl_img" onChange="loadFile(event)"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900
+                                            text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500
+                                            block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+                                            dark:placeholder-gray-400 dark:text-white
+                                            dark:focus:ring-blue-500">
+                                        <x-input-error :messages="$errors->get('cl_img')" class="mt-2"/>
+                                    </div>
+                                        <div class="cols p-5 mt-[-24px]"> 
+                                            <img id="output"  class="h-50 w-54 rounded-lg py-2" src="{{ $competition_list->cl_img}}" />
+                                        </div>
+                                    <!-- <div class="mt-[-24px]">
+                                        <label class="block">
+                                            <span class="sr-only">Choose profile photo</span>
+                                            <input type="file" class="block w-full text-sm text-slate-500
+                                            file:mr-4 file:py-2 file:px-4
+                                            file:rounded-full file:border-0
+                                            file:text-sm file:font-semibold
+                                            file:bg-violet-50 file:text-violet-700
+                                            hover:file:bg-violet-100
+                                            "/>
+                                        </label>
+                                        <label for="upload-file" class="bg-blue-500 hover:bg-blue-700 text-white py-[4px] px-[16px] rounded text-xl cursor-pointer mr-3">
+                                            อัพรูป
+                                        </label>
+                                        <input id="upload-file" type="file" class="hidden">
+                                        <button id="delete-image" class="bg-red-500 hover:bg-red-700 text-white py-[2.5px] px-[16px] rounded text-xl">ลบรูป</button>
+                                    </div> -->
                                 </div>
+                                
 
-                                <div class="cols mx-1  col-span-1 ml-12 py-2"> 
-                                    <img id="output"  class="h-64 w-54 rounded-lg py-2" src="{{ $competition_list->cl_img}}" />
-                                </div>
                             </div>
                                 
                                 <div class="cols col-span-3 text-center py-2">
                                     <button type="submit" class="bg-green-500 hover:bg-green-700 text-white py-1 px-1 rounded text-xl" id="update">อัพเดตข้อมูล</button>
-                                    <button type="button" class="bg-green-500 hover:bg-green-700 text-white py-1 px-1 rounded text-xl" onclick="history.back()">BACK</button>
+                                    <button type="button" class="bg-gray-500 hover:bg-gray-700 text-white py-1 px-1 rounded text-xl" onclick="history.back()">ย้อนกลับ</button>
                                 </div>
                         </div>    
                     </form>
@@ -200,9 +226,13 @@
         });
     </script>   
 </x-app-layout>
-
 <script>
-    var loadFile = function(event){
+    document.getElementById('delete-image').addEventListener('click', function() {
+    document.getElementById('output').src = '';
+    
+
+    });
+    function loadFile(event) {
         var output = document.getElementById('output');
         output.src = URL.createObjectURL(event.target.files[0])
     }

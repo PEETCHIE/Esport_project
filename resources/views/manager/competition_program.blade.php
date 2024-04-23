@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="grid grid-cols-4 gap-1">
+    <div class="grid grid-cols-5 gap-1">
         <div>
             @foreach ($buckets as $bucket)
                 <div class="mx-8 w-48 grid-cols-4 gap-3">
@@ -66,13 +66,14 @@
                                 คะแนน
                             </button>
                         </div>
-                    @endforeach
-                    <div class="absolute transform translate-x-[70px] -translate-y-[54px]">
+
+                        <div class="absolute transform translate-x-[70px] -translate-y-[54px]">
                         <button onclick="openEditModal('{{ $item->cp_id }}-{{ $item->t_id }}')"
                             class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
                             แก้ไข
                         </button>
                     </div>
+                    @endforeach
                 </div>
             @endforeach
         </div>
@@ -192,16 +193,16 @@
                                 <div class="flex items-center">
                                     <label class="mx-auto">ลิ้งค์</label>
                                     <input type="text" name="link"
-                                        class="w-[400px] bg-gray-50 border border-gray-300 ml-4">
+                                    value="{{ $item->link }}" class="w-[400px] bg-gray-50 border border-gray-300 ml-4">
                                 </div>
                             </div>
                             <div class="flex justify-center items-center">
                                 <label class="mx-auto">แก้ไขเวลา</label>
                                 <input type="time" name="match_time" id="match_time"
-                                    class="text-gray-500 hover:text-gray-700 h-5 mr-2 ml-2">
+                                value="{{ $item->match_time }}" class="text-gray-500 hover:text-gray-700 h-5 mr-2 ml-2">
                                 <label class="mx-auto">แก้ไขวันที่</label>
                                 <input type="date" name="match_date" id="match_date"
-                                    class="ml-4 text-gray-500 hover:text-gray-700 h-5">
+                                value="{{ $item->match_date }}" class="ml-4 text-gray-500 hover:text-gray-700 h-5">
                             </div>
                         </div>
                         <hr><br>
