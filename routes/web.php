@@ -45,6 +45,7 @@ Route::get('/grid/teams/list/{id}', [ContestantController::class, 'indexID'])->n
 Route::get('/team/detail/{id}', [ContestantController::class, 'detailTeamShow'])->name('team_detail');
 Route::get('/livestream', [LivestreamController::class, 'index'])->name('livestream.index');
 Route::get('/twitch/streams', [TwitchController::class, 'getStreams'])->name('twitch-streams');
+Route::get('/youtube/streams', [TwitchController::class, 'fetechStreamYoutube'])->name('youtube-streams');
 
 
 
@@ -57,7 +58,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
     Route::resource('/register/contestants', TeamController::class);
     Route::get('/register/contestants/create/{id}', [TeamController::class, 'createTeam'])->name('competition.createTeam');
     Route::post('/register/contestants/storeData/{id}', [TeamController::class, 'storeData'])->name('competition.storeData');
@@ -82,6 +82,14 @@ Route::middleware(['auth','role:manager'])->group(function () {
     Route::get('/competition_program/edit/{id}', [CompetitionProgramController::class, 'edit'])->name('edit_competition_program');
     Route::patch('/competition_program/update/{id}', [CompetitionProgramController::class, 'update'])->name('update_competition_program');
     Route::get('/competition_program/store/{id}', [CompetitionResultsController::class, 'store'])->name('store');
+    Route::get('/competition_program/minusScore/{id}', [CompetitionResultsController::class, 'minusScore'])->name('minusScore');
+    Route::get('/competition_program/randomize/round3/{cp_id}', [CompetitionProgramController::class, 'randomizeBlindR3'])->name('randomizeBlindR3');
+    Route::get('/competition_program/randomize/round4/{cp_id}', [CompetitionProgramController::class, 'randomizeBlindR4'])->name('randomizeBlindR4');
+    Route::get('/competition_program/randomize/round5/{cp_id}', [CompetitionProgramController::class, 'randomizeBlindR5'])->name('randomizeBlindR5');
+    Route::get('/livestream/form/twitch', [TwitchController::class, 'formTwitch'])->name('formTwitch');
+    Route::get('/livestream/form/youtube', [TwitchController::class, 'formYoutube'])->name('formYoutube');
+    Route::post('/livestream/store/twitch', [TwitchController::class, 'storeTwitchAPI'])->name('storeTwitchAPI');
+    Route::post('/livestream/store/youtube', [TwitchController::class, 'storeYoutubeAPI'])->name('storeYoutubeAPI');
 
 });
 

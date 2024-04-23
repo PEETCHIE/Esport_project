@@ -16,6 +16,8 @@ use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Http\Request;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class CompetitionProgramController extends Controller
 {
@@ -27,7 +29,6 @@ class CompetitionProgramController extends Controller
         $currentDate = Carbon::now();
         $competition_list = competition_list::find($id);
         $expiryDate = Carbon::parse($competition_list->end_date);
-        // dd($currentDate);
         if ($currentDate > $expiryDate) {
             $count = DB::table('teams')->WHERE('cl_id', $id)
                 ->join('competition_lists', 'teams.cl_id', '=', 'competition_lists.id')
@@ -139,7 +140,6 @@ class CompetitionProgramController extends Controller
                         't_id' => $t_Id,
                         'cp_id' => $cp_id[$i]
                     ]);
-
                     $config_RS = ['table' => 'competition_results', 'length' => 8, 'prefix' => 'RS-'];
                     $rs_id = IdGenerator::generate($config_RS);
                     $result = competition_results::insert([
@@ -157,12 +157,12 @@ class CompetitionProgramController extends Controller
                     'cp_id' => $cp_id[$i + 1]
                 ]);
                 $config_RS = ['table' => 'competition_results', 'length' => 8, 'prefix' => 'RS-'];
-                    $rs_id = IdGenerator::generate($config_RS);
-                    $result = competition_results::insert([
-                        'id' => $rs_id,
-                        'score' => 0,
-                        'tit_id' => $tit_id,
-                    ]);
+                $rs_id = IdGenerator::generate($config_RS);
+                $result = competition_results::insert([
+                    'id' => $rs_id,
+                    'score' => 0,
+                    'tit_id' => $tit_id,
+                ]);
 
                 return redirect()->route('managers_competition.index')->with('alert', [
                     'icon' => 'success',
@@ -181,65 +181,72 @@ class CompetitionProgramController extends Controller
 
     public function showProgram($id)
     {
-        $programs = DB::table('competition_programs')
-            ->where('cl_id', $id)
-            ->pluck('id')
-            ->toArray();
+        try {
+            $programs = DB::table('competition_programs')
+                ->where('cl_id', $id)
+                ->pluck('id')
+                ->toArray();
+            $buckets = [];
+            foreach ($programs as $program) {
+                $bucket = DB::table('tournament_in_teams')
+                    ->where('cp_id', $program)
+                    ->join('teams', 'tournament_in_teams.t_id', '=', 'teams.id')
+                    ->join('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')
+                    ->join('competition_results', 'competition_results.tit_id', '=', 'tournament_in_teams.id')
+                    ->select('t_name', 'logo', 'matches', 'round', 'cp_id', 't_id', 'score')
+                    ->get();
+                // dd($bucket);
+                // แยกข้อมูลตาม R1 และ R2
+                $r1_bucket = [];
+                $r2_bucket = [];
+                $r3_bucket = [];
+                $r4_bucket = [];
+                $r5_bucket = [];
 
-        $buckets = [];
-
-        foreach ($programs as $program) {
-            $bucket = DB::table('tournament_in_teams')
-                ->where('cp_id', $program)
-                ->join('teams', 'tournament_in_teams.t_id', '=', 'teams.id')
-                ->join('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')
-                ->join('competition_results', 'competition_results.tit_id', '=', 'tournament_in_teams.id')
-                ->select('t_name', 'logo', 'matches', 'round', 'cp_id', 't_id', 'score')
-                ->get();
-
-            // แยกข้อมูลตาม R1 และ R2
-            $r1_bucket = [];
-            $r2_bucket = [];
-            $r3_bucket = [];
-            $r4_bucket = [];
-
-            foreach ($bucket as $item) {
-                if ($item->round == 'R1') {
-                    $r1_bucket[] = $item;
-                } else if ($item->round == 'R2') {
-                    $r2_bucket[] = $item;
-                } else if ($item->round == 'R3') {
-                    $r3_bucket[] = $item;
-                } else if ($item->round == 'R4') {
-                    $r4_bucket[] = $item;
+                foreach ($bucket as $item) {
+                    if ($item->round == 'R1') {
+                        $r1_bucket[] = $item;
+                    } else if ($item->round == 'R2') {
+                        $r2_bucket[] = $item;
+                    } else if ($item->round == 'R3') {
+                        $r3_bucket[] = $item;
+                    } else if ($item->round == 'R4') {
+                        $r4_bucket[] = $item;
+                    } else if ($item->round == 'R5') {
+                        $r5_bucket[] = $item;
+                    }
                 }
+                $buckets[] = [
+                    'R1' => $r1_bucket,
+                    'R2' => $r2_bucket,
+                    'R3' => $r3_bucket,
+                    'R4' => $r4_bucket,
+                    'R5' => $r5_bucket
+                ];
             }
-            $buckets[] = [
-                'R1' => $r1_bucket,
-                'R2' => $r2_bucket,
-                'R3' => $r3_bucket,
-                'R4' => $r4_bucket
-            ];
-        }
-        $teamsWithSameCpId = [];
-        // $programWithSameId = [];
-        $tt = DB::table('tournament_in_teams')->pluck('cp_id')->toArray();
-        // dd($cp);
-        foreach ($buckets as $bucket) {
-            foreach ($bucket as $innerBucket) {
-                foreach ($innerBucket as $item) {
-                    if (in_array($item->cp_id, $tt)) {
-                        $teamsWithSameCpId[$item->cp_id][] = [
-                            'id' => $item->t_id,
-                            'name' => $item->t_name,
-                            'logo' => $item->logo,
-                            'score' => $item->score
-                        ];
+            $teamsWithSameCpId = [];
+            // $programWithSameId = [];
+            $tt = DB::table('tournament_in_teams')->pluck('cp_id')->toArray();
+            // dd($cp);
+            foreach ($buckets as $bucket) {
+                foreach ($bucket as $innerBucket) {
+                    foreach ($innerBucket as $item) {
+                        if (in_array($item->cp_id, $tt)) {
+                            $teamsWithSameCpId[$item->cp_id][] = [
+                                'id' => $item->t_id,
+                                'name' => $item->t_name,
+                                'logo' => $item->logo,
+                                'score' => $item->score
+                            ];
+                        }
                     }
                 }
             }
+            return view('manager.competition_program', compact('buckets'));
+        } catch (\Exception $e) {
+            Log::debug($e->getMessage());
+            echo $e->getMessage();
         }
-        return view('manager.competition_program', compact('buckets'));
     }
 
     /**
@@ -289,8 +296,6 @@ class CompetitionProgramController extends Controller
             'match_time' => $request->match_time,
             'link' => $request->link,
         ]);
-
-        // dd($result);
         return back();
     }
 
@@ -300,5 +305,346 @@ class CompetitionProgramController extends Controller
     public function destroy(competition_program $competition_program)
     {
         //
+    }
+
+    public function randomizeBlindR3($cp_id)
+    {
+        try {
+            $cl_id = DB::table('competition_programs')->WHERE('id', $cp_id)->pluck('cl_id')->first();
+            $chk_scrap_teams = DB::table('tournament_in_teams')->join('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')->WHERE('competition_programs.cl_id', $cl_id)->WHERE('competition_programs.round', 'R2')->count();
+            if ($chk_scrap_teams % 2 != 0) {
+                $tit_id = DB::table('tournament_in_teams')->JOIN('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')->WHERE('competition_programs.round', 'R2')->pluck('tournament_in_teams.id')->toArray();
+                $scrap_teams = DB::table('tournament_in_teams')
+                    ->join('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')
+                    ->join('teams', 'tournament_in_teams.t_id', '=', 'teams.id')
+                    ->WHERE('competition_programs.cl_id', $cl_id)
+                    ->WHERE('competition_programs.round', 'R2')
+                    ->pluck('teams.t_name', 'teams.id')
+                    ->toArray();
+                $reResult = DB::table('competition_results')
+                    ->whereIn('tit_id', $tit_id)
+                    ->delete();
+                $reTournament_in_teams = DB::table('tournament_in_teams')
+                    ->whereIn('id', $tit_id)
+                    ->delete();
+                $reCompetition_programs = DB::table('competition_programs')
+                    ->where('round', 'R2')
+                    ->delete();
+                $half_scrap_teams = $chk_scrap_teams / 2;
+                $competition_programs = DB::table('competition_programs')->WHERE('cl_id', $cl_id)->count();
+                $random_scrap_teamsTeams = collect($scrap_teams)->shuffle();
+                $teamOne = $random_scrap_teamsTeams->pop();
+                $teamOneId = array_search($teamOne, $scrap_teams);
+                for ($i = 1; $i <=  $half_scrap_teams;) {
+                    $config_cp_id = ['table' => 'competition_programs', 'length' => 8, 'prefix' => 'RM-'];
+                    $cp_id = IdGenerator::generate($config_cp_id);
+                    $competition_program = competition_program::insert([
+                        'id' => $cp_id,
+                        'round' => 'R2',
+                        'matches' => $competition_programs + $i++,
+                        'match_date' => Carbon::now()->toDateString(),
+                        'match_time' =>  Carbon::now()->toTimeString(),
+                        'cl_id' => $cl_id
+                    ]);
+
+                    while ($random_scrap_teamsTeams->isNotEmpty()) {
+                        $config_tit_id = ['table' => 'tournament_in_teams', 'length' => 8, 'prefix' => 'TIT-'];
+                        $tit_id = IdGenerator::generate($config_tit_id);
+    
+                        $t_name = $random_scrap_teamsTeams->shift();
+                        $t_Id = array_search($t_name, $scrap_teams);
+    
+                        $cp_id_count = DB::table('tournament_in_teams')
+                            ->where('cp_id', $cp_id)
+                            ->count();
+    
+                        if ($cp_id_count >= 2) {
+                            $i++;
+                        }
+                        $tournament_in_team = tournament_in_team::insert([
+                            'id' => $tit_id,
+                            't_id' => $t_Id,
+                            'cp_id' => $cp_id
+                        ]);
+                        $config_RS = ['table' => 'competition_results', 'length' => 8, 'prefix' => 'RS-'];
+                        $rs_id = IdGenerator::generate($config_RS);
+                        $result = competition_results::insert([
+                            'id' => $rs_id,
+                            'score' => 0,
+                            'tit_id' => $tit_id,
+                        ]);
+                    }
+                }
+
+                $config_cp_id = ['table' => 'competition_programs', 'length' => 8, 'prefix' => 'RM-'];
+                $cp_id = IdGenerator::generate($config_cp_id);
+                $competition_program = competition_program::insert([
+                    'id' => $cp_id,
+                    'round' => 'R3',
+                    'matches' => $competition_programs + $i,
+                    'match_date' => Carbon::now()->toDateString(),
+                    'match_time' =>  Carbon::now()->toTimeString(),
+                    'cl_id' => $cl_id   
+                ]);
+
+                $config_tit_id = ['table' => 'tournament_in_teams', 'length' => 8, 'prefix' => 'TIT-'];
+                $tit_id = IdGenerator::generate($config_tit_id);
+                $tournament_in_team = tournament_in_team::insert([
+                    'id' => $tit_id,
+                    't_id' => $teamOneId,
+                    'cp_id' => $cp_id
+                ]);
+                $config_RS = ['table' => 'competition_results', 'length' => 8, 'prefix' => 'RS-'];
+                $rs_id = IdGenerator::generate($config_RS);
+                $result = competition_results::insert([
+                    'id' => $rs_id,
+                    'score' => 0,
+                    'tit_id' => $tit_id,
+                ]);
+                return back()->with('alert', [
+                    'icon' => 'success',
+                    'title' => 'OK',
+                    'text' => 'OkYA',
+                    'confirmButtonText' => 'OK',
+                ]);
+            } else {
+                return back()->with('alert', [
+                    'icon' => 'error',
+                    'title' => 'ไม่สามารถสุ่มทีมได้',
+                    'text' => 'เนื่องจากไม่ได้มีทีมที่ไม่มีคู่ในการแข่งขัน',
+                    'confirmButtonText' => 'OK',
+                ]);
+            }
+        } catch (\Exception $e) {
+            Log::debug($e->getMessage());
+            echo $e->getMessage();
+        }
+    }
+    public function randomizeBlindR4($cp_id)
+    {
+        try {
+            $cl_id = DB::table('competition_programs')->WHERE('id', $cp_id)->pluck('cl_id')->first();
+            $chk_scrap_teams = DB::table('tournament_in_teams')->join('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')->WHERE('competition_programs.cl_id', $cl_id)->WHERE('competition_programs.round', 'R3')->count();
+            if ($chk_scrap_teams % 2 != 0) {
+                $tit_id = DB::table('tournament_in_teams')->JOIN('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')->WHERE('competition_programs.round', 'R3')->pluck('tournament_in_teams.id')->toArray();
+                $scrap_teams = DB::table('tournament_in_teams')
+                    ->join('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')
+                    ->join('teams', 'tournament_in_teams.t_id', '=', 'teams.id')
+                    ->WHERE('competition_programs.cl_id', $cl_id)
+                    ->WHERE('competition_programs.round', 'R3')
+                    ->pluck('teams.t_name', 'teams.id')
+                    ->toArray();
+                $reResult = DB::table('competition_results')
+                    ->whereIn('tit_id', $tit_id)
+                    ->delete();
+                $reTournament_in_teams = DB::table('tournament_in_teams')
+                    ->whereIn('id', $tit_id)
+                    ->delete();
+                $reCompetition_programs = DB::table('competition_programs')
+                    ->where('round', 'R3')
+                    ->delete();
+                $half_scrap_teams = $chk_scrap_teams / 2;
+                $competition_programs = DB::table('competition_programs')->WHERE('cl_id', $cl_id)->count();
+                $random_scrap_teamsTeams = collect($scrap_teams)->shuffle();
+                $teamOne = $random_scrap_teamsTeams->pop();
+                $teamOneId = array_search($teamOne, $scrap_teams);
+                for ($i = 1; $i <=  $half_scrap_teams;) {
+                    $config_cp_id = ['table' => 'competition_programs', 'length' => 8, 'prefix' => 'RM-'];
+                    $cp_id = IdGenerator::generate($config_cp_id);
+                    $competition_program = competition_program::insert([
+                        'id' => $cp_id,
+                        'round' => 'R3',
+                        'matches' => $competition_programs + $i++,
+                        'match_date' => Carbon::now()->toDateString(),
+                        'match_time' =>  Carbon::now()->toTimeString(),
+                        'cl_id' => $cl_id
+                    ]);
+
+                    while ($random_scrap_teamsTeams->isNotEmpty()) {
+                        $config_tit_id = ['table' => 'tournament_in_teams', 'length' => 8, 'prefix' => 'TIT-'];
+                        $tit_id = IdGenerator::generate($config_tit_id);
+    
+                        $t_name = $random_scrap_teamsTeams->shift();
+                        $t_Id = array_search($t_name, $scrap_teams);
+    
+                        $cp_id_count = DB::table('tournament_in_teams')
+                            ->where('cp_id', $cp_id)
+                            ->count();
+    
+                        if ($cp_id_count >= 2) {
+                            $i++;
+                        }
+                        $tournament_in_team = tournament_in_team::insert([
+                            'id' => $tit_id,
+                            't_id' => $t_Id,
+                            'cp_id' => $cp_id
+                        ]);
+                        $config_RS = ['table' => 'competition_results', 'length' => 8, 'prefix' => 'RS-'];
+                        $rs_id = IdGenerator::generate($config_RS);
+                        $result = competition_results::insert([
+                            'id' => $rs_id,
+                            'score' => 0,
+                            'tit_id' => $tit_id,
+                        ]);
+                    }
+                }
+
+                $config_cp_id = ['table' => 'competition_programs', 'length' => 8, 'prefix' => 'RM-'];
+                $cp_id = IdGenerator::generate($config_cp_id);
+                $competition_program = competition_program::insert([
+                    'id' => $cp_id,
+                    'round' => 'R4',
+                    'matches' => $competition_programs + $i,
+                    'match_date' => Carbon::now()->toDateString(),
+                    'match_time' =>  Carbon::now()->toTimeString(),
+                    'cl_id' => $cl_id   
+                ]);
+
+                $config_tit_id = ['table' => 'tournament_in_teams', 'length' => 8, 'prefix' => 'TIT-'];
+                $tit_id = IdGenerator::generate($config_tit_id);
+                $tournament_in_team = tournament_in_team::insert([
+                    'id' => $tit_id,
+                    't_id' => $teamOneId,
+                    'cp_id' => $cp_id
+                ]);
+                $config_RS = ['table' => 'competition_results', 'length' => 8, 'prefix' => 'RS-'];
+                $rs_id = IdGenerator::generate($config_RS);
+                $result = competition_results::insert([
+                    'id' => $rs_id,
+                    'score' => 0,
+                    'tit_id' => $tit_id,
+                ]);
+                return back()->with('alert', [
+                    'icon' => 'success',
+                    'title' => 'OK',
+                    'text' => 'OkYA',
+                    'confirmButtonText' => 'OK',
+                ]);
+            } else {
+                return back()->with('alert', [
+                    'icon' => 'error',
+                    'title' => 'ไม่สามารถสุ่มทีมได้',
+                    'text' => 'เนื่องจากไม่ได้มีทีมที่ไม่มีคู่ในการแข่งขัน',
+                    'confirmButtonText' => 'OK',
+                ]);
+            }
+        } catch (\Exception $e) {
+            Log::debug($e->getMessage());
+            echo $e->getMessage();
+        }
+    }
+
+    public function randomizeBlindR5($cp_id)
+    {
+        try {
+            $cl_id = DB::table('competition_programs')->WHERE('id', $cp_id)->pluck('cl_id')->first();
+            $chk_scrap_teams = DB::table('tournament_in_teams')->join('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')->WHERE('competition_programs.cl_id', $cl_id)->WHERE('competition_programs.round', 'R4')->count();
+            if ($chk_scrap_teams % 2 != 0) {
+                $tit_id = DB::table('tournament_in_teams')->JOIN('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')->WHERE('competition_programs.round', 'R4')->pluck('tournament_in_teams.id')->toArray();
+                $scrap_teams = DB::table('tournament_in_teams')
+                    ->join('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')
+                    ->join('teams', 'tournament_in_teams.t_id', '=', 'teams.id')
+                    ->WHERE('competition_programs.cl_id', $cl_id)
+                    ->WHERE('competition_programs.round', 'R4')
+                    ->pluck('teams.t_name', 'teams.id')
+                    ->toArray();
+                $reResult = DB::table('competition_results')
+                    ->whereIn('tit_id', $tit_id)
+                    ->delete();
+                $reTournament_in_teams = DB::table('tournament_in_teams')
+                    ->whereIn('id', $tit_id)
+                    ->delete();
+                $reCompetition_programs = DB::table('competition_programs')
+                    ->where('round', 'R4')
+                    ->delete();
+                $half_scrap_teams = $chk_scrap_teams / 2;
+                $competition_programs = DB::table('competition_programs')->WHERE('cl_id', $cl_id)->count();
+                $random_scrap_teamsTeams = collect($scrap_teams)->shuffle();
+                $teamOne = $random_scrap_teamsTeams->pop();
+                $teamOneId = array_search($teamOne, $scrap_teams);
+                for ($i = 1; $i <=  $half_scrap_teams;) {
+                    $config_cp_id = ['table' => 'competition_programs', 'length' => 8, 'prefix' => 'RM-'];
+                    $cp_id = IdGenerator::generate($config_cp_id);
+                    $competition_program = competition_program::insert([
+                        'id' => $cp_id,
+                        'round' => 'R4',
+                        'matches' => $competition_programs + $i++,
+                        'match_date' => Carbon::now()->toDateString(),
+                        'match_time' =>  Carbon::now()->toTimeString(),
+                        'cl_id' => $cl_id
+                    ]);
+
+                    while ($random_scrap_teamsTeams->isNotEmpty()) {
+                        $config_tit_id = ['table' => 'tournament_in_teams', 'length' => 8, 'prefix' => 'TIT-'];
+                        $tit_id = IdGenerator::generate($config_tit_id);
+    
+                        $t_name = $random_scrap_teamsTeams->shift();
+                        $t_Id = array_search($t_name, $scrap_teams);
+    
+                        $cp_id_count = DB::table('tournament_in_teams')
+                            ->where('cp_id', $cp_id)
+                            ->count();
+    
+                        if ($cp_id_count >= 2) {
+                            $i++;
+                        }
+                        $tournament_in_team = tournament_in_team::insert([
+                            'id' => $tit_id,
+                            't_id' => $t_Id,
+                            'cp_id' => $cp_id
+                        ]);
+                        $config_RS = ['table' => 'competition_results', 'length' => 8, 'prefix' => 'RS-'];
+                        $rs_id = IdGenerator::generate($config_RS);
+                        $result = competition_results::insert([
+                            'id' => $rs_id,
+                            'score' => 0,
+                            'tit_id' => $tit_id,
+                        ]);
+                    }
+                }
+
+                $config_cp_id = ['table' => 'competition_programs', 'length' => 8, 'prefix' => 'RM-'];
+                $cp_id = IdGenerator::generate($config_cp_id);
+                $competition_program = competition_program::insert([
+                    'id' => $cp_id,
+                    'round' => 'R5',
+                    'matches' => $competition_programs + $i,
+                    'match_date' => Carbon::now()->toDateString(),
+                    'match_time' =>  Carbon::now()->toTimeString(),
+                    'cl_id' => $cl_id   
+                ]);
+
+                $config_tit_id = ['table' => 'tournament_in_teams', 'length' => 8, 'prefix' => 'TIT-'];
+                $tit_id = IdGenerator::generate($config_tit_id);
+                $tournament_in_team = tournament_in_team::insert([
+                    'id' => $tit_id,
+                    't_id' => $teamOneId,
+                    'cp_id' => $cp_id
+                ]);
+                $config_RS = ['table' => 'competition_results', 'length' => 8, 'prefix' => 'RS-'];
+                $rs_id = IdGenerator::generate($config_RS);
+                $result = competition_results::insert([
+                    'id' => $rs_id,
+                    'score' => 0,
+                    'tit_id' => $tit_id,
+                ]);
+                return back()->with('alert', [
+                    'icon' => 'success',
+                    'title' => 'OK',
+                    'text' => 'OkYA',
+                    'confirmButtonText' => 'OK',
+                ]);
+            } else {
+                return back()->with('alert', [
+                    'icon' => 'error',
+                    'title' => 'ไม่สามารถสุ่มทีมได้',
+                    'text' => 'เนื่องจากไม่ได้มีทีมที่ไม่มีคู่ในการแข่งขัน',
+                    'confirmButtonText' => 'OK',
+                ]);
+            }
+        } catch (\Exception $e) {
+            Log::debug($e->getMessage());
+            echo $e->getMessage();
+        }
     }
 }
