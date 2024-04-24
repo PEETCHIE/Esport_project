@@ -46,7 +46,6 @@ class CompetitionResultsController extends Controller
                 ->orderBy('id', 'desc')
                 ->pluck('id');
             $tit_ids = $latest_tit_id ? [$latest_tit_id] : [];
-            // dd($tit_ids);
             $chk_team = DB::table('tournament_in_teams')
                 ->join('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')
                 ->join('competition_results', 'tournament_in_teams.id', '=', 'competition_results.tit_id')
@@ -63,29 +62,42 @@ class CompetitionResultsController extends Controller
             if ($chk_team->isNotEmpty()) {
                 $deleteRS = DB::table('competition_results')->whereIn('tit_id', $tit_ids)->delete();
                 $deleteTIT = DB::table('tournament_in_teams')->whereIn('id', $tit_ids)->delete();
-                return redirect()->back()->with(
-                    'alert',
-                    [
-                        'icon' => 'info',
-                        'title' => 'กรุณาตรสจสอบผลคะแนนที่ลบล่าสุด',
-                        'text' => 'เนื่องจากคะแนนอัพเดตไปยังรอบถัดไปก่อน จึงทำการลบข้อมูลรอบถัดไปก่อนกรุณากดลบคะแนนอีกครั้ง',
-                    ]
-                );
-            } else {
                 $RS_Minus = DB::table('competition_results')
                     ->join('tournament_in_teams', 'competition_results.tit_id', '=', 'tournament_in_teams.id')
-                    ->whereIn('tit_id', $tit_ids)
+                    ->where('t_id', $id)
                     ->where('score', '>', 0)
                     ->decrement('score', 1);
                 return redirect()->back()->with(
                     'alert',
                     [
-                        'icon' => 'success',
+                        'icon' => 'info',
                         'title' => 'ลบคะแนนสำเร็จ',
                         'text' => 'การลบข้อมูลสำเร็จเรียบร้อย',
                     ]
                 );
+            } else{
+                return redirect()->back()->with(
+                    'alert',
+                    [
+                        'icon' => 'error',
+                        'title' => 'error',
+                        'text' => 'error',
+                    ]
+                );
             }
+            $RS_Minus = DB::table('competition_results')
+                ->join('tournament_in_teams', 'competition_results.tit_id', '=', 'tournament_in_teams.id')
+                ->whereIn('tit_id', $tit_ids)
+                ->where('score', '>', 0)
+                ->decrement('score', 1);
+            return redirect()->back()->with(
+                'alert',
+                [
+                    'icon' => 'success',
+                    'title' => 'ลบคะแนนสำเร็จ',
+                    'text' => 'การลบข้อมูลสำเร็จเรียบร้อย',
+                ]
+            );
         } catch (Exception $e) {
             Log::error($e->getMessage());
             echo $e->getMessage();
@@ -107,6 +119,7 @@ class CompetitionResultsController extends Controller
                         ->where('cp_id', $cp_ids)
                         ->where('score', '>=', 1)
                         ->get();
+                    dd($chk_score);
                     if ($chk_score->isEmpty()) {
                         $latest_tit_id = DB::table('tournament_in_teams')
                             ->where('t_id', $id)
