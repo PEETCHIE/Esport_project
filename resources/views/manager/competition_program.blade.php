@@ -1,12 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight mb-[20px]">
             {{ __('จัดการตารางข้อมูลการแข่งขัน') }}
         </h2>
     </x-slot>
-
-
-    <div class="grid grid-cols-5 gap-1 bg-[#f0f0f0] rounded m-2 p-6">
+    <!-- <div class="relative">
+        <div class="z-10 border border-0 border-rose-600 border-b-white bg-[#C9193A] w-[1518px] h-[50px] absolute transform translate-x-[-2px] translate-y-[-45px]">
+        </div>
+    </div> -->
+    <div class="grid grid-cols-5 gap-1 bg-[#f0f0f0] rounded m-2 p-6 mt-[5px]">
         <div class="cols">
             @foreach ($buckets as $bucket)
                 <div class="mx-8 w-36 grid-cols-4 gap-3">
@@ -22,7 +24,6 @@
                                 {{ $item->score }}
                             </div>
                         </div>
-
                         <div class="absolute transform -translate-x-[48px] -translate-y-[28px]">
                             <button onclick="openScoreModal('{{ $item->cp_id }}-{{ $item->t_id }}')"
                                 class="px-2 py-2 text-xs font-medium text-center text-white bg-green-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
@@ -57,32 +58,30 @@
                                 {{ $item->score }}
                             </div>
                         </div>
-
                         <div class="absolute transform -translate-x-[48px] -translate-y-[28px]">
                             <button onclick="openScoreModal('{{ $item->cp_id }}-{{ $item->t_id }}')"
                                 class="px-3 py-2 text-xs font-medium text-center text-white bg-green-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
                                 คะแนน
                             </button>
                         </div>
-
-                        
                     @endforeach
-                    <div class="absolute transform translate-x-[14px] -translate-y-[54px]">
-                        <button onclick="openEditModal('{{ $item->cp_id }}-{{ $item->t_id }}')"
-                            class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
-                            แก้ไข
-                        </button>
-                    </div>
-                    <div class="absolute transform translate-x-[53px] -translate-y-[52px]">
-                        <div>VS</div>
-                    </div>
+                    @if(count($bucket['R2']) > 0)
+                        <div class="absolute transform translate-x-[14px] -translate-y-[54px]">
+                            <button onclick="openEditModal('{{ $item->cp_id }}-{{ $item->t_id }}')"
+                                class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
+                                แก้ไข
+                            </button>
+                        </div>
+                        <div class="absolute transform translate-x-[53px] -translate-y-[52px]">
+                            <div>VS</div>
+                        </div>
+                    @endif
                 </div>
             @endforeach
             <div class="flex justify-center mt-48">
                 <form action="{{ route('randomizeBlindR3', $item->cp_id) }}" method="GET">
                     <button
-                        type="submit"class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-1 px-2 rounded">RAND
-                        TEAM FORBLINDROUND</button>
+                        type="submit"class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-1 px-2 rounded">ทีมสุ่ม</button>
                 </form>
             </div>
         </div>
@@ -109,22 +108,23 @@
                             </button>
                         </div>
                     @endforeach
-                    <div class="absolute transform translate-x-[14px] -translate-y-[54px]">
-                        <button onclick="openEditModal('{{ $item->cp_id }}-{{ $item->t_id }}')"
-                            class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
-                            แก้ไข
-                        </button>
-                    </div>
-                    <div class="absolute transform translate-x-[53px] -translate-y-[52px]">
-                        <div>VS</div>
-                    </div>
+                    @if(count($bucket['R3']) > 0)
+                        <div class="absolute transform translate-x-[14px] -translate-y-[54px]">
+                            <button onclick="openEditModal('{{ $item->cp_id }}-{{ $item->t_id }}')"
+                                class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
+                                แก้ไข
+                            </button>
+                        </div>
+                        <div class="absolute transform translate-x-[53px] -translate-y-[52px]">
+                            <div>VS</div>
+                        </div>
+                    @endif
                 </div>
             @endforeach
             <div class="flex justify-center mt-48">
                 <form action="{{ route('randomizeBlindR4', $item->cp_id) }}" method="GET">
                     <button
-                        type="submit"class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-1 px-2 rounded">RAND
-                        TEAM FORBLINDROUND</button>
+                        type="submit"class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-1 px-2 rounded">ทีมสุ่ม</button>
                 </form>
             </div>
         </div>
@@ -143,7 +143,6 @@
                                 {{ $item->score }}
                             </div>
                         </div>
-
                         <div class="absolute transform -translate-x-[48px] -translate-y-[28px]">
                             <button onclick="openScoreModal('{{ $item->cp_id }}-{{ $item->t_id }}')"
                                 class="px-3 py-2 text-xs font-medium text-center text-white bg-green-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
@@ -151,22 +150,23 @@
                             </button>
                         </div>
                     @endforeach
-                    <div class="absolute transform translate-x-[14px] -translate-y-[54px]">
-                        <button onclick="openEditModal('{{ $item->cp_id }}-{{ $item->t_id }}')"
-                            class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
-                            แก้ไข
-                        </button>
-                    </div>
-                    <div class="absolute transform translate-x-[53px] -translate-y-[52px]">
-                        <div>VS</div>
-                    </div>
+                    @if(count($bucket['R4']) > 0)
+                        <div class="absolute transform translate-x-[14px] -translate-y-[54px]">
+                            <button onclick="openEditModal('{{ $item->cp_id }}-{{ $item->t_id }}')"
+                                class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
+                                แก้ไข
+                            </button>
+                        </div>
+                        <div class="absolute transform translate-x-[53px] -translate-y-[52px]">
+                            <div>VS</div>
+                        </div>
+                    @endif
                 </div>
             @endforeach
             <div class="flex justify-center mt-48">
                 <form action="{{ route('randomizeBlindR5', $item->cp_id) }}" method="GET">
                     <button
-                        type="submit"class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-1 px-2 rounded">RAND
-                        TEAM FORBLINDROUND</button>
+                        type="submit"class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-1 px-2 rounded">ทีมสุ่ม</button>
                 </form>
             </div>
         </div>
@@ -185,7 +185,6 @@
                                 {{ $item->score }}
                             </div>
                         </div>
-
                         <div class="absolute transform -translate-x-[48px] -translate-y-[28px]">
                             <button onclick="openScoreModal('{{ $item->cp_id }}-{{ $item->t_id }}')"
                                 class="px-3 py-2 text-xs font-medium text-center text-white bg-green-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
@@ -193,18 +192,19 @@
                             </button>
                         </div>
                     @endforeach
-                    <div class="absolute transform translate-x-[14px] -translate-y-[54px]">
-                        <button onclick="openEditModal('{{ $item->cp_id }}-{{ $item->t_id }}')"
-                            class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
-                            แก้ไข
-                        </button>
-                    </div>
-                    <div class="absolute transform translate-x-[53px] -translate-y-[52px]">
-                        <div>VS</div>
-                    </div>
+                    @if(count($bucket['R5']) > 0)
+                        <div class="absolute transform translate-x-[14px] -translate-y-[54px]">
+                            <button onclick="openEditModal('{{ $item->cp_id }}-{{ $item->t_id }}')"
+                                class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
+                                แก้ไข
+                            </button>
+                        </div>
+                        <div class="absolute transform translate-x-[53px] -translate-y-[52px]">
+                            <div>VS</div>
+                        </div>
+                    @endif
                 </div>
             @endforeach
-
         </div>
     </div>
 </x-app-layout>

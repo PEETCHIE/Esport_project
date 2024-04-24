@@ -39,7 +39,7 @@ class CompetitionResultsController extends Controller
     public function minusScore($id)
     {
         try {
-            dd($id);
+            // dd($id);
             $latest_tit_id = DB::table('tournament_in_teams')
                 ->where('t_id', $id)
                 ->orderBy('id', 'desc')
@@ -60,7 +60,7 @@ class CompetitionResultsController extends Controller
                     ->where('competition_programs.id', $id)
                     ->where('competition_programs.round', 'R1')
                     ->get();
-                    dd($minus);
+                    // dd($minus);
             }
             $RS_Update = DB::table('competition_results')
                 ->whereIn('tit_id', $tit_ids)
