@@ -44,11 +44,12 @@ class CompetitionResultsController extends Controller
                 ->where('t_id', $id)
                 ->where('cp_id', $cp_ids)
                 ->orderBy('id', 'desc')
-                ->pluck('id')
-                ;
+                ->pluck('id');
             $tit_ids = $latest_tit_id ? [$latest_tit_id] : [];
+            // dd($tit_ids);
             $chk_team = DB::table('tournament_in_teams')
                 ->join('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')
+                ->join('competition_results', 'tournament_in_teams.id', '=', 'competition_results.tit_id')
                 ->whereIn('tournament_in_teams.id', $tit_ids)
                 ->where(function ($query) {
                     $query->where('competition_programs.round', 'R2')
@@ -57,8 +58,8 @@ class CompetitionResultsController extends Controller
                         ->orWhere('competition_programs.round', 'R5')
                         ->orWhere('competition_programs.round', 'R6');
                 })
+                ->where('score', '=', 0)
                 ->get();
-                // dd($chk_team);
             if ($chk_team->isNotEmpty()) {
                 $deleteRS = DB::table('competition_results')->whereIn('tit_id', $tit_ids)->delete();
                 $deleteTIT = DB::table('tournament_in_teams')->whereIn('id', $tit_ids)->delete();

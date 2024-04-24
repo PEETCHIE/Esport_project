@@ -84,7 +84,7 @@
         </table>    
     </div>
     
-    <script>
+    {{-- <script>
         function makeTable(formId) {
             var form = document.getElementById("makeForm" + formId);
             if (form) {
@@ -112,7 +112,7 @@
                 }
             @endforeach
         };
-    </script>
+    </script> --}}
 
     <script>
         document.querySelectorAll('[id^="NoEdit_"]').forEach(function(element) {

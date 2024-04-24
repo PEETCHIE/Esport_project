@@ -193,7 +193,7 @@ class CompetitionProgramController extends Controller
                     ->join('teams', 'tournament_in_teams.t_id', '=', 'teams.id')
                     ->join('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')
                     ->join('competition_results', 'competition_results.tit_id', '=', 'tournament_in_teams.id')
-                    ->select('t_name', 'logo', 'matches', 'round', 'cp_id', 't_id', 'score')
+                    ->select('t_name', 'logo', 'matches', 'round', 'cp_id', 't_id', 'score','link','match_date','match_time')
                     ->get();
                 // dd($bucket);
                 // แยกข้อมูลตาม R1 และ R2
@@ -225,9 +225,7 @@ class CompetitionProgramController extends Controller
                 ];
             }
             $teamsWithSameCpId = [];
-            // $programWithSameId = [];
             $tt = DB::table('tournament_in_teams')->pluck('cp_id')->toArray();
-            // dd($cp);
             foreach ($buckets as $bucket) {
                 foreach ($bucket as $innerBucket) {
                     foreach ($innerBucket as $item) {
@@ -236,7 +234,10 @@ class CompetitionProgramController extends Controller
                                 'id' => $item->t_id,
                                 'name' => $item->t_name,
                                 'logo' => $item->logo,
-                                'score' => $item->score
+                                'score' => $item->score,
+                                'link' => $item->link,
+                                'match_date' => $item->match_date,
+                                'match_time' => $item->match_time
                             ];
                         }
                     }
@@ -289,7 +290,7 @@ class CompetitionProgramController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Updatecompetition_programRequest $request, competition_program $competition_program, $id)
-    {
+    {   
 
         $data = DB::table('competition_programs')->WHERE('id', $id)->update([
             'match_date' => $request->match_date,
