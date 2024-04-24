@@ -58,6 +58,9 @@
                                             </div>
                                         @endforeach
                                     </div>
+                                    <div class="absolute transform translate-x-[80px] -translate-y-[52px]">
+                        <div>VS</div>
+                    </div>
                                 @endforeach
                             </div>
 
@@ -79,6 +82,9 @@
                                                 </div>
                                             </div>
                                         @endforeach
+                                        <div class="absolute transform translate-x-[53px] -translate-y-[52px]">
+                        <div>VS</div>
+                    </div>
                                     </div>
                                 @endforeach
                             </div>
@@ -100,6 +106,9 @@
                                                 </div>
                                             </div>
                                         @endforeach
+                                        <div class="absolute transform translate-x-[53px] -translate-y-[52px]">
+                        <div>VS</div>
+                    </div>
                                     </div>
                                 @endforeach
 
@@ -122,6 +131,9 @@
                                                 </div>
                                             </div>
                                         @endforeach
+                                        <div class="absolute transform translate-x-[53px] -translate-y-[52px]">
+                        <div>VS</div>
+                    </div>
                                     </div>
                                 @endforeach
 
@@ -144,6 +156,9 @@
                                                 </div>
                                             </div>
                                         @endforeach
+                                        <div class="absolute transform translate-x-[53px] -translate-y-[52px]">
+                        <div>VS</div>
+                    </div>
                                     </div>
                                 @endforeach
 
