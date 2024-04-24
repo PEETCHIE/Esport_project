@@ -113,8 +113,8 @@ class CompetitionProgramController extends Controller
                 }
                 return redirect()->route('managers_competition.index')->with('alert', [
                     'icon' => 'success',
-                    'title' => 'Your success message',
-                    'text' => 'SUCCESS',
+                    'title' => 'จัดตารางการแข่งขันเรียบร้อย',
+                    'text' => 'หากคุณจัดตารางการแข่งขันแล้วจะไม่สามารถจัดได้อีกครั้ง',
                 ]);
             } else {
 

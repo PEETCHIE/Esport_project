@@ -293,16 +293,16 @@
                                 <div class="flex items-center">
                                     <label class="mx-auto">ลิ้งค์</label>
                                     <input type="text" name="link"
-                                        class="w-[400px] bg-gray-50 border border-gray-300 ml-4">
+                                    value="{{ $item->link }}" class="w-[400px] bg-gray-50 border border-gray-300 ml-4">
                                 </div>
                             </div>
                             <div class="flex justify-center items-center">
                                 <label class="mx-auto">แก้ไขเวลา</label>
                                 <input type="time" name="match_time" id="match_time"
-                                    class="text-gray-500 hover:text-gray-700 h-5 mr-2 ml-2">
+                                value="{{ $item->match_time }}" class="text-gray-500 hover:text-gray-700 h-5 mr-2 ml-2">
                                 <label class="mx-auto">แก้ไขวันที่</label>
                                 <input type="date" name="match_date" id="match_date"
-                                    class="ml-4 text-gray-500 hover:text-gray-700 h-5">
+                                value="{{ $item->match_date }}" class="ml-4 text-gray-500 hover:text-gray-700 h-5">
                             </div>
                         </div>
                         <hr><br>

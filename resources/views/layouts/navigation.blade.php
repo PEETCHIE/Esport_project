@@ -12,7 +12,7 @@
                 @guest
                     <!-- Navigation Links -->
                     <div class="hidden space-x-3 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('contestants')" :active="request()->routeIs('contestants')">
+                        <x-nav-link :href="route('contestants')" :active="request()->routeIs('contestants')" class="font-normal text-[20px]">
                             {{ __('รายการแข่งขัน') }}
                         </x-nav-link>
 
@@ -67,11 +67,11 @@
                     @if (auth()->check() && auth()->user()->role == 'admin')
                         <!-- Navigation Links -->
                         <div class="hidden space-x-3 sm:-my-px sm:ms-10 sm:flex ">
-                            <x-nav-link :href="route('admin.home')" :active="request()->routeIs('admin.home')">
+                            <x-nav-link :href="route('admin.home')" :active="request()->routeIs('admin.home')" class="font-normal text-[20px]">
                                 {{ __('หน้าหลัก') }}
                             </x-nav-link>
 
-                            <x-nav-link :href="route('list_tmg')" :active="request()->routeIs('list_tmg')">
+                            <x-nav-link :href="route('list_tmg')" :active="request()->routeIs('list_tmg')" class="font-normal text-[20px]">
                                 {{ __('รายชื่อร้องขอเป็นผู้จัดการแข่ง') }}
                             </x-nav-link>
                         </div>
@@ -80,11 +80,11 @@
                     @if (auth()->check() && auth()->user()->role == 'manager')
                         <!-- Navigation Links -->
                         <div class="hidden space-x-3 sm:-my-px sm:ms-10 sm:flex ">
-                            <x-nav-link :href="route('manager.home')" :active="request()->routeIs('manager.home')">
+                            <x-nav-link :href="route('manager.home')" :active="request()->routeIs('manager.home')" class="font-normal text-[20px]">
                                 {{ __('หน้าหลัก') }}
                             </x-nav-link>
 
-                            <x-nav-link :href="route('managers_competition.index')" :active="request()->routeIs('managers_competition.index')">
+                            <x-nav-link :href="route('managers_competition.index')" :active="request()->routeIs('managers_competition.index')" class="font-normal text-[20px]">
                                 {{ __('จัดการแข่งขัน') }}
                             </x-nav-link>
 
@@ -128,15 +128,15 @@
                     @if (auth()->check() && auth()->user()->role == 'normal')
                         <!-- Navigation Links -->
                         <div class="hidden space-x-3 sm:-my-px sm:ms-10 sm:flex">
-                            <x-nav-link :href="route('normal.home')" :active="request()->routeIs('normal.home')">
+                            <x-nav-link :href="route('normal.home')" :active="request()->routeIs('normal.home')" class="font-normal text-[20px]">
                                 {{ __('หน้าหลัก') }}
                             </x-nav-link>
 
-                            <x-nav-link :href="route('contestants.index')" :active="request()->routeIs('tmg')">
+                            <x-nav-link :href="route('contestants.index')" :active="request()->routeIs('tmg')" class="font-normal text-[20px]">
                                 {{ __('รายการแข่งขัน') }}
                             </x-nav-link>
 
-                            <x-nav-link :href="route('managerRegister.create')" :active="request()->routeIs('tmg')">
+                            <x-nav-link :href="route('managerRegister.create')" :active="request()->routeIs('tmg')" class="font-normal text-[20px]">
                                 {{ __('ลงทะเบียนเป็นผู้จัดการแข่ง') }}
                             </x-nav-link>
 

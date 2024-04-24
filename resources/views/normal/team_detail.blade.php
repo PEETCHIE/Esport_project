@@ -7,11 +7,13 @@
 
     <div class="py-12">
         @if ($message = Session::get('status'))
-        <center><div>
+        <center>
+        <div>
             <div class="mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
                 <span class="font-medium">{{ $message}}</span> 
             </div>
-        </div></center>
+        </div>
+        </center>
         @endif
         <div class="max-w-12xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">

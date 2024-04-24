@@ -13,8 +13,8 @@
             <br>
     </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs  text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 mx-auto bg-[rgba(255,255,255,0.7)]">
+        <table class="w-[1300px] ml-[120px] text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-white uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 mx-auto bg-slate-900">
                 <tr>
                     <th scope="col" class="px-6 py-3">
                         โลโก้ทีม
@@ -69,8 +69,9 @@
                         </div>
                     </td>
                     <td>
-                        <form  id="test" action="{{ route('competition_program', $list_competition->id)}}"> 
-                            <button type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline pl-1" onclick="">ทำตารางการแข่งขัน</button>
+                        <!-- <button id="myButton" class="font-medium text-blue-600 dark:text-blue-500 hover:underline pl-1" onclick="handleButtonClick()">คลิกเพื่อทำงาน</button> -->
+                        <form  id="makeForm{{ $list_competition->id }}" action="{{ route('competition_program', $list_competition->id)}}"> 
+                            <button type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline pl-1" onclick="makeTable('{{ $list_competition->id }}')">ทำตารางการแข่งขัน</button>
                         </form>
                         <form  id="test" action="{{ route('show_competition_program', $list_competition->id)}}"> 
                             <button type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline pl-1" onclick="">ดูตารางการแข่งขัน</button>
@@ -82,6 +83,36 @@
             </tbody>
         </table>    
     </div>
+    
+    <script>
+        function makeTable(formId) {
+            var form = document.getElementById("makeForm" + formId);
+            if (form) {
+                form.submit();
+                var button = form.querySelector("button[type='submit']");
+                if (button) {
+                    button.disabled = true;
+                    button.style.color = "gray";
+                    // เก็บค่าการคลิกปุ่มไว้ใน localStorage
+                    localStorage.setItem("buttonClicked" + formId, true);
+                }
+            }
+        }
+        // เรียกใช้งานฟังก์ชั่นเมื่อโหลดหน้าเว็บ
+        window.onload = function() {
+            // ตรวจสอบว่าปุ่มได้ถูกคลิกไว้หรือไม่ และเปิดใช้งานปุ่มที่ถูกคลิกไว้
+            @foreach ($list_competitions as $list_competition)
+                var clicked = localStorage.getItem("buttonClicked{{ $list_competition->id }}");
+                if (clicked) {
+                    var button = document.getElementById("makeForm{{ $list_competition->id }}").querySelector("button[type='submit']");
+                    if (button) {
+                        button.disabled = true;
+                        button.style.color = "gray";
+                    }
+                }
+            @endforeach
+        };
+    </script>
 
     <script>
         document.querySelectorAll('[id^="NoEdit_"]').forEach(function(element) {
@@ -96,6 +127,7 @@
             });
         });
     </script>
+
     <script>
         function confirmAndRedirect(formId, title, successMessage) {
             var form = document.getElementById(formId);
@@ -125,10 +157,5 @@
                 text: '{{ session('alert')['text'] }}',
             });
         @endif
-
-
     </script>
-
-    
-   
 </x-app-layout>

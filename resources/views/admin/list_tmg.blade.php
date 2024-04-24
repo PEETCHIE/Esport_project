@@ -7,8 +7,8 @@
     <br>
    
 
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg ml-[50px]">
+    <table class="w-[1400px] text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <h3 class="font-semibold text-xl text-white dark:text-gray-200 leading-tight ml-3">
             {{ __('รอการอนุมัติ') }}
         </h3>
@@ -94,8 +94,8 @@
     </table>
 </div>
 <br>
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg ml-[50px]">
+    <table class="w-[1400px] text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <h3 class="font-semibold text-xl text-white dark:text-gray-200 leading-tight ml-3">
             {{ __('อนุมัติเรียบร้อย') }}
         </h3>
@@ -179,8 +179,8 @@
     </table>
 </div>
 <br>    
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg ml-[50px]">
+    <table class="w-[1400px] text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <h3 class="font-semibold text-xl text-white dark:text-gray-200 leading-tight ml-3">
             {{ __('ไม่อนุมัติ') }}
         </h3>
