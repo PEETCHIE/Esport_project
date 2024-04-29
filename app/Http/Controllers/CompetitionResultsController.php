@@ -75,7 +75,7 @@ class CompetitionResultsController extends Controller
                         'text' => 'การลบข้อมูลสำเร็จเรียบร้อย',
                     ]
                 );
-            } else{
+            } else {
                 return redirect()->back()->with(
                     'alert',
                     [
@@ -103,6 +103,7 @@ class CompetitionResultsController extends Controller
             echo $e->getMessage();
         }
     }
+
     public function store($id)
     {
         try {
@@ -119,7 +120,6 @@ class CompetitionResultsController extends Controller
                         ->where('cp_id', $cp_ids)
                         ->where('score', '>=', 1)
                         ->get();
-                    dd($chk_score);
                     if ($chk_score->isEmpty()) {
                         $latest_tit_id = DB::table('tournament_in_teams')
                             ->where('t_id', $id)
@@ -314,15 +314,40 @@ class CompetitionResultsController extends Controller
                                 'tit_id' => $tit_id,
                             ]);
                         }
-
-                        return redirect()->back()->with(
-                            'alert',
-                            [
-                                'icon' => 'info',
-                                'title' => 'Your success message',
-                                'text' => 'เพิ่มคะแนนสําเร็จ',
-                            ]
-                        );
+                        $chk_T_id = DB::table('tournament_in_teams')
+                            ->where('t_id', $id)
+                            ->where('cp_id', $cp_idLast)
+                            ->count();
+                        if ($chk_T_id >= 2) {
+                            $last_result = DB::table('competition_results')->where('tit_id', $tit_id)->pluck('id')->last();
+                            $last_tit = DB::table('tournament_in_teams')->where('cp_id', $cp_idLast)->pluck('id')->last();
+                            $delete_result = DB::table('competition_results')->where('id', $last_result)->delete();
+                            $delete_tit = DB::table('tournament_in_teams')->where('id', $last_tit)->delete();
+                            $RS_Minus = DB::table('competition_results')
+                                ->join('tournament_in_teams', 'competition_results.tit_id', '=', 'tournament_in_teams.id')
+                                ->where('t_id', $id)
+                                ->where('score', '>', 0)
+                                // ->decrement('score', 1)
+                                ->get();
+                                dd($RS_Minus);
+                            return redirect()->back()->with(
+                                'alert',
+                                [
+                                    'icon' => 'error',
+                                    'title' => 'ไม่สามารถเพิ่มคะแนนได้',
+                                    'text' => 'เนื่องจากเป็นทีมเดียวกัน',
+                                ]
+                            );
+                        } else {
+                            return redirect()->back()->with(
+                                'alert',
+                                [
+                                    'icon' => 'info',
+                                    'title' => 'Your success message',
+                                    'text' => 'เพิ่มคะแนนสําเร็จ',
+                                ]
+                            );
+                        }
                         break;
                     } else {
                         return redirect()->back()->with(
@@ -331,7 +356,6 @@ class CompetitionResultsController extends Controller
                                 'icon' => 'error',
                                 'title' => 'ไม่สามารถเพิ่มคะแนนได้',
                                 'text' => 'เนื่องจากได้มีทีมผ่านเข้ารอบไปแล้ว',
-
                             ]
                         );
                     }
