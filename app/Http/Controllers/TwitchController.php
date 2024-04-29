@@ -17,13 +17,14 @@ class TwitchController extends Controller
     public function getStreams()
     {
         try {
-            $credentials = DB::table('stream_twitch_api')->get();
+            $id = Auth()->id();
+            $tm_id = DB::table('tournament_managers')->where('user_id', $id)->pluck("id")->first();
+            $credentials = DB::table('stream_twitch_api')->where('tm_id', $tm_id)->get();
             $streamsData = [];
             foreach ($credentials as $credential) {
                 $twitchClientId = $credential->twitch_client_id;
                 $twitchClientSecret = $credential->twitch_client_secret;
                 $twitchUsernames = explode(',', $credential->twitch_username);
-
                 if (is_array($twitchUsernames)) {
                     foreach ($twitchUsernames as $username) {
                         $client = new Client();
@@ -31,7 +32,7 @@ class TwitchController extends Controller
                             'form_params' => [
                                 'client_id' => $twitchClientId,
                                 'client_secret' => $twitchClientSecret,
-                                'grant_type' => 'client_credentials'
+                                'grant_type' => 'client_credentials',
                             ]
                         ]);
                         $accessToken = json_decode($response->getBody()->getContents(), true)['access_token'];
@@ -39,7 +40,7 @@ class TwitchController extends Controller
                         $response = $client->get('https://api.twitch.tv/helix/streams?user_login=' . $username, [
                             'headers' => [
                                 'Authorization' => 'Bearer ' . $accessToken,
-                                'Client-ID' => $twitchClientId
+                                'Client-ID' => $twitchClientId,
                             ]
                         ]);
 
@@ -66,15 +67,9 @@ class TwitchController extends Controller
     public function storeTwitchAPI(Request $request)
     {
         try {
+            $id = Auth()->id();
+            $tm_id = DB::table('tournament_managers')->where('user_id', $id)->pluck('id')->first();
             if ($request->isMethod('post')) {
-                $request->validate([
-                    'id' => 'required',
-                    'platform_name' => 'required',
-                    'twitch_clientId' => 'required',
-                    'twitch_clientSecret' => 'required',
-                    'twitch_username' => 'required',
-                ]);
-
                 $config_LST_ID = ['table' => 'stream_twitch_api', 'length' => 8, 'prefix' => 'LST-'];
                 $lst_id = IdGenerator::generate($config_LST_ID);
 
@@ -84,6 +79,7 @@ class TwitchController extends Controller
                     'twitch_client_id' => $request->twitch_clientId,
                     'twitch_client_secret' => $request->twitch_clientSecret,
                     'twitch_username' => $request->twitch_username,
+                    'tm_id' => $tm_id
                 ]);
 
                 return redirect()->route('manager.home')->with('alert', [

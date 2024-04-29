@@ -371,10 +371,9 @@ class CompetitionProgramController extends Controller
                             'cl_id' => $cl_id
                         ]);
                     }
-
+                    $x = 0;
+                    $cp_id_r2 = DB::table('competition_programs')->WHERE('cl_id', $cl_id)->where('round', 'R2')->pluck('id')->toArray();
                     while ($random_scrap_teamsTeams->isNotEmpty()) {
-                        $x = 0;
-                        $cp_id_r2 = DB::table('competition_programs')->WHERE('cl_id', $cl_id)->where('round', 'R2')->pluck('id')->toArray();
                         $cp_id_count = DB::table('tournament_in_teams')
                             ->where('cp_id', $cp_id_r2[$x])
                             ->count();
@@ -491,10 +490,10 @@ class CompetitionProgramController extends Controller
                         'cl_id' => $cl_id
                     ]);
                 }
-
+                $x = 0;
+                $cp_id_r3 = DB::table('competition_programs')->WHERE('cl_id', $cl_id)->where('round', 'R3')->pluck('id')->toArray();
                 while ($random_scrap_teamsTeams->isNotEmpty()) {
-                    $x = 0;
-                    $cp_id_r3 = DB::table('competition_programs')->WHERE('cl_id', $cl_id)->where('round', 'R3')->pluck('id')->toArray();
+                   
                     $cp_id_count = DB::table('tournament_in_teams')
                         ->where('cp_id', $cp_id_r3[$x])
                         ->count();
@@ -604,10 +603,10 @@ class CompetitionProgramController extends Controller
                         'cl_id' => $cl_id
                     ]);
                 }
-
+                $x = 0;
+                $cp_id_r4 = DB::table('competition_programs')->WHERE('cl_id', $cl_id)->where('round', 'R4')->pluck('id')->toArray();
                 while ($random_scrap_teamsTeams->isNotEmpty()) {
-                    $x = 0;
-                    $cp_id_r4 = DB::table('competition_programs')->WHERE('cl_id', $cl_id)->where('round', 'R4')->pluck('id')->toArray();
+
                     $cp_id_count = DB::table('tournament_in_teams')
                         ->where('cp_id', $cp_id_r4[$x])
                         ->count();
@@ -630,7 +629,6 @@ class CompetitionProgramController extends Controller
                         'score' => 0,
                         'tit_id' => $tit_id,
                     ]);
-                
                 }
 
                 $config_cp_id = ['table' => 'competition_programs', 'length' => 8, 'prefix' => 'RM-'];

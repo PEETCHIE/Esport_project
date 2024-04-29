@@ -27,8 +27,6 @@ class CompetitionListController extends Controller
         $tm_id = DB::table('tournament_managers')->where('user_id', $id)->pluck('id')->first();
         $list_competitions = DB::table('competition_lists')->get()->WHERE('tm_id', $tm_id);
         $currentDate = Carbon::now();
-        
-
         return view('manager.competition_table', compact('list_competitions', 'currentDate'));
     }
 
@@ -49,19 +47,15 @@ class CompetitionListController extends Controller
         //
         $id = Auth()->id();
         $tm_id = DB::table('tournament_managers')->where('user_id', $id)->pluck('id')->first();
-        // dd($tm_id);
         $slug = Str::slug($request->competition_name);
         $filename = '';
         if ($request->hasFile('cl_img')) {
             $domainAndProtocol = $request->getSchemeAndHttpHost();
             $filename = $domainAndProtocol . '/asset/img/' . $slug . '_' . time() . '.' . $request->cl_img->extension();
-    
             $request->cl_img->move(public_path('/asset/img'), $filename);
         }
-        // dd($filename);
         $config_competition_list = ['table' => 'competition_lists', 'length' => 8, 'prefix' => 'CPL-'];
         $competition_list_id = IdGenerator::generate($config_competition_list);
-        // dd($competition_list_id );
         $competition_store = competition_list::insert([
             'id' => $competition_list_id,
             'competition_name' => $request->competition_name,
@@ -78,7 +72,6 @@ class CompetitionListController extends Controller
             'cl_img' => $filename,
             'tm_id' => $tm_id,
         ]);
-        // dd($competition_store);
         return redirect()->route('managers_competition.index')->with('status', 'เพิ่มรายการแข่งเรียบร้อย');
     }
 
@@ -119,7 +112,7 @@ class CompetitionListController extends Controller
             if ($request->hasFile('cl_img')) {
                 $filename = $request->getSchemeAndHttpHost() . '/asset/img/' . time() . '.' . $request->cl_img->extension();
                 $request->cl_img->move(public_path('/asset/img'), $filename);
-            } else{
+            } else {
                 return 'No file Selected';
             }
             $data = DB::table('competition_lists')->WHERE('id', $id)->update([
