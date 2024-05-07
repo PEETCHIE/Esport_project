@@ -183,6 +183,7 @@
             </form>
         </div>
     </div>
+    
     <div class="cols">
         @foreach ($buckets as $bucket)
             @if ($item->competition_amount > 8)
