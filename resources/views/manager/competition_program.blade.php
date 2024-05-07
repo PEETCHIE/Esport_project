@@ -74,8 +74,9 @@
                                 คะแนน
                             </button>
                         </div>
-                    @if($index % 2 == 1)
-                        <div class="absolute transform translate-x-[14px] -translate-y-[57px]">
+                    @endforeach
+                    @if(count($bucket['R2']) > 0)
+                        <div class="absolute transform translate-x-[14px] -translate-y-[54px]">
                             <button onclick="openEditModal('{{ $item->cp_id }}-{{ $item->t_id }}')"
                                 class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
                                 แก้ไข
@@ -123,8 +124,9 @@
                                 คะแนน
                             </button>
                         </div>
-                    @if($index % 2 == 1)
-                        <div class="absolute transform translate-x-[14px] -translate-y-[57px]">
+                    @endforeach
+                    @if(count($bucket['R3']) > 0)
+                        <div class="absolute transform translate-x-[14px] -translate-y-[54px]">
                             <button onclick="openEditModal('{{ $item->cp_id }}-{{ $item->t_id }}')"
                                 class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
                                 แก้ไข
@@ -172,8 +174,9 @@
                                 คะแนน
                             </button>
                         </div>
-                    @if($index % 2 == 1)
-                        <div class="absolute transform translate-x-[14px] -translate-y-[57px]">
+                    @endforeach
+                    @if(count($bucket['R4']) > 0)
+                        <div class="absolute transform translate-x-[14px] -translate-y-[54px]">
                             <button onclick="openEditModal('{{ $item->cp_id }}-{{ $item->t_id }}')"
                                 class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
                                 แก้ไข
@@ -221,7 +224,7 @@
                             </button>
                         </div>
                     @endforeach
-                    @if(count($bucket['R5']) > 0)
+                    @if(count($bucket['R5']) > 1)
                         <div class="absolute transform translate-x-[14px] -translate-y-[54px]">
                             <button onclick="openEditModal('{{ $item->cp_id }}-{{ $item->t_id }}')"
                                 class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
