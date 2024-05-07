@@ -244,6 +244,7 @@
 
     <div class="cols">
         @foreach ($buckets as $bucket)
+        @if ($item->competition_amount > 16)
             <div class="mx-8 w-36 grid-cols-4 gap-3 mt-[470px]">
                 @foreach ($bucket['R5'] as $item)
                     <br>
@@ -289,6 +290,7 @@
             </div>
         @endif
     </div>
+    @endif
     @endforeach
     </div>
     </div>
@@ -421,11 +423,11 @@
         modal.classList.add("hidden");
     }
 
-    // @if (session('alert'))
-    //     Swal.fire({
-    //         icon: '{{ session('alert')['icon'] }}',
-    //         title: '{{ session('alert')['title'] }}',
-    //         text: '{{ session('alert')['text'] }}',
-    //     });
-    // @endif
+    @if (session('alert'))
+        Swal.fire({
+            icon: '{{ session('alert')['icon'] }}',
+            title: '{{ session('alert')['title'] }}',
+            text: '{{ session('alert')['text'] }}',
+        });
+    @endif
 </script>
