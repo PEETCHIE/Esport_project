@@ -204,7 +204,8 @@ class CompetitionProgramController extends Controller
                         ->join('teams', 'tournament_in_teams.t_id', '=', 'teams.id')
                         ->join('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')
                         ->join('competition_results', 'competition_results.tit_id', '=', 'tournament_in_teams.id')
-                        ->select('t_name', 'logo', 'matches', 'round', 'cp_id', 't_id', 'score', 'link', 'match_date', 'match_time')
+                        ->join('competition_lists', 'competition_programs.cl_id', '=', 'competition_lists.id')
+                        ->select('t_name', 'logo', 'matches', 'round', 'cp_id', 't_id', 'score', 'link', 'match_date', 'match_time', 'competition_amount')
                         ->get();
                     // dd($bucket);
                     // แยกข้อมูลตาม R1 และ R2
@@ -249,8 +250,8 @@ class CompetitionProgramController extends Controller
                                     'score' => $item->score,
                                     'link' => $item->link,
                                     'match_date' => $item->match_date,
-                                    'match_time' => $item->match_time
-                                    
+                                    'match_time' => $item->match_time,
+                                    'competition_amount' => $item->competition_amount,
                                 ];
                             }
                         }
