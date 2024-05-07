@@ -250,6 +250,7 @@ class CompetitionProgramController extends Controller
                                     'link' => $item->link,
                                     'match_date' => $item->match_date,
                                     'match_time' => $item->match_time
+                                    
                                 ];
                             }
                         }

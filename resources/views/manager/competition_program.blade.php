@@ -132,10 +132,10 @@
                             <div class="border
                                 @if($item->score > 0) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif
                                 text-white flex justify-between grid-cols-3 gap-2">
-                            @else
+                        @else
                             <div
                                 class="border bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-3 gap-2">
-                            @endif
+                        @endif
                             <span class="flex justify-start p-1 text-white text-[12px]">{{ $item->t_name }}</span>                       
                             <div class="relative">
                                 <div class="rounded-full bg-[#ffff] w-[50px] absolute inset-y-0 left-[10px]"  style="border-radius: 0% 0% 0% 85% / 0% 0% 100% 100%;"></div>
@@ -179,7 +179,6 @@
 
         <div class="cols">
             @foreach ($buckets as $bucket)
-            @if(count($bucket['R1']) == 8)
                 <div class="mx-8 w-36 grid-cols-4 gap-3 mt-[270px]">
                     @foreach ($bucket['R4'] as $index => $item)
                         <br>
@@ -187,10 +186,10 @@
                             <div class="border
                                 @if($item->score > 0) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif
                                 text-white flex justify-between grid-cols-3 gap-2">
-                            @else
+                        @else
                             <div
                                 class="border bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-3 gap-2">
-                            @endif
+                        @endif
                             <span class="flex justify-start p-1 text-white text-[12px]">{{ $item->t_name }}</span>                       
                             <div class="relative">
                                 <div class="rounded-full bg-[#ffff] w-[50px] absolute inset-y-0 left-[10px]"  style="border-radius: 0% 0% 0% 85% / 0% 0% 100% 100%;"></div>
@@ -223,7 +222,6 @@
                     @endif
                     @endforeach
                 </div>
-                @endif
             @endforeach
             <div class="flex justify-center mt-48">
                 <form action="{{ route('randomizeBlindR3', $item->cp_id) }}" method="GET">
@@ -408,11 +406,11 @@
         modal.classList.add("hidden");
     }
 
-    // @if (session('alert'))
-    //     Swal.fire({
-    //         icon: '{{ session('alert')['icon'] }}',
-    //         title: '{{ session('alert')['title'] }}',
-    //         text: '{{ session('alert')['text'] }}',
-    //     });
-    // @endif
+    @if (session('alert'))
+        Swal.fire({
+            icon: '{{ session('alert')['icon'] }}',
+            title: '{{ session('alert')['title'] }}',
+            text: '{{ session('alert')['text'] }}',
+        });
+    @endif
 </script>
