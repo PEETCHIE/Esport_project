@@ -213,7 +213,6 @@ class CompetitionProgramController extends Controller
                     $r3_bucket = [];
                     $r4_bucket = [];
                     $r5_bucket = [];
-                    $r6_bucket = [];
 
                     foreach ($bucket as $item) {
                         if ($item->round == 'R1') {
@@ -226,19 +225,17 @@ class CompetitionProgramController extends Controller
                             $r4_bucket[] = $item;
                         } else if ($item->round == 'R5') {
                             $r5_bucket[] = $item;
-                        } else if ($item->round == 'R6') {
-                            $r5_bucket[] = $item;
-                        }
+                        } 
                     }
                     $buckets[] = [
                         'R1' => $r1_bucket,
                         'R2' => $r2_bucket,
                         'R3' => $r3_bucket,
                         'R4' => $r4_bucket,
-                        'R5' => $r5_bucket,
-                        'R6' => $r6_bucket
+                        'R5' => $r5_bucket
                     ];
                 }
+                
                 $teamsWithSameCpId = [];
                 $tt = DB::table('tournament_in_teams')->pluck('cp_id')->toArray();
                 foreach ($buckets as $bucket) {
@@ -398,7 +395,7 @@ class CompetitionProgramController extends Controller
                             'tit_id' => $tit_id,
                         ]);
                     }
-
+                    // dd($x);
                     $config_cp_id = ['table' => 'competition_programs', 'length' => 8, 'prefix' => 'RM-'];
                     $cp_id = IdGenerator::generate($config_cp_id);
                     $competition_program = competition_program::insert([

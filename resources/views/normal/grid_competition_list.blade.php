@@ -11,7 +11,7 @@
                 <div class="grid grid-cols-4 grid-flow-row dark:text-gray-200 leading-tight grid-md flex flex-wrap ">
                     @foreach ($competition_lists as $competition_list)
                     <div class="mx-auto px-5 justify-center m-3">
-                        <div class="max-w-xs cursor-pointer rounded-lg bg-[#C9193A]  p-2 shadow duration-150 hover:scale-105 hover:shadow-md">
+                        <div class="max-w-xs cursor-pointer rounded-lg bg-gradient-to-r from-slate-900 to-slate-700  p-2 shadow duration-150 hover:scale-105 hover:shadow-md">
                             <img class="h-40 w-60 mx-auto rounded-lg object-cover object-center mb-2" src="{{ $competition_list->cl_img}}" alt="product" />
                             <p class="my-4 pl-4 my-px font-bold text-white">ชื่อรายการแข่งขัน : {{ $competition_list->competition_name}}</p>
                             <p class="my-4 pl-4 my-px font-bold text-white">เกม : {{ $competition_list->game_name}}</p>
