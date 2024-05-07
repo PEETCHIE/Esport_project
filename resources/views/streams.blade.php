@@ -8,6 +8,7 @@
                             <div id="twitch-embed{{ $loop->parent->index * $loop->count + $loop->iteration }}">OBSERVER
                                 {{ $loop->parent->index * $loop->count + $loop->iteration }}</div>
                         </center>
+                        
                         <script src="https://player.twitch.tv/js/embed/v1.js"></script>
                         <script type="text/javascript">
                             new Twitch.Player("twitch-embed{{ $loop->parent->index * $loop->count + $loop->iteration }}", {

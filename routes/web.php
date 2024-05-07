@@ -16,7 +16,7 @@ use App\Http\Controllers\CompetitionProgramController;
 use App\Http\Controllers\LivestreamController;
 use App\Http\Controllers\TwitchController;
 use App\Http\Controllers\CompetitionResultsController;
-
+use App\Http\Controllers\PDFController;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,6 +90,7 @@ Route::middleware(['auth','role:manager'])->group(function () {
     Route::get('/livestream/form/youtube', [TwitchController::class, 'formYoutube'])->name('formYoutube');
     Route::post('/livestream/store/twitch', [TwitchController::class, 'storeTwitchAPI'])->name('storeTwitchAPI');
     Route::post('/livestream/store/youtube', [TwitchController::class, 'storeYoutubeAPI'])->name('storeYoutubeAPI');
+    Route::get('/generate-pdf', [PDFController::class, 'generatePDF'])->name('generatePDF');
 
 });
 
