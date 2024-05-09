@@ -336,7 +336,7 @@ class CompetitionProgramController extends Controller
             $chk_scrap_teams = DB::table('tournament_in_teams')->join('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')->WHERE('competition_programs.cl_id', $cl_id)->WHERE('competition_programs.round', 'R2')->count();
             if ($chk_scrap_teams != 1) {
                 if ($chk_scrap_teams % 2 != 0) {
-                    $tit_id = DB::table('tournament_in_teams')->JOIN('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')->WHERE('competition_programs.round', 'R2')->pluck('tournament_in_teams.id')->toArray();
+                    $tit_id = DB::table('tournament_in_teams')->JOIN('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')->WHERE('competition_programs.round', 'R2')->WHERE('competition_programs.cl_id', $cl_id)->pluck('tournament_in_teams.id')->toArray();
                     $scrap_teams = DB::table('tournament_in_teams')
                         ->join('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')
                         ->join('teams', 'tournament_in_teams.t_id', '=', 'teams.id')
@@ -352,6 +352,7 @@ class CompetitionProgramController extends Controller
                         ->delete();
                     $reCompetition_programs = DB::table('competition_programs')
                         ->where('round', 'R2')
+                        ->WHERE('cl_id', $cl_id)
                         ->delete();
                     $half_scrap_teams = $chk_scrap_teams / 2;
                     $competition_programs = DB::table('competition_programs')->WHERE('cl_id', $cl_id)->count();
@@ -455,8 +456,7 @@ class CompetitionProgramController extends Controller
             $cl_id = DB::table('competition_programs')->WHERE('id', $cp_id)->pluck('cl_id')->first();
             $chk_scrap_teams = DB::table('tournament_in_teams')->join('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')->WHERE('competition_programs.cl_id', $cl_id)->WHERE('competition_programs.round', 'R3')->count();
             if ($chk_scrap_teams % 2 != 0) {
-                $tit_id = DB::table('tournament_in_teams')->JOIN('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')->WHERE('competition_programs.round', 'R3')->pluck('tournament_in_teams.id')->toArray();
-                $scrap_teams = DB::table('tournament_in_teams')
+                $tit_id = DB::table('tournament_in_teams')->JOIN('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')->WHERE('competition_programs.round', 'R2')->WHERE('competition_programs.cl_id', $cl_id)->pluck('tournament_in_teams.id')->toArray();                $scrap_teams = DB::table('tournament_in_teams')
                     ->join('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')
                     ->join('teams', 'tournament_in_teams.t_id', '=', 'teams.id')
                     ->WHERE('competition_programs.cl_id', $cl_id)
@@ -471,6 +471,7 @@ class CompetitionProgramController extends Controller
                     ->delete();
                 $reCompetition_programs = DB::table('competition_programs')
                     ->where('round', 'R3')
+                    ->where('cl_id', $cl_id)
                     ->delete();
                 $half_scrap_teams = $chk_scrap_teams / 2;
                 $competition_programs = DB::table('competition_programs')->WHERE('cl_id', $cl_id)->count();
@@ -568,8 +569,7 @@ class CompetitionProgramController extends Controller
             $cl_id = DB::table('competition_programs')->WHERE('id', $cp_id)->pluck('cl_id')->first();
             $chk_scrap_teams = DB::table('tournament_in_teams')->join('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')->WHERE('competition_programs.cl_id', $cl_id)->WHERE('competition_programs.round', 'R4')->count();
             if ($chk_scrap_teams % 2 != 0) {
-                $tit_id = DB::table('tournament_in_teams')->JOIN('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')->WHERE('competition_programs.round', 'R4')->pluck('tournament_in_teams.id')->toArray();
-                $scrap_teams = DB::table('tournament_in_teams')
+                $tit_id = DB::table('tournament_in_teams')->JOIN('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')->WHERE('competition_programs.round', 'R2')->WHERE('competition_programs.cl_id', $cl_id)->pluck('tournament_in_teams.id')->toArray();                $scrap_teams = DB::table('tournament_in_teams')
                     ->join('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')
                     ->join('teams', 'tournament_in_teams.t_id', '=', 'teams.id')
                     ->WHERE('competition_programs.cl_id', $cl_id)
@@ -584,6 +584,7 @@ class CompetitionProgramController extends Controller
                     ->delete();
                 $reCompetition_programs = DB::table('competition_programs')
                     ->where('round', 'R4')
+                    ->WHERE('cl_id', $cl_id)
                     ->delete();
                 $half_scrap_teams = $chk_scrap_teams / 2;
                 $competition_programs = DB::table('competition_programs')->WHERE('cl_id', $cl_id)->count();

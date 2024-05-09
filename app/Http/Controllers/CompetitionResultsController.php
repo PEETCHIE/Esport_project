@@ -338,7 +338,7 @@ class CompetitionResultsController extends Controller
                                 ->where('score', '>', 0)
                                 // ->decrement('score', 1)
                                 ->get();
-                            dd($RS_Minus);
+                            // dd($RS_Minus);
                             return redirect()->back()->with(
                                 'alert',
                                 [
