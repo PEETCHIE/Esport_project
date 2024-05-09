@@ -22,6 +22,9 @@
                                 รายการแข่งขัน</p>
                             <p class="text-[18px] pt-4 text-dark  text-right px-2">
                                 {{ $count_competition_lists }} รายการ</p>
+                            <div class="text-[12px] text-right px-2">
+                                <button href="#" onclick="openModal('modal')">more info</button>
+                            </div>
                         </div>
                     </div>
                     <div class="flex ml-[20px] mb-[20px]">
@@ -55,8 +58,32 @@
         </div>
     </div>
 
+    <div id="modal"
+        class="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+        <!-- Modal container -->
+        <div class="bg-white rounded p-8 w-1/2">
+            <!-- Modal content -->
+            <div class="mb-4">
+                <h2 class="text-lg font-bold mb-2">Modal Title</h2>
+                <p>Modal content goes here...</p>
+            </div>
+            <!-- Modal actions (e.g., buttons) -->
+            <div class="text-right">
+                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mr-2"
+                    onclick="closeModal('modal')">
+                    Close
+                </button>
+                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                    onclick="closeModal('modal')">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
 
 </x-app-layout>
+
+
 
 <script>
     @if (session('alert'))
@@ -136,4 +163,15 @@
             }
         }
     });
+</script>
+<script>
+    // Function to open modal
+    function openModal(modalId) {
+        document.getElementById(modalId).classList.remove('hidden');
+    }
+
+    // Function to close modal
+    function closeModal(modalId) {
+        document.getElementById(modalId).classList.add('hidden');
+    }
 </script>

@@ -64,8 +64,16 @@ class CompetitionResultsController extends Controller
                 $deleteTIT = DB::table('tournament_in_teams')->whereIn('id', $tit_ids)->delete();
                 $RS_Minus = DB::table('competition_results')
                     ->join('tournament_in_teams', 'competition_results.tit_id', '=', 'tournament_in_teams.id')
+                    ->join('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')
                     ->where('t_id', $id)
                     ->where('score', '>', 0)
+                    ->where(function ($query) {
+                        $query->where('competition_programs.round', 'R6')
+                            ->orWhere('competition_programs.round', 'R5')
+                            ->orWhere('competition_programs.round', 'R4')
+                            ->orWhere('competition_programs.round', 'R3')
+                            ->orWhere('competition_programs.round', 'R2');
+                    })
                     ->decrement('score', 1);
                 return redirect()->back()->with(
                     'alert',
@@ -76,20 +84,21 @@ class CompetitionResultsController extends Controller
                     ]
                 );
             } else {
+                $RS_Minus = DB::table('competition_results')
+                    ->join('tournament_in_teams', 'competition_results.tit_id', '=', 'tournament_in_teams.id')
+                    ->whereIn('tit_id', $tit_ids)
+                    ->where('score', '>', 0)
+                    ->decrement('score', 1);
                 return redirect()->back()->with(
                     'alert',
                     [
-                        'icon' => 'error',
-                        'title' => 'error',
-                        'text' => 'error',
+                        'icon' => 'info',
+                        'title' => 'ลบคะแนนสำเร็จ',
+                        'text' => 'การลบข้อมูลสำเร็จเรียบร้อย',
                     ]
                 );
             }
-            $RS_Minus = DB::table('competition_results')
-                ->join('tournament_in_teams', 'competition_results.tit_id', '=', 'tournament_in_teams.id')
-                ->whereIn('tit_id', $tit_ids)
-                ->where('score', '>', 0)
-                ->decrement('score', 1);
+
             return redirect()->back()->with(
                 'alert',
                 [
@@ -329,7 +338,7 @@ class CompetitionResultsController extends Controller
                                 ->where('score', '>', 0)
                                 // ->decrement('score', 1)
                                 ->get();
-                                dd($RS_Minus);
+                            // dd($RS_Minus);
                             return redirect()->back()->with(
                                 'alert',
                                 [
