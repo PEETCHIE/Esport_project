@@ -42,7 +42,7 @@
                         <br>
                         <div
                             class="border bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-3 gap-2">
-                            <span class="flex justify-start p-1 text-white text-[12px]">{{ $item->t_name }}</span>
+                            <span class="flex justify-start p-1 text-white text-[12px] whitespace-nowrap">{{ $item->t_name }}</span>
                             <div class="relative">
                                 <div class="rounded-full bg-[#ffff] w-[50px] absolute inset-y-0 left-[10px]"
                                     style="border-radius: 0% 0% 0% 85% / 0% 0% 100% 100%;"></div>
@@ -132,7 +132,7 @@
                 <div class="mx-8 w-36 grid-cols-4 gap-3 mt-[145px]">
                     @foreach ($bucket['R3'] as $index => $item)
                         <br>
-                        @if (count($bucket['R3']) == 2)
+                        @if ($item->competition_amount == 8)
                             <div
                                 class="border
                                 @if ($item->score > 0) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif
@@ -190,7 +190,7 @@
                 <div class="mx-8 w-36 grid-cols-4 gap-3 mt-[270px]">
                     @foreach ($bucket['R4'] as $index => $item)
                         <br>
-                        @if (count($bucket['R4']) == 2)
+                        @if ($item->competition_amount == 16)
                             <div
                                 class="border
                                 @if ($item->score > 0) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif
