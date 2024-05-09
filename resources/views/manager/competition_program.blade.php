@@ -254,8 +254,9 @@
                                 class="border
                                 @if ($item->score > 0) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif
                                 text-white flex justify-between grid-cols-3 gap-2">
-                        @else
-                                <div class="border bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-3 gap-2">
+                            @else
+                                <div
+                                    class="border bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-3 gap-2">
                         @endif
                         <span class="flex justify-start p-1 text-white text-[12px]">{{ $item->t_name }}</span>
                         <div class="relative">

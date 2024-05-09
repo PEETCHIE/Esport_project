@@ -157,9 +157,8 @@ class CompetitionResultsController extends Controller
                                 ->first();
                             $last_match = DB::table('competition_programs')
                                 ->where('cl_id', $cl_idFK)
-                                ->orderByDesc('matches')
                                 ->pluck('matches')
-                                ->first();
+                                ->last();
                             if ($last_match !== null) {
                                 $new_match = $last_match + 1;
                             } else {
