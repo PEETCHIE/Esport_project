@@ -19,7 +19,7 @@
                 <!-- Content -->
                 <div class="p-4">
                     <!-- Content for Tab 1 -->
-                    <div id="tab1" class="tab-content">
+                    <div id="tab2" class="hidden tab-content">
                         <div
                             class="grid grid-cols-5 grid-flow-row dark:text-gray-200 leading-tight grid-md flex flex-wrap">
                             @foreach ($team_lists as $team_list)
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <!-- Content for Tab 2 -->
-                    <div id="tab2" class="hidden tab-content">
+                    <div id="tab1" class="tab-content">
                         <div class="grid grid-cols-5 gap-1">
                             <div>
                                 <h1>ROUND 1</h1>
@@ -121,8 +121,15 @@
                                     <div class="mx-8 w-36 grid-cols-4 gap-3">
                                         @foreach ($bucket['R3'] as $item)
                                             <br>
-                                            <div
-                                                class="border bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-3 gap-2">
+                                            @if ($item->competition_amount == 8)
+                                                <div
+                                                    class="border
+                                                    @if ($item->score > 0) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif
+                                                    text-white flex justify-between grid-cols-3 gap-2">
+                                                @else
+                                                    <div
+                                                        class="border bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-3 gap-2">
+                                            @endif
                                                 <span class="flex justify-start p-1 text-white text-[12px] whitespace-nowrap">{{ $item->t_name }}</span>                       
                                                 <div class="relative">
                                                     <div class="rounded-full bg-[#ffff] w-[50px] absolute inset-y-0 left-[5px]"  style="border-radius: 0% 0% 0% 85% / 0% 0% 100% 100%;"></div>
@@ -155,11 +162,19 @@
                             <div>
                                 <h1>ROUND 4</h1>
                                 @foreach ($buckets as $bucket)
+                                @if ($item->competition_amount > 8)
                                     <div class="mx-8 w-36 grid-cols-4 gap-3">
                                         @foreach ($bucket['R4'] as $item)
                                             <br>
-                                            <div
-                                                class="border bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-3 gap-2">
+                                            @if ($item->competition_amount == 16)
+                                                <div
+                                                    class="border
+                                                    @if ($item->score > 0) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif
+                                                    text-white flex justify-between grid-cols-3 gap-2">
+                                                @else
+                                                    <div
+                                                        class="border bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-3 gap-2">
+                                            @endif
                                                 <span class="flex justify-start p-1 text-white text-[12px] whitespace-nowrap">{{ $item->t_name }}</span>                       
                                                 <div class="relative">
                                                     <div class="rounded-full bg-[#ffff] w-[50px] absolute inset-y-0 left-[5px]"  style="border-radius: 0% 0% 0% 85% / 0% 0% 100% 100%;"></div>
@@ -187,16 +202,18 @@
                                             @endif
                                         @endforeach
                                     </div>
+                                    @endif
                                 @endforeach
                             </div>
                             <div>
                                 <h1>ROUND 5</h1>
                                 @foreach ($buckets as $bucket)
+                                @if ($item->competition_amount > 16)
                                     <div class="mx-8 w-36 grid-cols-4 gap-3">
                                         @foreach ($bucket['R5'] as $item)
                                             <br>
-                                            <div
-                                                class="border bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-3 gap-2">
+                                            <div class="border @if ($item->score > 0) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif
+                                                text-white flex justify-between grid-cols-3 gap-2">
                                                 <span class="flex justify-start p-1 text-white text-[12px] whitespace-nowrap">{{ $item->t_name }}</span>                       
                                                 <div class="relative">
                                                     <div class="rounded-full bg-[#ffff] w-[50px] absolute inset-y-0 left-[5px]"  style="border-radius: 0% 0% 0% 85% / 0% 0% 100% 100%;"></div>
@@ -224,6 +241,7 @@
                                             @endif
                                         @endforeach
                                     </div>
+                                    @endif
                                 @endforeach
                             </div>
                         </div>
