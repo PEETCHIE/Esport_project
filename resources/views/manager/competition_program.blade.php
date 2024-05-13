@@ -4,38 +4,272 @@
             {{ __('จัดการตารางข้อมูลการแข่งขัน') }}
         </h2>
     </x-slot>
-    <!-- <div class="relative">
-        <div class="z-10 border border-0 border-rose-600 border-b-white bg-[#C9193A] w-[1518px] h-[50px] absolute transform translate-x-[-2px] translate-y-[-45px]">
-        </div>
-    </div> -->
-
-    <div class="grid grid-cols-5 gap-1 bg-[#f0f0f0] rounded m-2 p-6 mt-[5px]">
-
-        <!-- <div class="cols">
-            @foreach ($buckets as $bucket)
-<div class="mx-8 w-36 grid-cols-4 gap-4">
-                @foreach ($bucket['R1'] as $item)
-<div class="border-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-2 gap-2 relative">
-                    <span class="flex justify-start p-1 text-white text-[12px]">{{ $item->t_name }}</span>
-                    <div class="relative">
-                        <div class="rounded-full bg-[#ffff] w-[50px] absolute inset-y-0 left-[15px]"  style="border-radius: 0% 0% 0% 85% / 0% 0% 100% 100%;"></div>
+    <div class="Round">
+    @foreach ($buckets as $bucket)
+        @if ($loop->first)
+            @foreach ($bucket['R1'] as $item)
+                @if ($item->competition_amount == 8)
+                    <div class="flex">
+                        <h1 class="ml-[110px] text-white">ROUND 1</h1>
+                        <h1 class="ml-[235px] text-white">Semi Final</h1>
+                        <h1 class="ml-[230px] text-white">Final</h1>
                     </div>
-                    <div class="p-1 shrink-0">
-                        <div class="relative inset-y-0 left-[9px]">
-                            <img src="{{ $item->logo }}" class="w-5 h-5" alt="">
+                @endif
+                @break
+            @endforeach
+        @endif
+    @endforeach
+    @foreach ($buckets as $bucket)
+        @if ($loop->first)
+            @foreach ($bucket['R1'] as $item)
+                @if ($item->competition_amount == 16)
+                    <div class="flex">
+                        <h1 class="ml-[110px] text-white">ROUND 1</h1>
+                        <h1 class="ml-[235px] text-white">ROUND 2</h1>
+                        <h1 class="ml-[230px] text-white">Semi Final</h1>
+                        <h1 class="ml-[230px] text-white">Final</h1>
+                    </div>
+                @endif
+                @break
+            @endforeach
+        @endif
+    @endforeach
+    @foreach ($buckets as $bucket)
+        @if ($loop->first)
+            @foreach ($bucket['R1'] as $item)
+                @if ($item->competition_amount == 32)
+                    <div class="flex">
+                        <h1 class="ml-[110px] text-white">ROUND 1</h1>
+                        <h1 class="ml-[235px] text-white">ROUND 2</h1>
+                        <h1 class="ml-[235px] text-white">ROUND 3</h1>
+                        <h1 class="ml-[220px] text-white">Semi Final</h1>
+                        <h1 class="ml-[230px] text-white">Final</h1>
+                    </div>
+                @endif
+                @break
+            @endforeach
+        @endif
+    @endforeach
+    <div class="grid grid-cols-5 gap-1 bg-[#f0f0f0] rounded m-2 p-6 mt-[5px]">
+        <div class="cols">
+            @foreach ($buckets as $bucket)
+                <div class="mx-8 w-36 grid-cols-4 gap-4">
+                    @foreach ($bucket['R1'] as $item)
+                        <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                            <span class="flex justify-start  p-1 text-white text-[12px]">{{ $item->t_name }}</span>
+                            <img class="rounded-full bg-[#ffff] w-[50px] absolute inset-y-0 left-[80px]"  style="border-radius: 0% 0% 0% 85% / 0% 0% 100% 100%;" src="{{ $item->logo }}">
+                            <div class="border border-[#C9193A] bg-[#C9193A] text-black flex items-center justify-center w-8">
+                                {{ $item->score }}
+                            </div>
+                        </div>
+                        <div class="absolute transform -translate-x-[25px] -translate-y-[32px]">
+                            <button onclick="openScoreModal('{{ $item->cp_id }}-{{ $item->t_id }}')"
+                                class="px-2 py-2 text-xs font-medium text-center text-white bg-green-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
+                                คะแนน
+                            </button>
+                        </div>
+                        <br>
+                    @endforeach
+                    <div class="absolute transform translate-x-[30px] -translate-y-[85px]">
+                        <button onclick="openEditModal('{{ $item->cp_id }}-{{ $item->t_id }}')"
+                            class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
+                            แก้ไข
+                        </button>
+                    </div>
+                    <div class="absolute transform translate-x-[70px] -translate-y-[85px]">
+                        <div class="flex">
+                            <span class="text-red-500 font-bold">V</span>
+                            <span class="text-blue-500 font-bold">S</span>
                         </div>
                     </div>
                 </div>
-                <div class="border border-[#C9193A] bg-[#C9193A] text-black flex items-center justify-center w-8">
-                    {{ $item->score }}
-                </div>
-                <br>
-@endforeach
-            </div>
-@endforeach
-        </div> -->
+            @endforeach
+        </div>
 
-        <div class="cols">
+        <div class="cols ml-[10px]">
+            @foreach ($buckets as $bucket)
+                <div class="mx-8 w-36 grid-cols-4 gap-4 mt-[58px]">
+                    @foreach ($bucket['R2'] as $index => $item)
+                        <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                            <span class="flex justify-start  p-1 text-white text-[12px]">{{ $item->t_name }}</span>
+                            <img class="rounded-full bg-[#ffff] w-[50px] absolute inset-y-0 left-[80px]"  style="border-radius: 0% 0% 0% 85% / 0% 0% 100% 100%;" src="{{ $item->logo }}">
+                            <div class="border border-[#C9193A] bg-[#C9193A] text-black flex items-center justify-center w-8">
+                                {{ $item->score }}
+                            </div>
+                        </div>
+                        <div class="absolute transform -translate-x-[25px] -translate-y-[32px]">
+                            <button onclick="openScoreModal('{{ $item->cp_id }}-{{ $item->t_id }}')"
+                                class="px-2 py-2 text-xs font-medium text-center text-white bg-green-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
+                                คะแนน
+                            </button>
+                        </div>
+                        <br>
+                    @if ($index % 2 == 1)
+                    <div class="absolute transform translate-x-[30px] -translate-y-[85px]">
+                        <button onclick="openEditModal('{{ $item->cp_id }}-{{ $item->t_id }}')"
+                            class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
+                            แก้ไข
+                        </button>
+                    </div>
+                    <div class="absolute transform translate-x-[70px] -translate-y-[85px]">
+                        <div class="flex">
+                            <span class="text-red-500 font-bold">V</span>
+                            <span class="text-blue-500 font-bold">S</span>
+                        </div>
+                    </div>
+                    @endif
+                @endforeach
+                </div>
+            @endforeach
+            <div class="flex justify-center mt-48">
+                <form action="{{ route('randomizeBlindR3', $item->cp_id) }}" method="GET">
+                    <button
+                        type="submit"class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-1 px-2 rounded">ทีมสุ่ม</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="cols ml-[10px]">
+            @foreach ($buckets as $bucket)
+                <div class="mx-8 w-36 grid-cols-4 gap-4 mt-[145px]">
+                    @foreach ($bucket['R3'] as $index => $item)
+                    @if ($item->competition_amount == 8)
+                        <div class="border-2 ring-2  @if ($item->score > 0) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif
+                            text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                    @else
+                        <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                    @endif       
+                            <span class="flex justify-start  p-1 text-white text-[12px]">{{ $item->t_name }}</span>
+                            <img class="rounded-full bg-[#ffff] w-[50px] absolute inset-y-0 left-[80px]"  style="border-radius: 0% 0% 0% 85% / 0% 0% 100% 100%;" src="{{ $item->logo }}">
+                            <div class="border border-[#C9193A] bg-[#C9193A] text-black flex items-center justify-center w-8">
+                                {{ $item->score }}
+                            </div>
+                        </div>
+                        <div class="absolute transform -translate-x-[25px] -translate-y-[32px]">
+                            <button onclick="openScoreModal('{{ $item->cp_id }}-{{ $item->t_id }}')"
+                                class="px-2 py-2 text-xs font-medium text-center text-white bg-green-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
+                                คะแนน
+                            </button>
+                        </div>
+                        <br>
+                    @if ($index % 2 == 1)
+                    <div class="absolute transform translate-x-[30px] -translate-y-[85px]">
+                        <button onclick="openEditModal('{{ $item->cp_id }}-{{ $item->t_id }}')"
+                            class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
+                            แก้ไข
+                        </button>
+                    </div>
+                    <div class="absolute transform translate-x-[70px] -translate-y-[85px]">
+                        <div class="flex">
+                            <span class="text-red-500 font-bold">V</span>
+                            <span class="text-blue-500 font-bold">S</span>
+                        </div>
+                    </div>
+                    @endif
+                @endforeach
+                </div>
+            @endforeach
+            <div class="flex justify-center mt-48">
+                <form action="{{ route('randomizeBlindR3', $item->cp_id) }}" method="GET">
+                    <button
+                        type="submit"class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-1 px-2 rounded">ทีมสุ่ม</button>
+                </form>
+            </div>
+        </div>
+        <div class="cols ml-[10px]">
+            @foreach ($buckets as $bucket)
+                @if ($item->competition_amount > 8)
+                    <div class="mx-8 w-36 grid-cols-4 gap-4 mt-[270px]">
+                        @foreach ($bucket['R4'] as $index => $item)
+                        @if ($item->competition_amount == 16)
+                            <div class="border-2 ring-2  @if ($item->score > 0) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif
+                                text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                        @else
+                            <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                        @endif       
+                                <span class="flex justify-start  p-1 text-white text-[12px]">{{ $item->t_name }}</span>
+                                <img class="rounded-full bg-[#ffff] w-[50px] absolute inset-y-0 left-[80px]"  style="border-radius: 0% 0% 0% 85% / 0% 0% 100% 100%;" src="{{ $item->logo }}">
+                                <div class="border border-[#C9193A] bg-[#C9193A] text-black flex items-center justify-center w-8">
+                                    {{ $item->score }}
+                                </div>
+                            </div>
+                            <div class="absolute transform -translate-x-[25px] -translate-y-[32px]">
+                                <button onclick="openScoreModal('{{ $item->cp_id }}-{{ $item->t_id }}')"
+                                    class="px-2 py-2 text-xs font-medium text-center text-white bg-green-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
+                                    คะแนน
+                                </button>
+                            </div>
+                            <br>
+                        @if ($index % 2 == 1)
+                        <div class="absolute transform translate-x-[30px] -translate-y-[85px]">
+                            <button onclick="openEditModal('{{ $item->cp_id }}-{{ $item->t_id }}')"
+                                class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
+                                แก้ไข
+                            </button>
+                        </div>
+                        <div class="absolute transform translate-x-[70px] -translate-y-[85px]">
+                            <div class="flex">
+                                <span class="text-red-500 font-bold">V</span>
+                                <span class="text-blue-500 font-bold">S</span>
+                            </div>
+                        </div>
+                        @endif
+                    @endforeach
+                    </div>
+                @endif
+            @endforeach
+            <div class="flex justify-center mt-48">
+                <form action="{{ route('randomizeBlindR3', $item->cp_id) }}" method="GET">
+                    <button
+                        type="submit"class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-1 px-2 rounded">ทีมสุ่ม</button>
+                </form>
+            </div>
+        </div>
+        <div class="cols -ml-[10px]">
+            @foreach ($buckets as $bucket)
+                @if ($item->competition_amount > 16)
+                    <div class="mx-8 w-36 grid-cols-4 gap-4 mt-[470px]">
+                    @foreach ($bucket['R5'] as $index => $item)
+                        @if ($item->competition_amount == 32)
+                            <div class="border-2 ring-2  @if ($item->score > 0) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif
+                                text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                        @else
+                            <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                        @endif       
+                                <span class="flex justify-start  p-1 text-white text-[12px]">{{ $item->t_name }}</span>
+                                <img class="rounded-full bg-[#ffff] w-[50px] absolute inset-y-0 left-[80px]"  style="border-radius: 0% 0% 0% 85% / 0% 0% 100% 100%;" src="{{ $item->logo }}">
+                                <div class="border border-[#C9193A] bg-[#C9193A] text-black flex items-center justify-center w-8">
+                                    {{ $item->score }}
+                                </div>
+                            </div>
+                            <div class="absolute transform -translate-x-[25px] -translate-y-[32px]">
+                                <button onclick="openScoreModal('{{ $item->cp_id }}-{{ $item->t_id }}')"
+                                    class="px-2 py-2 text-xs font-medium text-center text-white bg-green-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
+                                    คะแนน
+                                </button>
+                            </div>
+                            <br>
+                        @if ($index % 2 == 1)
+                        <div class="absolute transform translate-x-[30px] -translate-y-[85px]">
+                            <button onclick="openEditModal('{{ $item->cp_id }}-{{ $item->t_id }}')"
+                                class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-[200px]">
+                                แก้ไข
+                            </button>
+                        </div>
+                        <div class="absolute transform translate-x-[70px] -translate-y-[85px]">
+                            <div class="flex">
+                                <span class="text-red-500 font-bold">V</span>
+                                <span class="text-blue-500 font-bold">S</span>
+                            </div>
+                        </div>
+                        @endif
+                    @endforeach
+                    </div>
+                @endif
+            @endforeach
+        </div>
+
+        <!-- <div class="cols">
             @foreach ($buckets as $bucket)
                 <div class="mx-8 w-36 grid-cols-4 gap-3">
                     @foreach ($bucket['R1'] as $item)
@@ -75,9 +309,9 @@
                     </div>
                 </div>
             @endforeach
-        </div>
+        </div> -->
 
-        <div class="cols">
+        <!-- <div class="cols">
             @foreach ($buckets as $bucket)
                 <div class="mx-8 w-36 grid-cols-4 gap-3 mt-[58px]">
                     @foreach ($bucket['R2'] as $index => $item)
@@ -125,9 +359,9 @@
                         type="submit"class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-1 px-2 rounded">ทีมสุ่ม</button>
                 </form>
             </div>
-        </div>
+        </div> -->
 
-        <div class="cols">
+        <!-- <div class="cols">
             @foreach ($buckets as $bucket)
                 <div class="mx-8 w-36 grid-cols-4 gap-3 mt-[145px]">
                     @foreach ($bucket['R3'] as $index => $item)
@@ -182,9 +416,9 @@
                     type="submit"class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-1 px-2 rounded">ทีมสุ่ม</button>
             </form>
         </div>
-    </div>
+    </div> -->
 
-    <div class="cols">
+    <!-- <div class="cols">
         @foreach ($buckets as $bucket)
             @if ($item->competition_amount > 8)
                 <div class="mx-8 w-36 grid-cols-4 gap-3 mt-[270px]">
@@ -241,9 +475,9 @@
                 type="submit"class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-1 px-2 rounded">ทีมสุ่ม</button>
         </form>
     </div>
-    </div>
+    </div> -->
 
-    <div class="cols">
+    <!-- <div class="cols">
         @foreach ($buckets as $bucket)
             @if ($item->competition_amount > 16)
                 <div class="mx-8 w-36 grid-cols-4 gap-3 mt-[470px]">
@@ -293,6 +527,7 @@
     </div>
     @endif
     @endforeach
+    </div> -->
     </div>
     </div>
 

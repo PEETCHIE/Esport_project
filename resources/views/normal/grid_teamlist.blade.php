@@ -24,14 +24,14 @@
                             class="grid grid-cols-5 grid-flow-row dark:text-gray-200 leading-tight grid-md flex flex-wrap">
                             @foreach ($team_lists as $team_list)
                                 <div class="mx-auto px-5 justify-center m-3">
-                                    <div
-                                        class="max-w-xs cursor-pointer rounded-lg bg-gradient-to-r from-slate-900 to-slate-500 p-2 shadow duration-150 hover:scale-105 hover:shadow-md">
+                                   <div class="max-w-xs cursor-pointer rounded-lg p-2 shadow duration-150 hover:scale-105 hover:shadow-md"
+                                        style="background-image: url(/asset/img/Bg_tt.png); background-size: cover; background-position: center;">
                                         <img class="h-40 w-52 rounded-lg object-cover object-center"
                                             src="{{ $team_list->logo }}" alt="product" />
                                         <p class="my-4 pl-4 font-bold text-white">ชื่อทีม: {{ $team_list->t_name }}</p>
                                         <button type="submit"
-                                            class="bg-blue-500 hover:bg-gray-700 text-white font-bold py-1 px-1 rounded"><a
-                                                href="{{ route('team_detail', $team_list->id) }}">ข้อมูล</a></button>
+                                            class="bg-[#6495ED] hover:bg-gray-700 text-white font-bold py-1 px-1 rounded w-[200px]"><a
+                                            href="{{ route('team_detail', $team_list->id) }}">รายละเอียด</a></button>
                                     </div>
                                 </div>
                             @endforeach
@@ -39,33 +39,72 @@
                     </div>
                     <!-- Content for Tab 2 -->
                     <div id="tab1" class="tab-content">
+                    @foreach ($buckets as $bucket)
+                        @if ($loop->first)
+                            @foreach ($bucket['R1'] as $item)
+                                    @if ($item->competition_amount == 32)
+                                    <div class="flex">
+                                        <h1 class="ml-[80px]">ROUND 1</h1>
+                                        <h1 class="ml-[220px]">ROUND 2</h1>
+                                        <h1 class="ml-[220px]">ROUND 3</h1>
+                                        <h1 class="ml-[210px]">Semi Final</h1>
+                                        <h1 class="ml-[230px]">Final</h1>
+                                    </div>
+                                    @endif
+                                    @break
+                            @endforeach
+                        @endif
+                    @endforeach
+                    @foreach ($buckets as $bucket)
+                        @if ($loop->first)
+                            @foreach ($bucket['R1'] as $item)
+                                    @if ($item->competition_amount == 16)
+                                    <div class="flex">
+                                        <h1 class="ml-[80px]">ROUND 1</h1>
+                                        <h1 class="ml-[220px]">ROUND 2</h1>
+                                        <h1 class="ml-[210px]">Semi Final</h1>
+                                        <h1 class="ml-[230px]">Final</h1>
+                                    </div>
+                                    @endif
+                                    @break
+                            @endforeach
+                        @endif
+                    @endforeach
+                    @foreach ($buckets as $bucket)
+                        @if ($loop->first)
+                            @foreach ($bucket['R1'] as $item)
+                                    @if ($item->competition_amount == 8)
+                                    <div class="flex">
+                                        <h1 class="ml-[80px]">ROUND 1</h1>
+                                        <h1 class="ml-[220px]">Semi Final</h1>
+                                        <h1 class="ml-[230px]">Final</h1>
+                                    </div>
+                                    @endif
+                                    @break
+                            @endforeach
+                        @endif
+                    @endforeach
                         <div class="grid grid-cols-5 gap-1">
                             <div>
-                                <h1>ROUND 1</h1>
                                 @foreach ($buckets as $bucket)
                                     <div class="mx-8 w-36 grid-cols-4 gap-3">
                                         @foreach ($bucket['R1'] as $item)
                                             <br>
-                                            <div
-                                                class="border bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-3 gap-2">
-                                                <span class="flex justify-start p-1 text-white text-[12px] whitespace-nowrap">{{ $item->t_name }}</span>                       
-                                                <div class="relative">
-                                                    <div class="rounded-full bg-[#ffff] w-[50px] absolute inset-y-0 left-[5px]"  style="border-radius: 0% 0% 0% 85% / 0% 0% 100% 100%;"></div>
-                                                </div>
-                                                <div class="p-1 shrink-0">
-                                                    <div class="relative inset-y-0 left-[9px]">
-                                                        <img src="{{ $item->logo }}" class="w-5 h-5" alt="">     
-                                                    </div>  
-                                                </div> 
+                                            <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                                                <span class="flex justify-start  p-1 text-white text-[12px]">{{ $item->t_name }}</span>
+                                                <img class="rounded-full bg-[#ffff] w-[50px] absolute inset-y-0 left-[80px]"  style="border-radius: 0% 0% 0% 85% / 0% 0% 100% 100%;" src="{{ $item->logo }}">
                                                 <div class="border border-[#C9193A] bg-[#C9193A] text-black flex items-center justify-center w-8">
                                                     {{ $item->score }}
                                                 </div>
                                             </div>
                                             @if($loop->iteration % 2 == 0)
-                                                <div class="absolute transform translate-x-[60px] -translate-y-[52px]">
-                                                    <div>VS</div>
+                                                <div class="absolute transform translate-x-[70px] -translate-y-[59px]">
+                                                    <div class="flex">
+                                                        <span class="text-red-500 font-bold">V</span>
+                                                        <span class="text-blue-500 font-bold">S</span>
+                                                    </div>
                                                 </div>
-                                                <div class="absolute transform translate-x-[-50px] -translate-y-[54px]">
+                                                <div class="absolute transform translate-x-[-30px] -translate-y-[64px]">
                                                     <button onclick="Link('{{ $item->cp_id }}-{{ $item->t_id }}', '{{ $item->link }}')" target="_blank" class="px-1 py-1 text-xs font-medium text-center text-white bg-rose-700 rounded-lg hover:bg-rose-800 focus:ring-4 focus:outline-none focus:ring-rose-300 dark:bg-blue-600 dark:hover:bg-rose-700 dark:focus:ring-rose-800 ml-[200px]">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                                             <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
@@ -79,31 +118,25 @@
                             </div>
 
                             <div>
-                                <h1>ROUND 2</h1>
                                 @foreach ($buckets as $bucket)
                                     <div class="mx-8 w-36 grid-cols-4 gap-3">
                                         @foreach ($bucket['R2'] as $item)
                                             <br>
-                                            <div
-                                                class="border bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-3 gap-2">
-                                                <span class="flex justify-start p-1 text-white text-[12px] whitespace-nowrap">{{ $item->t_name }}</span>                       
-                                                <div class="relative">
-                                                    <div class="rounded-full bg-[#ffff] w-[50px] absolute inset-y-0 left-[5px]"  style="border-radius: 0% 0% 0% 85% / 0% 0% 100% 100%;"></div>
-                                                </div>
-                                                <div class="p-1 shrink-0">
-                                                    <div class="relative inset-y-0 left-[9px]">
-                                                        <img src="{{ $item->logo }}" class="w-5 h-5" alt="">     
-                                                    </div>  
-                                                </div> 
+                                            <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                                                <span class="flex justify-start  p-1 text-white text-[12px]">{{ $item->t_name }}</span>
+                                                <img class="rounded-full bg-[#ffff] w-[50px] absolute inset-y-0 left-[80px]"  style="border-radius: 0% 0% 0% 85% / 0% 0% 100% 100%;" src="{{ $item->logo }}">
                                                 <div class="border border-[#C9193A] bg-[#C9193A] text-black flex items-center justify-center w-8">
                                                     {{ $item->score }}
                                                 </div>
                                             </div>
                                             @if($loop->iteration % 2 == 0)
-                                                <div class="absolute transform translate-x-[60px] -translate-y-[52px]">
-                                                    <div>VS</div>
+                                                <div class="absolute transform translate-x-[70px] -translate-y-[59px]">
+                                                    <div class="flex">
+                                                        <span class="text-red-500 font-bold">V</span>
+                                                        <span class="text-blue-500 font-bold">S</span>
+                                                    </div>
                                                 </div>
-                                                <div class="absolute transform translate-x-[-50px] -translate-y-[54px]">
+                                                <div class="absolute transform translate-x-[-30px] -translate-y-[64px]">
                                                     <button onclick="Link('{{ $item->cp_id }}-{{ $item->t_id }}', '{{ $item->link }}')" target="_blank" class="px-1 py-1 text-xs font-medium text-center text-white bg-rose-700 rounded-lg hover:bg-rose-800 focus:ring-4 focus:outline-none focus:ring-rose-300 dark:bg-blue-600 dark:hover:bg-rose-700 dark:focus:ring-rose-800 ml-[200px]">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                                             <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
@@ -116,38 +149,30 @@
                                 @endforeach
                             </div>
                             <div>
-                                <h1>ROUND 3</h1>
                                 @foreach ($buckets as $bucket)
                                     <div class="mx-8 w-36 grid-cols-4 gap-3">
                                         @foreach ($bucket['R3'] as $item)
                                             <br>
                                             @if ($item->competition_amount == 8)
-                                                <div
-                                                    class="border
-                                                    @if ($item->score > 0) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif
-                                                    text-white flex justify-between grid-cols-3 gap-2">
-                                                @else
-                                                    <div
-                                                        class="border bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-3 gap-2">
-                                            @endif
-                                                <span class="flex justify-start p-1 text-white text-[12px] whitespace-nowrap">{{ $item->t_name }}</span>                       
-                                                <div class="relative">
-                                                    <div class="rounded-full bg-[#ffff] w-[50px] absolute inset-y-0 left-[5px]"  style="border-radius: 0% 0% 0% 85% / 0% 0% 100% 100%;"></div>
+                                                <div class="border-2 ring-2  @if ($item->score > 0) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif
+                                                    text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                                            @else
+                                                <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                                            @endif       
+                                                    <span class="flex justify-start  p-1 text-white text-[12px]">{{ $item->t_name }}</span>
+                                                    <img class="rounded-full bg-[#ffff] w-[50px] absolute inset-y-0 left-[80px]"  style="border-radius: 0% 0% 0% 85% / 0% 0% 100% 100%;" src="{{ $item->logo }}">
+                                                    <div class="border border-[#C9193A] bg-[#C9193A] text-black flex items-center justify-center w-8">
+                                                        {{ $item->score }}
+                                                    </div>
                                                 </div>
-                                                <div class="p-1 shrink-0">
-                                                    <div class="relative inset-y-0 left-[9px]">
-                                                        <img src="{{ $item->logo }}" class="w-5 h-5" alt="">     
-                                                    </div>  
-                                                </div> 
-                                                <div class="border border-[#C9193A] bg-[#C9193A] text-black flex items-center justify-center w-8">
-                                                    {{ $item->score }}
-                                                </div>
-                                            </div>
                                             @if($loop->iteration % 2 == 0)
-                                                <div class="absolute transform translate-x-[60px] -translate-y-[52px]">
-                                                    <div>VS</div>
+                                                <div class="absolute transform translate-x-[70px] -translate-y-[59px]">
+                                                    <div class="flex">
+                                                        <span class="text-red-500 font-bold">V</span>
+                                                        <span class="text-blue-500 font-bold">S</span>
+                                                    </div>
                                                 </div>
-                                                <div class="absolute transform translate-x-[-50px] -translate-y-[54px]">
+                                                <div class="absolute transform translate-x-[-30px] -translate-y-[64px]">
                                                     <button onclick="Link('{{ $item->cp_id }}-{{ $item->t_id }}', '{{ $item->link }}')" target="_blank" class="px-1 py-1 text-xs font-medium text-center text-white bg-rose-700 rounded-lg hover:bg-rose-800 focus:ring-4 focus:outline-none focus:ring-rose-300 dark:bg-blue-600 dark:hover:bg-rose-700 dark:focus:ring-rose-800 ml-[200px]">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                                             <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
@@ -160,39 +185,31 @@
                                 @endforeach
                             </div>
                             <div>
-                                <h1>ROUND 4</h1>
                                 @foreach ($buckets as $bucket)
                                 @if ($item->competition_amount > 8)
                                     <div class="mx-8 w-36 grid-cols-4 gap-3">
                                         @foreach ($bucket['R4'] as $item)
                                             <br>
-                                            @if ($item->competition_amount == 16)
-                                                <div
-                                                    class="border
-                                                    @if ($item->score > 0) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif
-                                                    text-white flex justify-between grid-cols-3 gap-2">
-                                                @else
-                                                    <div
-                                                        class="border bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-3 gap-2">
-                                            @endif
-                                                <span class="flex justify-start p-1 text-white text-[12px] whitespace-nowrap">{{ $item->t_name }}</span>                       
-                                                <div class="relative">
-                                                    <div class="rounded-full bg-[#ffff] w-[50px] absolute inset-y-0 left-[5px]"  style="border-radius: 0% 0% 0% 85% / 0% 0% 100% 100%;"></div>
-                                                </div>
-                                                <div class="p-1 shrink-0">
-                                                    <div class="relative inset-y-0 left-[9px]">
-                                                        <img src="{{ $item->logo }}" class="w-5 h-5" alt="">     
-                                                    </div>  
-                                                </div> 
+                                        @if ($item->competition_amount == 16)
+                                            <div class="border-2 ring-2  @if ($item->score > 0) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif
+                                                text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                                        @else
+                                            <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                                        @endif       
+                                                <span class="flex justify-start  p-1 text-white text-[12px]">{{ $item->t_name }}</span>
+                                                <img class="rounded-full bg-[#ffff] w-[50px] absolute inset-y-0 left-[80px]"  style="border-radius: 0% 0% 0% 85% / 0% 0% 100% 100%;" src="{{ $item->logo }}">
                                                 <div class="border border-[#C9193A] bg-[#C9193A] text-black flex items-center justify-center w-8">
                                                     {{ $item->score }}
                                                 </div>
                                             </div>
                                             @if($loop->iteration % 2 == 0)
-                                                <div class="absolute transform translate-x-[60px] -translate-y-[52px]">
-                                                    <div>VS</div>
+                                                <div class="absolute transform translate-x-[70px] -translate-y-[59px]">
+                                                    <div class="flex">
+                                                        <span class="text-red-500 font-bold">V</span>
+                                                        <span class="text-blue-500 font-bold">S</span>
+                                                    </div>
                                                 </div>
-                                                <div class="absolute transform translate-x-[-50px] -translate-y-[54px]">
+                                                <div class="absolute transform translate-x-[-30px] -translate-y-[64px]">
                                                     <button onclick="Link('{{ $item->cp_id }}-{{ $item->t_id }}', '{{ $item->link }}')" target="_blank" class="px-1 py-1 text-xs font-medium text-center text-white bg-rose-700 rounded-lg hover:bg-rose-800 focus:ring-4 focus:outline-none focus:ring-rose-300 dark:bg-blue-600 dark:hover:bg-rose-700 dark:focus:ring-rose-800 ml-[200px]">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                                             <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
@@ -206,32 +223,31 @@
                                 @endforeach
                             </div>
                             <div>
-                                <h1>ROUND 5</h1>
                                 @foreach ($buckets as $bucket)
                                 @if ($item->competition_amount > 16)
                                     <div class="mx-8 w-36 grid-cols-4 gap-3">
                                         @foreach ($bucket['R5'] as $item)
                                             <br>
-                                            <div class="border @if ($item->score > 0) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif
-                                                text-white flex justify-between grid-cols-3 gap-2">
-                                                <span class="flex justify-start p-1 text-white text-[12px] whitespace-nowrap">{{ $item->t_name }}</span>                       
-                                                <div class="relative">
-                                                    <div class="rounded-full bg-[#ffff] w-[50px] absolute inset-y-0 left-[5px]"  style="border-radius: 0% 0% 0% 85% / 0% 0% 100% 100%;"></div>
-                                                </div>
-                                                <div class="p-1 shrink-0">
-                                                    <div class="relative inset-y-0 left-[9px]">
-                                                        <img src="{{ $item->logo }}" class="w-5 h-5" alt="">     
-                                                    </div>  
-                                                </div> 
+                                        @if ($item->competition_amount == 32)
+                                            <div class="border-2 ring-2  @if ($item->score > 0) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif
+                                                text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                                        @else
+                                            <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                                        @endif       
+                                                <span class="flex justify-start  p-1 text-white text-[12px]">{{ $item->t_name }}</span>
+                                                <img class="rounded-full bg-[#ffff] w-[50px] absolute inset-y-0 left-[80px]"  style="border-radius: 0% 0% 0% 85% / 0% 0% 100% 100%;" src="{{ $item->logo }}">
                                                 <div class="border border-[#C9193A] bg-[#C9193A] text-black flex items-center justify-center w-8">
                                                     {{ $item->score }}
                                                 </div>
                                             </div>
                                             @if($loop->iteration % 2 == 0)
-                                                <div class="absolute transform translate-x-[60px] -translate-y-[52px]">
-                                                    <div>VS</div>
+                                                <div class="absolute transform translate-x-[70px] -translate-y-[59px]">
+                                                    <div class="flex">
+                                                        <span class="text-red-500 font-bold">V</span>
+                                                        <span class="text-blue-500 font-bold">S</span>
+                                                    </div>
                                                 </div>
-                                                <div class="absolute transform translate-x-[-50px] -translate-y-[54px]">
+                                                <div class="absolute transform translate-x-[-30px] -translate-y-[64px]">
                                                     <button onclick="Link('{{ $item->cp_id }}-{{ $item->t_id }}', '{{ $item->link }}')" target="_blank" class="px-1 py-1 text-xs font-medium text-center text-white bg-rose-700 rounded-lg hover:bg-rose-800 focus:ring-4 focus:outline-none focus:ring-rose-300 dark:bg-blue-600 dark:hover:bg-rose-700 dark:focus:ring-rose-800 ml-[200px]">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                                             <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
@@ -267,17 +283,17 @@
             // If the URL is not defined, display a message
             // swal("ยังไม่มีลิ้งค์ถ่ายทอดสด");
             Swal.fire({
-                title: "ยังไม่มีลิ้งค์ถ่ายทอดสด.",
+                title: "ยังไม่มีลิ้งค์ถ่ายทอดสด...",
                 width: 600,
                 padding: "3em",
                 color: "#716add",
-                background: "#fff url(/images/trees.png)",
+                background: "#fff url(/asset/img/1714366794.jpg)",
                 backdrop: `
                     rgba(0,0,123,0.4)
-                    url("/images/nyan-cat.gif")
-                    left top
+                    url("/asset/img/XOsX.gif")
+                    left
                     no-repeat
-                `
+                `,
                 });
         }
     }
