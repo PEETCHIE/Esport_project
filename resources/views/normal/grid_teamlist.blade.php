@@ -162,12 +162,29 @@
                                     <div class="mx-8 w-36 grid-cols-4 gap-3">
                                         @foreach ($bucket['R3'] as $item)
                                             <br>
-                                            @if ($item->competition_amount == 8)
-                                                <div class="border-2 ring-2  @if ($item->score > 0) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif
-                                                    text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
-                                            @else
-                                                <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
-                                            @endif       
+                                            @switch($item->cl_round)
+                                            @case('1')
+                                                @if ($item->competition_amount == 8)
+                                                    <div class="border-2 ring-2  @if ($item->score == 1) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                                                @else
+                                                    <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                                                @endif 
+                                            @break
+                                            @case('3')
+                                                @if ($item->competition_amount == 8)
+                                                    <div class="border-2 ring-2  @if ($item->score == 2) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                                                @else
+                                                    <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                                                @endif 
+                                            @break
+                                            @case('5')
+                                                @if ($item->competition_amount == 8)
+                                                    <div class="border-2 ring-2  @if ($item->score == 3) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                                                @else
+                                                    <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                                                @endif 
+                                            @break
+                                            @endswitch        
                                                     <span class="flex justify-start  p-1 text-white text-[12px]">{{ $item->t_name }}</span>
                                                     <img class="rounded-full bg-[#ffff] w-[50px] absolute inset-y-0 left-[80px]"  style="border-radius: 0% 0% 0% 85% / 0% 0% 100% 100%;" src="{{ $item->logo }}">
                                                     <div class="border border-[#C9193A] bg-[#C9193A] text-black flex items-center justify-center w-8">
@@ -199,12 +216,29 @@
                                     <div class="mx-8 w-36 grid-cols-4 gap-3">
                                         @foreach ($bucket['R4'] as $item)
                                             <br>
-                                        @if ($item->competition_amount == 16)
-                                            <div class="border-2 ring-2  @if ($item->score > 0) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif
-                                                text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
-                                        @else
-                                            <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
-                                        @endif       
+                                            @switch($item->cl_round)
+                                            @case('1')
+                                                @if ($item->competition_amount == 16)
+                                                    <div class="border-2 ring-2  @if ($item->score == 1) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                                                @else
+                                                    <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                                                @endif 
+                                            @break
+                                            @case('3')
+                                                @if ($item->competition_amount == 16)
+                                                    <div class="border-2 ring-2  @if ($item->score == 2) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                                                @else
+                                                    <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                                                @endif 
+                                            @break
+                                            @case('5')
+                                                @if ($item->competition_amount == 16)
+                                                    <div class="border-2 ring-2  @if ($item->score == 3) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                                                @else
+                                                    <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                                                @endif 
+                                            @break
+                                            @endswitch       
                                                 <span class="flex justify-start  p-1 text-white text-[12px]">{{ $item->t_name }}</span>
                                                 <img class="rounded-full bg-[#ffff] w-[50px] absolute inset-y-0 left-[80px]"  style="border-radius: 0% 0% 0% 85% / 0% 0% 100% 100%;" src="{{ $item->logo }}">
                                                 <div class="border border-[#C9193A] bg-[#C9193A] text-black flex items-center justify-center w-8">
@@ -237,12 +271,29 @@
                                     <div class="mx-8 w-36 grid-cols-4 gap-3">
                                         @foreach ($bucket['R5'] as $item)
                                             <br>
-                                        @if ($item->competition_amount == 32)
-                                            <div class="border-2 ring-2  @if ($item->score > 0) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif
-                                                text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
-                                        @else
-                                            <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
-                                        @endif       
+                                            @switch($item->cl_round)
+                                            @case('1')
+                                                @if ($item->competition_amount == 32)
+                                                    <div class="border-2 ring-2  @if ($item->score == 1) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                                                @else
+                                                    <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                                                @endif 
+                                            @break
+                                            @case('3')
+                                                @if ($item->competition_amount == 32)
+                                                    <div class="border-2 ring-2  @if ($item->score == 2) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                                                @else
+                                                    <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                                                @endif 
+                                            @break
+                                            @case('5')
+                                                @if ($item->competition_amount == 32)
+                                                    <div class="border-2 ring-2  @if ($item->score == 3) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                                                @else
+                                                    <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
+                                                @endif 
+                                            @break
+                                            @endswitch       
                                                 <span class="flex justify-start  p-1 text-white text-[12px]">{{ $item->t_name }}</span>
                                                 <img class="rounded-full bg-[#ffff] w-[50px] absolute inset-y-0 left-[80px]"  style="border-radius: 0% 0% 0% 85% / 0% 0% 100% 100%;" src="{{ $item->logo }}">
                                                 <div class="border border-[#C9193A] bg-[#C9193A] text-black flex items-center justify-center w-8">
