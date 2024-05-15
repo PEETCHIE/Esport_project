@@ -8,11 +8,5 @@
         <img src="{{ url('img/bg_head.png') }}" alt="">
     </div>
 
-   
-    <div class="grid justify-items-center">
-        <div>
-            <img src="{{ url('img/bg_register.png') }}" alt="">
-        </div>
-    </div>
 
 </x-app-layout>

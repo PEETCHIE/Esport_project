@@ -594,7 +594,7 @@ class CompetitionResultsController extends Controller
                     $chk_score = DB::table('tournament_in_teams')
                         ->join('competition_results', 'tournament_in_teams.id', '=', 'competition_results.tit_id')
                         ->where('cp_id', $cp_ids)
-                        ->where('score', '>=', 2)
+                        ->where('score', '>=', 3)
                         ->get();
                     if ($chk_score->isEmpty()) {
                         $latest_tit_id = DB::table('tournament_in_teams')

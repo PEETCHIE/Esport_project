@@ -30,7 +30,7 @@ class ContestantController extends Controller
                     ->join('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')
                     ->join('competition_results', 'competition_results.tit_id', '=', 'tournament_in_teams.id')
                     ->join('competition_lists', 'competition_programs.cl_id', '=', 'competition_lists.id')
-                    ->select('t_name', 'logo', 'matches', 'round', 'cp_id', 't_id', 'score', 'link', 'match_date', 'match_time', 'competition_amount')
+                    ->select('t_name', 'logo', 'matches', 'round', 'cp_id', 't_id', 'score', 'link', 'match_date', 'match_time', 'competition_amount','cl_round')
                     ->get();
                 // dd($bucket);
                 // แยกข้อมูลตาม R1 และ R2
@@ -75,7 +75,8 @@ class ContestantController extends Controller
                                 'logo' => $item->logo,
                                 'score' => $item->score,
                                 'link' => $item->link,
-                                'competition_amount' => $item->competition_amount
+                                'competition_amount' => $item->competition_amount,
+                                'cl_round' => $item->cl_round
                             ];
                         }
                     }

@@ -78,10 +78,10 @@
                             <div class="mx-4">
                                 กฎกติกาการแข่งขัน
                             </div>
-                            <div class="mx-6 whitespace-pre-line overflow-y-auto" style="max-height: 200px;">
-                                :<?php
+                            <div class="mx-6 overflow-y-auto" style="max-height: 200px;">
+                                : <?php
                                     $competition_rule = $competition_list->competition_rule;
-                                    $competition_rule_with_newline = str_replace('/\b1\./', "\n1.", $competition_rule);
+                                    $competition_rule_with_newline = preg_replace('/(\d+)\./', '<br>$1.', $competition_rule);
                                     echo $competition_rule_with_newline;
                                 ?>
                             </div>

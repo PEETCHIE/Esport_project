@@ -205,7 +205,7 @@ class CompetitionProgramController extends Controller
                         ->join('competition_programs', 'tournament_in_teams.cp_id', '=', 'competition_programs.id')
                         ->join('competition_results', 'competition_results.tit_id', '=', 'tournament_in_teams.id')
                         ->join('competition_lists', 'competition_programs.cl_id', '=', 'competition_lists.id')
-                        ->select('t_name', 'logo', 'matches', 'round', 'cp_id', 't_id', 'score', 'link', 'match_date', 'match_time', 'competition_amount')
+                        ->select('t_name', 'logo', 'matches', 'round', 'cp_id', 't_id', 'score', 'link', 'match_date', 'match_time', 'competition_amount', 'cl_round')
                         ->get();
                     // dd($bucket);
                     // แยกข้อมูลตาม R1 และ R2
@@ -252,6 +252,7 @@ class CompetitionProgramController extends Controller
                                     'match_date' => $item->match_date,
                                     'match_time' => $item->match_time,
                                     'competition_amount' => $item->competition_amount,
+                                    'cl_round' => $item->cl_round
                                 ];
                             }
                         }
@@ -318,7 +319,12 @@ class CompetitionProgramController extends Controller
             'match_time' => $request->match_time,
             'link' => $request->link,
         ]);
-        return back();
+        return back()->with('alert', [
+            'icon' => 'success',
+            'title' => 'อัพเดตเรียบร้อย!',
+            'text' => 'คุณอัพเดตลิงก์วันและเวลาแล้ว!',
+            'confirmButtonText' => 'OK',
+        ]);
     }
 
     /**
@@ -425,8 +431,8 @@ class CompetitionProgramController extends Controller
                     ]);
                     return back()->with('alert', [
                         'icon' => 'success',
-                        'title' => 'OK',
-                        'text' => 'OkYA',
+                        'title' => 'สุ่มสำเร็จ',
+                        'text' => 'คุณสุ่มทีมเรียบร้อยแล้ว',
                         'confirmButtonText' => 'OK',
                     ]);
                 } else {
@@ -545,8 +551,8 @@ class CompetitionProgramController extends Controller
                 ]);
                 return back()->with('alert', [
                     'icon' => 'success',
-                    'title' => 'OK',
-                    'text' => 'OkYA',
+                    'title' => 'สุ่มสำเร็จ',
+                    'text' => 'คุณสุ่มทีมเรียบร้อยแล้ว',
                     'confirmButtonText' => 'OK',
                 ]);
             } else {
@@ -658,8 +664,8 @@ class CompetitionProgramController extends Controller
                 ]);
                 return back()->with('alert', [
                     'icon' => 'success',
-                    'title' => 'OK',
-                    'text' => 'OkYA',
+                    'title' => 'สุ่มสำเร็จ',
+                    'text' => 'คุณสุ่มทีมเรียบร้อยแล้ว',
                     'confirmButtonText' => 'OK',
                 ]);
             } else {
