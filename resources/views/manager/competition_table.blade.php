@@ -50,7 +50,13 @@
                         <p>วันสิ้น: {{ \Carbon\Carbon::parse($list_competition->competition_end_date)->format('d/m/Y')}}</p>
                         <p>จำนวนทีม: {{ $list_competition->competition_amount}}</p>
                         <p>จำนวนคนในทีม: {{ $list_competition->amount_contestant}}</p>
-                        <p class="text text-red-800">จำนวนทีมที่สมัครเข้ามาปัจจุบัน:</p>
+                        <p class="text text-red-800">จำนวนทีมที่สมัครเข้ามาปัจจุบัน: 
+                            @foreach ($count_teams as $count)
+                                @if ($count->cl_id == $list_competition->id)
+                                    {{ $count->team_count }}
+                                @endif
+                            @endforeach
+                        </p>
                     </td>
                     <td class="px-6 py-4">
                         <div class="flex space-x-2">
@@ -69,7 +75,6 @@
                         </div>
                     </td>
                     <td>
-                        <!-- <button id="myButton" class="font-medium text-blue-600 dark:text-blue-500 hover:underline pl-1" onclick="handleButtonClick()">คลิกเพื่อทำงาน</button> -->
                         <form  id="makeForm{{ $list_competition->id }}" action="{{ route('competition_program', $list_competition->id)}}"> 
                             <button type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline pl-1" onclick="makeTable('{{ $list_competition->id }}')">ทำตารางการแข่งขัน</button>
                         </form>
@@ -79,9 +84,12 @@
                     </td>
                     
                 </tr>
-                @endforeach
+                @endforeach 
             </tbody>
         </table>    
+        <div class="flex justify-center mt-4">
+            {{ $list_competitions->links() }}
+        </div>
     </div>
     
     {{-- <script>

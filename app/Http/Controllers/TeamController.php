@@ -102,7 +102,12 @@ class TeamController extends Controller
                             't_id' => DB::table('teams')->orderBy('id', 'desc')->first()->id
                         ]);
                         break;
-
+                        return redirect()->route('contestants.index')->with('alert', [
+                            'icon' => 'success',
+                            'title' => 'ลงทะเบียนสำเร็จ',
+                            'text' => 'ลงทะเบียนเรียบร้',
+                            'confirmButtonText' => 'OK',
+                        ]);
                     case ('2'):
                         for ($i = 0; $i < 2; $i++) {
                             $config_contestant = ['table' => 'contestants', 'length' => 8, 'prefix' => 'CON-'];
@@ -117,7 +122,12 @@ class TeamController extends Controller
                             ]);
                         }
                         break;
-
+                        return redirect()->route('contestants.index')->with('alert', [
+                            'icon' => 'success',
+                            'title' => 'ลงทะเบียนสำเร็จ',
+                            'text' => 'ลงทะเบียนเรียบร้',
+                            'confirmButtonText' => 'OK',
+                        ]);
                     case ('3'):
                         for ($i = 0; $i < 3; $i++) {
                             $config_contestant = ['table' => 'contestants', 'length' => 8, 'prefix' => 'CON-'];
@@ -131,12 +141,17 @@ class TeamController extends Controller
                                 't_id' => DB::table('teams')->orderBy('id', 'desc')->first()->id
                             ]);
                         }
-
+                        return redirect()->route('contestants.index')->with('alert', [
+                            'icon' => 'success',
+                            'title' => 'ลงทะเบียนสำเร็จ',
+                            'text' => 'ลงทะเบียนเรียบร้',
+                            'confirmButtonText' => 'OK',
+                        ]);
                         break;
                     case ('4'):
                         for ($i = 0; $i < 4; $i++) {
                             $config_contestant = ['table' => 'contestants', 'length' => 8, 'prefix' => 'CON-'];
-                            $new_cont_id = IdGenerator::generate($config_contestant); // สร้าง ID ใหม่ทุกครั้งก่อนที่จะ insert
+                            $new_cont_id = IdGenerator::generate($config_contestant);
                             $contesttantInsert = contestant::insert([
                                 'id' => $new_cont_id,
                                 'c_name' => $request1->c_name1,
@@ -146,24 +161,35 @@ class TeamController extends Controller
                                 't_id' => DB::table('teams')->orderBy('id', 'desc')->first()->id
                             ]);
                         }
-
+                        return redirect()->route('contestants.index')->with('alert', [
+                            'icon' => 'success',
+                            'title' => 'ลงทะเบียนสำเร็จ',
+                            'text' => 'ลงทะเบียนเรียบร้',
+                            'confirmButtonText' => 'OK',
+                        ]);
                         break;
                     case ('5'):
-                        for ($i = 0; $i < 5; $i++) {
+                        for ($i = 1; $i <= 5; $i++) {
                             $config_contestant = ['table' => 'contestants', 'length' => 8, 'prefix' => 'CON-'];
-                            $new_cont_id = IdGenerator::generate($config_contestant); // สร้าง ID ใหม่ทุกครั้งก่อนที่จะ insert
-                            $contesttantInsert = contestant::insert([
+                            $new_cont_id = IdGenerator::generate($config_contestant);
+                            $contestantInsert = Contestant::insert([
                                 'id' => $new_cont_id,
-                                'c_name' => $request1->c_name1,
-                                'c_inGameName' => $request1->c_inGameName1,
-                                'c_email' => $request1->c_email1,
-                                'c_tel' => $request1->c_tel1,
-                                't_id' => DB::table('teams')->orderBy('id', 'desc')->first()->id
+                                'c_name' => $request->input('c_name' . $i),
+                                'c_inGameName' => $request->input('c_inGameName' . $i),
+                                'c_email' => $request->input('c_email' . $i),
+                                'c_tel' => $request->input('c_tel' . $i),
+                                't_id' => $team_id
                             ]);
                         }
+                        return redirect()->route('contestants.index')->with('alert', [
+                            'icon' => 'success',
+                            'title' => 'ลงทะเบียนสำเร็จ',
+                            'text' => 'ลงทะเบียนเรียบร้อยแล้ว',
+                            'confirmButtonText' => 'OK',
+                        ]);
                         break;
                 }
-                return redirect()->route('contestants.index')->with('status', 'Insert Complete');
+                
             } else {
                 return redirect()->route('contestants.index')->with('status', 'MAXIMUM TEAM');
             }

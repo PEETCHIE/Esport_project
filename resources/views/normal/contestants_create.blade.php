@@ -13,7 +13,6 @@
                         
                         <div class="container mx-auto">
                         @csrf
-
                             <div class="grid grid-cols-3 grid-flow-row">
                                 <div class="cols mx-1">
                                     <x-input-label for="t_name" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อทีม</x-input-label>
@@ -32,379 +31,153 @@
 
                         @switch($competition_list)
                             @case('1')
-                                <div class="grid grid-cols-4 grid-flow-row">
+                            <div class="grid grid-cols-4 grid-flow-row">
+                                @for ($i = 1; $i <= 1; $i++)
                                     <div class="cols mx-1 col-span-1">
-                                        <x-input-label for="c_name1" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อ นามสกุล</x-input-label>
-                                        <input type="text" name="c_name1" id="c_name1"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_name1')" class="mt-2"/>    
+                                        <x-input-label for="c_name{{ $i }}" class="block text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อ นามสกุล</x-input-label>
+                                        <input type="text" name="c_name{{ $i }}" id="c_name{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <x-input-error :messages="$errors->get('c_name{{ $i }}')" class="mt-2"/>
                                     </div>
-
+                            
                                     <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_inGameName1" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อในเกม</x-input-label>
-                                        <input type="text" name="c_inGameName1" id="c_inGameName1"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_inGameName1')" class="mt-2"/>    
-                                    </div> 
-    
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_email1" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">E-mail</x-input-label>
-                                        <input type="email" name="c_email1" id="c_email1"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_email1')" class="mt-2"/>    
+                                        <x-input-label for="c_inGameName{{ $i }}" class="block text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อในเกม</x-input-label>
+                                        <input type="text" name="c_inGameName{{ $i }}" id="c_inGameName{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <x-input-error :messages="$errors->get('c_inGameName{{ $i }}')" class="mt-2"/>
                                     </div>
-                                    
+                            
                                     <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_tel1" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">เบอร์โทร</x-input-label>
-                                        <input type="text" name="c_tel1" id="c_tel1"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_tel1')" class="mt-2"/>    
+                                        <x-input-label for="c_email{{ $i }}" class="block text-sm font-medium text-gray-900 dark:text-white py-2">E-mail</x-input-label>
+                                        <input type="email" name="c_email{{ $i }}" id="c_email{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <x-input-error :messages="$errors->get('c_email{{ $i }}')" class="mt-2"/>
                                     </div>
-                                </div>
+                            
+                                    <div class="cols mx-2 col-span-1">
+                                        <x-input-label for="c_tel{{ $i }}" class="block text-sm font-medium text-gray-900 dark:text-white py-2">เบอร์โทร</x-input-label>
+                                        <input type="text" maxlength="10" name="c_tel{{ $i }}" id="c_tel{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <x-input-error :messages="$errors->get('c_tel{{ $i }}')" class="mt-2"/>
+                                    </div>
+                                @endfor
+                            </div>
                             @break
                             
                             @case('2')
-                                <div class="grid grid-cols-4 grid-flow-row">
+                            <div class="grid grid-cols-4 grid-flow-row">
+                                @for ($i = 1; $i <= 2; $i++)
                                     <div class="cols mx-1 col-span-1">
-                                        <x-input-label for="c_name1" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อ นามสกุล</x-input-label>
-                                        <input type="text" name="c_name1" id="c_name1"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_name1')" class="mt-2"/>    
+                                        <x-input-label for="c_name{{ $i }}" class="block text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อ นามสกุล</x-input-label>
+                                        <input type="text" name="c_name{{ $i }}" id="c_name{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <x-input-error :messages="$errors->get('c_name{{ $i }}')" class="mt-2"/>
                                     </div>
-
+                            
                                     <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_inGameName1" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อในเกม</x-input-label>
-                                        <input type="text" name="c_inGameName1" id="c_inGameName1"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_inGameName1')" class="mt-2"/>    
-                                    </div> 
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_email1" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">E-mail</x-input-label>
-                                        <input type="email" name="c_email1" id="c_email1"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_email1')" class="mt-2"/>    
+                                        <x-input-label for="c_inGameName{{ $i }}" class="block text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อในเกม</x-input-label>
+                                        <input type="text" name="c_inGameName{{ $i }}" id="c_inGameName{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <x-input-error :messages="$errors->get('c_inGameName{{ $i }}')" class="mt-2"/>
                                     </div>
-                                    
+                            
                                     <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_tel1" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">เบอร์โทร</x-input-label>
-                                        <input type="text" name="c_tel1" id="c_tel1"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_tel1')" class="mt-2"/>    
+                                        <x-input-label for="c_email{{ $i }}" class="block text-sm font-medium text-gray-900 dark:text-white py-2">E-mail</x-input-label>
+                                        <input type="email" name="c_email{{ $i }}" id="c_email{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <x-input-error :messages="$errors->get('c_email{{ $i }}')" class="mt-2"/>
                                     </div>
-
-                                    <div class="cols mx-1 col-span-1">
-                                        <x-input-label for="c_name2" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อ นามสกุล</x-input-label>
-                                        <input type="text" name="c_name2" id="c_name2"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_name2')" class="mt-2"/>    
-                                    </div>
-
+                            
                                     <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_inGameName2" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อในเกม</x-input-label>
-                                        <input type="text" name="c_inGameName2" id="c_inGameName2"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_inGameName2')" class="mt-2"/>    
-                                    </div> 
-    
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_email2" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">E-mail</x-input-label>
-                                        <input type="email" name="c_email2" id="c_email2"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_email2')" class="mt-2"/>    
+                                        <x-input-label for="c_tel{{ $i }}" class="block text-sm font-medium text-gray-900 dark:text-white py-2">เบอร์โทร</x-input-label>
+                                        <input type="text" maxlength="10" name="c_tel{{ $i }}" id="c_tel{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <x-input-error :messages="$errors->get('c_tel{{ $i }}')" class="mt-2"/>
                                     </div>
-                                    
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_tel2" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">เบอร์โทร</x-input-label>
-                                        <input type="text" name="c_tel2" id="c_tel2"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_tel2')" class="mt-2"/>    
-                                    </div>
-                                </div>
+                                @endfor
+                            </div>
                             @break
                             
                             @case('3')
-                                <div class="grid grid-cols-4 grid-flow-row">
+                            <div class="grid grid-cols-4 grid-flow-row">
+                                @for ($i = 1; $i <= 3; $i++)
                                     <div class="cols mx-1 col-span-1">
-                                        <x-input-label for="c_name1" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อ นามสกุล</x-input-label>
-                                        <input type="text" name="c_name1" id="c_name1"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_name1')" class="mt-2"/>    
+                                        <x-input-label for="c_name{{ $i }}" class="block text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อ นามสกุล</x-input-label>
+                                        <input type="text" name="c_name{{ $i }}" id="c_name{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <x-input-error :messages="$errors->get('c_name{{ $i }}')" class="mt-2"/>
                                     </div>
-
+                            
                                     <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_inGameName1" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อในเกม</x-input-label>
-                                        <input type="text" name="c_inGameName1" id="c_inGameName1"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_inGameName1')" class="mt-2"/>    
-                                    </div> 
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_email1" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">E-mail</x-input-label>
-                                        <input type="email" name="c_email1" id="c_email1"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_email1')" class="mt-2"/>    
+                                        <x-input-label for="c_inGameName{{ $i }}" class="block text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อในเกม</x-input-label>
+                                        <input type="text" name="c_inGameName{{ $i }}" id="c_inGameName{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <x-input-error :messages="$errors->get('c_inGameName{{ $i }}')" class="mt-2"/>
                                     </div>
-                                    
+                            
                                     <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_tel1" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">เบอร์โทร</x-input-label>
-                                        <input type="text" name="c_tel1" id="c_tel1"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_tel1')" class="mt-2"/>    
+                                        <x-input-label for="c_email{{ $i }}" class="block text-sm font-medium text-gray-900 dark:text-white py-2">E-mail</x-input-label>
+                                        <input type="email" name="c_email{{ $i }}" id="c_email{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <x-input-error :messages="$errors->get('c_email{{ $i }}')" class="mt-2"/>
                                     </div>
-
-                                    <div class="cols mx-1 col-span-1">
-                                        <x-input-label for="c_name2" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อ นามสกุล</x-input-label>
-                                        <input type="text" name="c_name2" id="c_name2"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_name2')" class="mt-2"/>    
-                                    </div>
-
+                            
                                     <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_inGameName2" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อในเกม</x-input-label>
-                                        <input type="text" name="c_inGameName2" id="c_inGameName2"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_inGameName2')" class="mt-2"/>    
-                                    </div> 
-    
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_email2" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">E-mail</x-input-label>
-                                        <input type="email" name="c_email2" id="c_email2"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_email2')" class="mt-2"/>    
+                                        <x-input-label for="c_tel{{ $i }}" class="block text-sm font-medium text-gray-900 dark:text-white py-2">เบอร์โทร</x-input-label>
+                                        <input type="text" maxlength="10" name="c_tel{{ $i }}" id="c_tel{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <x-input-error :messages="$errors->get('c_tel{{ $i }}')" class="mt-2"/>
                                     </div>
-                                    
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_tel2" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">เบอร์โทร</x-input-label>
-                                        <input type="text" name="c_tel2" id="c_tel2"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_tel2')" class="mt-2"/>    
-                                    </div>
-
-                                    <div class="cols mx-1 col-span-1">
-                                        <x-input-label for="c_name3" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อ นามสกุล</x-input-label>
-                                        <input type="text" name="c_name3" id="c_name3"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_name23') class="mt-2"/>    
-                                    </div>
-
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_inGameName3" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อในเกม</x-input-label>
-                                        <input type="text" name="c_inGameName3" id="c_inGameName3'"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_inGameName3') class="mt-2"/>    
-                                    </div> 
-    
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_email3" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">E-mail</x-input-label>
-                                        <input type="email" name="c_email3'" id="c_email3"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_email3') class="mt-2"/>    
-                                    </div>
-                                    
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_tel3" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">เบอร์โทร</x-input-label>
-                                        <input type="text" name="c_tel3'" id="c_tel3'"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_tel3')" class="mt-2"/>    
-                                    </div>
-                                </div>
+                                @endfor
+                            </div>
                             @break
 
                             @case('4')
-                                <div class="grid grid-cols-4 grid-flow-row">
+                            <div class="grid grid-cols-4 grid-flow-row">
+                                @for ($i = 1; $i <= 4; $i++)
                                     <div class="cols mx-1 col-span-1">
-                                        <x-input-label for="c_name1" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อ นามสกุล</x-input-label>
-                                        <input type="text" name="c_name1" id="c_name1"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_name1')" class="mt-2"/>    
+                                        <x-input-label for="c_name{{ $i }}" class="block text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อ นามสกุล</x-input-label>
+                                        <input type="text" name="c_name{{ $i }}" id="c_name{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <x-input-error :messages="$errors->get('c_name{{ $i }}')" class="mt-2"/>
                                     </div>
-
+                            
                                     <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_inGameName1" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อในเกม</x-input-label>
-                                        <input type="text" name="c_inGameName1" id="c_inGameName1"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_inGameName1')" class="mt-2"/>    
-                                    </div> 
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_email1" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">E-mail</x-input-label>
-                                        <input type="email" name="c_email1" id="c_email1"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_email1')" class="mt-2"/>    
+                                        <x-input-label for="c_inGameName{{ $i }}" class="block text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อในเกม</x-input-label>
+                                        <input type="text" name="c_inGameName{{ $i }}" id="c_inGameName{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <x-input-error :messages="$errors->get('c_inGameName{{ $i }}')" class="mt-2"/>
                                     </div>
-                                    
+                            
                                     <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_tel1" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">เบอร์โทร</x-input-label>
-                                        <input type="text" name="c_tel1" id="c_tel1"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_tel1')" class="mt-2"/>    
+                                        <x-input-label for="c_email{{ $i }}" class="block text-sm font-medium text-gray-900 dark:text-white py-2">E-mail</x-input-label>
+                                        <input type="email" name="c_email{{ $i }}" id="c_email{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <x-input-error :messages="$errors->get('c_email{{ $i }}')" class="mt-2"/>
                                     </div>
-
-                                    <div class="cols mx-1 col-span-1">
-                                        <x-input-label for="c_name2" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อ นามสกุล</x-input-label>
-                                        <input type="text" name="c_name2" id="c_name2"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_name2')" class="mt-2"/>    
-                                    </div>
-
+                            
                                     <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_inGameName2" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อในเกม</x-input-label>
-                                        <input type="text" name="c_inGameName2" id="c_inGameName2"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_inGameName2')" class="mt-2"/>    
-                                    </div> 
-    
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_email2" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">E-mail</x-input-label>
-                                        <input type="email" name="c_email2" id="c_email2"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_email2')" class="mt-2"/>    
+                                        <x-input-label for="c_tel{{ $i }}" class="block text-sm font-medium text-gray-900 dark:text-white py-2">เบอร์โทร</x-input-label>
+                                        <input type="text" maxlength="10" name="c_tel{{ $i }}" id="c_tel{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <x-input-error :messages="$errors->get('c_tel{{ $i }}')" class="mt-2"/>
                                     </div>
-                                    
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_tel2" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">เบอร์โทร</x-input-label>
-                                        <input type="text" name="c_tel2" id="c_tel2"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_tel2')" class="mt-2"/>    
-                                    </div>
-
-                                    <div class="cols mx-1 col-span-1">
-                                        <x-input-label for="c_name3" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อ นามสกุล</x-input-label>
-                                        <input type="text" name="c_name3" id="c_name3"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_name23') class="mt-2"/>    
-                                    </div>
-
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_inGameName3" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อในเกม</x-input-label>
-                                        <input type="text" name="c_inGameName3" id="c_inGameName3"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_inGameName3') class="mt-2"/>    
-                                    </div> 
-    
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_email3" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">E-mail</x-input-label>
-                                        <input type="email" name="c_email3'" id="c_email3"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_email3') class="mt-2"/>    
-                                    </div>
-                                    
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_tel3" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">เบอร์โทร</x-input-label>
-                                        <input type="text" name="c_tel3" id="c_tel3"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_tel3') class="mt-2"/>    
-                                    </div>
-
-                                    <div class="cols mx-1 col-span-1">
-                                        <x-input-label for="c_name4" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อ นามสกุล</x-input-label>
-                                        <input type="text" name="c_name4" id="c_name4"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_name4') class="mt-2"/>    
-                                    </div>
-
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_inGameName4" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อในเกม</x-input-label>
-                                        <input type="text" name="c_inGameName4" id="c_inGameName4"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_inGameName4') class="mt-2"/>    
-                                    </div> 
-    
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_email4" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">E-mail</x-input-label>
-                                        <input type="email" name="c_email4" id="c_email4"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_email4') class="mt-2"/>    
-                                    </div>
-                                    
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_tel4" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">เบอร์โทร</x-input-label>
-                                        <input type="text" name="c_tel4" id="c_tel4"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_tel4') class="mt-2"/>    
-                                    </div>
-                                </div>
+                                @endfor
+                            </div>
                             @break
 
                             @case('5')
-                                <div class="grid grid-cols-4 grid-flow-row">
+                            <div class="grid grid-cols-4 grid-flow-row">
+                                @for ($i = 1; $i <= 5; $i++)
                                     <div class="cols mx-1 col-span-1">
-                                        <x-input-label for="c_name1" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อ นามสกุล</x-input-label>
-                                        <input type="text" name="c_name1" id="c_name1"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_name1')" class="mt-2"/>    
+                                        <x-input-label for="c_name{{ $i }}" class="block text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อ นามสกุล</x-input-label>
+                                        <input type="text" name="c_name{{ $i }}" id="c_name{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <x-input-error :messages="$errors->get('c_name{{ $i }}')" class="mt-2"/>
                                     </div>
-
+                            
                                     <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_inGameName1" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อในเกม</x-input-label>
-                                        <input type="text" name="c_inGameName1" id="c_inGameName1"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_inGameName1')" class="mt-2"/>    
-                                    </div> 
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_email1" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">E-mail</x-input-label>
-                                        <input type="email" name="c_email1" id="c_email1"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_email1')" class="mt-2"/>    
+                                        <x-input-label for="c_inGameName{{ $i }}" class="block text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อในเกม</x-input-label>
+                                        <input type="text" name="c_inGameName{{ $i }}" id="c_inGameName{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <x-input-error :messages="$errors->get('c_inGameName{{ $i }}')" class="mt-2"/>
                                     </div>
-                                    
+                            
                                     <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_tel1" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">เบอร์โทร</x-input-label>
-                                        <input type="text" name="c_tel1" id="c_tel1"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_tel1')" class="mt-2"/>    
+                                        <x-input-label for="c_email{{ $i }}" class="block text-sm font-medium text-gray-900 dark:text-white py-2">E-mail</x-input-label>
+                                        <input type="email" name="c_email{{ $i }}" id="c_email{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <x-input-error :messages="$errors->get('c_email{{ $i }}')" class="mt-2"/>
                                     </div>
-
-                                    <div class="cols mx-1 col-span-1">
-                                        <x-input-label for="c_name2" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อ นามสกุล</x-input-label>
-                                        <input type="text" name="c_name2" id="c_name2"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_name2')" class="mt-2"/>    
-                                    </div>
-
+                            
                                     <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_inGameName2" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อในเกม</x-input-label>
-                                        <input type="text" name="c_inGameName2" id="c_inGameName2"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_inGameName2')" class="mt-2"/>    
-                                    </div> 
-    
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_email2" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">E-mail</x-input-label>
-                                        <input type="email" name="c_email2" id="c_email2"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_email2')" class="mt-2"/>    
+                                        <x-input-label for="c_tel{{ $i }}" class="block text-sm font-medium text-gray-900 dark:text-white py-2">เบอร์โทร</x-input-label>
+                                        <input type="text" maxlength="10" name="c_tel{{ $i }}" id="c_tel{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <x-input-error :messages="$errors->get('c_tel{{ $i }}')" class="mt-2"/>
                                     </div>
-                                    
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_tel2" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">เบอร์โทร</x-input-label>
-                                        <input type="text" name="c_tel2" id="c_tel2"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_tel2')" class="mt-2"/>    
-                                    </div>
-
-                                    <div class="cols mx-1 col-span-1">
-                                        <x-input-label for="c_name3" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อ นามสกุล</x-input-label>
-                                        <input type="text" name="c_name3" id="c_name3"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_name23') class="mt-2"/>    
-                                    </div>
-
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_inGameName3" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อในเกม</x-input-label>
-                                        <input type="text" name="c_inGameName3" id="c_inGameName3"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_inGameName3') class="mt-2"/>    
-                                    </div> 
-    
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_email3" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">E-mail</x-input-label>
-                                        <input type="email" name="c_email3'" id="c_email3"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_email3') class="mt-2"/>    
-                                    </div>
-                                    
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_tel3" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">เบอร์โทร</x-input-label>
-                                        <input type="text" name="c_tel3" id="c_tel3"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_tel3') class="mt-2"/>    
-                                    </div>
-
-                                    <div class="cols mx-1 col-span-1">
-                                        <x-input-label for="c_name4" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อ นามสกุล</x-input-label>
-                                        <input type="text" name="c_name4" id="c_name4"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_name4') class="mt-2"/>    
-                                    </div>
-
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_inGameName4" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อในเกม</x-input-label>
-                                        <input type="text" name="c_inGameName4" id="c_inGameName4"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_inGameName4') class="mt-2"/>    
-                                    </div> 
-    
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_email4" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">E-mail</x-input-label>
-                                        <input type="email" name="c_email4" id="c_email4"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_email4') class="mt-2"/>    
-                                    </div>
-                                    
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_tel4" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">เบอร์โทร</x-input-label>
-                                        <input type="text" name="c_tel4" id="c_tel4"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_tel4') class="mt-2"/>    
-                                    </div>
-
-                                    <div class="cols mx-1 col-span-1">
-                                        <x-input-label for="c_name5" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อ นามสกุล</x-input-label>
-                                        <input type="text" name="c_name5" id="c_name5"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_name5') class="mt-2"/>    
-                                    </div>
-
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_inGameName5" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">ชื่อในเกม</x-input-label>
-                                        <input type="text" name="c_inGameName5" id="c_inGameName5"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_inGameName5') class="mt-2"/>    
-                                    </div> 
-    
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_email5" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">E-mail</x-input-label>
-                                        <input type="email" name="c_email5" id="c_email5"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_email5') class="mt-2"/>    
-                                    </div>
-                                    
-                                    <div class="cols mx-2 col-span-1">
-                                        <x-input-label for="c_tel5" class="block  text-sm font-medium text-gray-900 dark:text-white py-2">เบอร์โทร</x-input-label>
-                                        <input type="text" name="c_tel5" id="c_tel5"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <x-input-error :messages="$errors->get('c_tel5') class="mt-2"/>    
-                                    </div>
-                                </div>
+                                @endfor
+                            </div>
                             @break
 
                             @default
@@ -490,3 +263,11 @@
     </script> --}}
 
 </x-app-layout>
+
+@if (session('alert'))
+Swal.fire({
+    icon: '{{ session('alert')['icon'] }}',
+    title: '{{ session('alert')['title'] }}',
+    text: '{{ session('alert')['text'] }}',
+});
+@endif
