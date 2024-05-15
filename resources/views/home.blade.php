@@ -32,13 +32,9 @@
         <div>
             <img src="{{ url('img/bg_register.png') }}" alt="">
         </div>
-        <div class="pt-6">
-            <button type="submit" class="bg-gray-900 hover:bg-gray-700 text-white py-1 px-1 rounded text-xl"
-                id="swal">ลงทะเบียน</button>
-        </div>
     </div>
 
-    <script>
+    <!-- <script>
         document.getElementById('swal').addEventListener('click', function() {
             Swal.fire({
                 title: "Good job!",
@@ -47,7 +43,7 @@
                 icon: "success"
             });
         })
-    </script>
+    </script> -->
 
 
 
