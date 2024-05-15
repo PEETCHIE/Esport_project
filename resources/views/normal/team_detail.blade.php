@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-white dark:text-gray-200 leading-tight">
-            {{ __('ทีมเข้าแข่งขัน') }}
+            {{ __('สมาชิกเข้าแข่งขัน') }}
         </h2>
     </x-slot>
 
@@ -20,8 +20,9 @@
                 <div class="grid grid-cols-5 grid-flow-row dark:text-gray-200 leading-tight grid-md flex flex-wrap">
                 @foreach($team_details as $team_detail)        
                 <div class="mx-auto px-5 justify-center m-3">
-                    <div class="max-w-xs cursor-pointer rounded-lg bg-slate-900 p-2 shadow duration-150 hover:scale-105 hover:shadow-md">
-                        <img class="h-40 w-52 rounded-lg object-cover object-center" src="{{ url('img/img_avatar.png')}}" alt="user" />
+                    <div class="max-w-xs cursor-pointer rounded-lg p-2 shadow duration-150 hover:scale-105 hover:shadow-md"
+                        style="background-image: url(/asset/img/Bg-ll.png); background-size: cover; background-position: center;">
+                        <img class="h-40 w-52 rounded-lg object-cover object-center" src="{{ url('/asset/img/user.jpg')}}" alt="user" />
                         <p class="my-2 mt-5 pl-4 font-bold text-white">ชื่อ: {{ $team_detail->c_name}}</p>
                         <p class="my-2 pl-4 font-bold text-white">ชื่อในเกม: {{ $team_detail->c_inGameName}}</p>
                         <p class="my-2 pl-4 font-bold text-white">อีเมล: {{ $team_detail->c_email}}</p>

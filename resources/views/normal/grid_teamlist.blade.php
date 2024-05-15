@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-white dark:text-gray-200 leading-tight">
-            {{ __('ทีมเข้าแข่งขัน') }}
+            {{ __('ตารางการแข่งขัน') }}
         </h2>
     </x-slot>
     <div class="py-12">
@@ -10,10 +10,10 @@
                 <!-- Navbar -->
                 <div class="flex flex-nowrap border-b border-gray-200 dark:border-gray-600">
                     <div class="p-4">
-                        <a href="#tab1" class="text-gray-900 dark:text-white font-bold">ทีมเข้าแข่งขัน</a>
+                        <a href="#tab1" class="text-gray-900 dark:text-white font-bold">ตารางแข่งขัน</a>
                     </div>
                     <div class="p-4">
-                        <a href="#tab2" class="text-gray-500 dark:text-gray-400 font-bold">ตารางแข่งขัน</a>
+                        <a href="#tab2" class="text-gray-500 dark:text-gray-400 font-bold">ทีมเข้าแข่งขัน</a>
                     </div>
                 </div>
                 <!-- Content -->
@@ -25,7 +25,7 @@
                             @foreach ($team_lists as $team_list)
                                 <div class="mx-auto px-5 justify-center m-3">
                                    <div class="max-w-xs cursor-pointer rounded-lg p-2 shadow duration-150 hover:scale-105 hover:shadow-md"
-                                        style="background-image: url(/asset/img/Bg_tt.png); background-size: cover; background-position: center;">
+                                        style="background-image: url(/asset/img/Bg-ll.png); background-size: cover; background-position: center;">
                                         <img class="h-40 w-52 rounded-lg object-cover object-center"
                                             src="{{ $team_list->logo }}" alt="product" />
                                         <p class="my-4 pl-4 font-bold text-white">ชื่อทีม: {{ $team_list->t_name }}</p>
