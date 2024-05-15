@@ -319,7 +319,12 @@ class CompetitionProgramController extends Controller
             'match_time' => $request->match_time,
             'link' => $request->link,
         ]);
-        return back();
+        return back()->with('alert', [
+            'icon' => 'success',
+            'title' => 'อัพเดตเรียบร้อย!',
+            'text' => 'คุณอัพเดตลิงก์วันและเวลาแล้ว!',
+            'confirmButtonText' => 'OK',
+        ]);
     }
 
     /**
@@ -546,8 +551,8 @@ class CompetitionProgramController extends Controller
                 ]);
                 return back()->with('alert', [
                     'icon' => 'success',
-                    'title' => 'OK',
-                    'text' => 'OkYA',
+                    'title' => 'สุ่มสำเร็จ',
+                    'text' => 'คุณสุ่มทีมเรียบร้อยแล้ว',
                     'confirmButtonText' => 'OK',
                 ]);
             } else {
@@ -659,8 +664,8 @@ class CompetitionProgramController extends Controller
                 ]);
                 return back()->with('alert', [
                     'icon' => 'success',
-                    'title' => 'OK',
-                    'text' => 'OkYA',
+                    'title' => 'สุ่มสำเร็จ',
+                    'text' => 'คุณสุ่มทีมเรียบร้อยแล้ว',
                     'confirmButtonText' => 'OK',
                 ]);
             } else {
