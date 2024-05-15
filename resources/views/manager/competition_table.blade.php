@@ -17,7 +17,7 @@
             <thead class="text-xs text-white uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 mx-auto bg-slate-900">
                 <tr>
                     <th scope="col" class="px-6 py-3">
-                        โลโก้ทีม
+                        รูปรายการ
                     </th>
                     <th scope="col" class="px-6 py-3">
                        ชื่อรายการแข่ง

@@ -12,7 +12,7 @@
                     @foreach ($competition_lists as $competition_list)
                     <div class="mx-auto px-5 justify-center m-3">
                         <div class="max-w-xs cursor-pointer rounded-lg p-2 shadow duration-150 hover:scale-105 hover:shadow-md"
-                        style="background-image: url(/asset/img/bg-lol.png); background-size: cover; background-position: center;">
+                        style="background-image: url(/img/bg-lol.png); background-size: cover; background-position: center;">
                             <img class="h-40 w-60 mx-auto rounded-lg object-cover object-center mb-2" src="{{ $competition_list->cl_img}}" alt="product" />
                             <p class="my-4 pl-4 my-px font-bold text-white">ชื่อรายการแข่งขัน : {{ $competition_list->competition_name}}</p>
                             <p class="my-4 pl-4 my-px font-bold text-white">เกม : {{ $competition_list->game_name}}</p>
