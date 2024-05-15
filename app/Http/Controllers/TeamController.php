@@ -101,13 +101,14 @@ class TeamController extends Controller
                             'c_tel' => $request1->c_tel1,
                             't_id' => DB::table('teams')->orderBy('id', 'desc')->first()->id
                         ]);
-                        break;
                         return redirect()->route('contestants.index')->with('alert', [
                             'icon' => 'success',
                             'title' => 'ลงทะเบียนสำเร็จ',
                             'text' => 'ลงทะเบียนเรียบร้',
                             'confirmButtonText' => 'OK',
                         ]);
+                        break;
+
                     case ('2'):
                         for ($i = 0; $i < 2; $i++) {
                             $config_contestant = ['table' => 'contestants', 'length' => 8, 'prefix' => 'CON-'];
@@ -121,13 +122,14 @@ class TeamController extends Controller
                                 't_id' => DB::table('teams')->orderBy('id', 'desc')->first()->id
                             ]);
                         }
-                        break;
                         return redirect()->route('contestants.index')->with('alert', [
                             'icon' => 'success',
                             'title' => 'ลงทะเบียนสำเร็จ',
                             'text' => 'ลงทะเบียนเรียบร้',
                             'confirmButtonText' => 'OK',
                         ]);
+                        break;
+
                     case ('3'):
                         for ($i = 0; $i < 3; $i++) {
                             $config_contestant = ['table' => 'contestants', 'length' => 8, 'prefix' => 'CON-'];
@@ -145,6 +147,12 @@ class TeamController extends Controller
                             'icon' => 'success',
                             'title' => 'ลงทะเบียนสำเร็จ',
                             'text' => 'ลงทะเบียนเรียบร้',
+                            'confirmButtonText' => 'OK',
+                        ]);
+                        return redirect()->route('contestants.index')->with('alert', [
+                            'icon' => 'success',
+                            'title' => 'ลงทะเบียนสำเร็จ',
+                            'text' => 'ลงทะเบียนเรียบร้อยแล้ว',
                             'confirmButtonText' => 'OK',
                         ]);
                         break;
@@ -167,6 +175,7 @@ class TeamController extends Controller
                             'text' => 'ลงทะเบียนเรียบร้',
                             'confirmButtonText' => 'OK',
                         ]);
+
                         break;
                     case ('5'):
                         for ($i = 1; $i <= 5; $i++) {
@@ -189,7 +198,6 @@ class TeamController extends Controller
                         ]);
                         break;
                 }
-                
             } else {
                 return redirect()->route('contestants.index')->with('status', 'MAXIMUM TEAM');
             }
