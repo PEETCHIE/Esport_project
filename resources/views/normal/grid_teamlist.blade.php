@@ -15,10 +15,13 @@
                     <div class="p-4">
                         <a href="#tab2" class="text-gray-500 dark:text-gray-400 font-bold">ทีมเข้าแข่งขัน</a>
                     </div>
+                    <div class="p-4">
+                        <a href="#tab3" class="text-gray-500 dark:text-gray-400 font-bold">แมตซ์การแข่งขัน</a>
+                    </div>
                 </div>
                 <!-- Content -->
                 <div class="p-4">
-                    <!-- Content for Tab 1 -->
+                    <!-- Content for Tab 2 -->
                     <div id="tab2" class="hidden tab-content">
                         <div
                             class="grid grid-cols-5 grid-flow-row dark:text-gray-200 leading-tight grid-md flex flex-wrap">
@@ -37,7 +40,13 @@
                             @endforeach
                         </div>
                     </div>
-                    <!-- Content for Tab 2 -->
+                    <!-- Content for Tab 3 -->
+                    <div id="tab3" class="hidden tab-content">
+                        <div class="grid grid-cols-5 grid-flow-row dark:text-gray-200 leading-tight grid-md flex flex-wrap">
+                            
+                        </div>
+                    </div>
+                    <!-- Content for Tab 1 -->
                     <div id="tab1" class="tab-content">
                     @foreach ($buckets as $bucket)
                         @if ($loop->first)

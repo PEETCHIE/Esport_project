@@ -39,7 +39,7 @@
         $competitionAmountInt = $competition_list->competition_amount;
     @endphp
     
-<div id="myModal-{{ $competition_list->id }}" class="modal-content hidden fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center">
+<div id="myModal-{{ $competition_list->id }}" class="modal-content hidden fixed top-[-20px] left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center">
   <div class="modal-content">
     <button onclick="closeModal('{{ $competition_list->id }}')" class="absolute top-[30px] right-[20px] mt-2 mr-2 text-gray-500 hover:text-gray-700 w-[100px] h-[100px]">
         &times;
@@ -50,7 +50,7 @@
                 <div class="container mx-auto">
                     <div class="text-gray-800 dark:text-white flex justify ">
                         <img class="w-1/2 rounded-lg p-3" src="{{$competition_list->cl_img}}" alt="photo_list" />
-                        <div class="rows py-3">
+                        <div class="rows py-3 text-[14px]">
                             <div class="mx-4">
                                 รายการแข่งขัน
                             </div>
@@ -78,8 +78,12 @@
                             <div class="mx-4">
                                 กฎกติกาการแข่งขัน
                             </div>
-                            <div class="mx-6">
-                                : {{$competition_list->competition_rule}}
+                            <div class="mx-6 whitespace-pre-line overflow-y-auto" style="max-height: 200px;">
+                                :<?php
+                                    $competition_rule = $competition_list->competition_rule;
+                                    $competition_rule_with_newline = str_replace('/\b1\./', "\n1.", $competition_rule);
+                                    echo $competition_rule_with_newline;
+                                ?>
                             </div>
                             <div class="mx-4">
                                 วันเริ่มการแข่งขัน
@@ -99,7 +103,7 @@
                             <div class="mx-6">
                                 : {{$competition_list->	amount_contestant}}
                             </div>
-                            <div class="my-12">
+                            <div class="my-12 mt-[5px]">
                                 <center>
                                 <button type="submit" class="@if($count_clid >= $competitionAmountInt) bg-red-500 hover:bg-red-700 @else bg-green-500 hover:bg-gray-700 @endif text-white font-bold py-1 px-1 rounded">
                                     <!-- <button type="submit" class="bg-green-500 hover:bg-gray-700 text-white font-bold py-1 px-1 rounded"> -->
