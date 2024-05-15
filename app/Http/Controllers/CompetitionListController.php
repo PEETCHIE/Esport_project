@@ -25,7 +25,7 @@ class CompetitionListController extends Controller
         //
         $id = Auth()->id();
         $tm_id = DB::table('tournament_managers')->where('user_id', $id)->pluck('id')->first();
-        $list_competitions = DB::table('competition_lists')->get()->WHERE('tm_id', $tm_id);
+        $list_competitions = DB::table('competition_lists')->WHERE('tm_id', $tm_id)->paginate(5);
         $currentDate = Carbon::now();
         $list_cl_id = DB::table('competition_lists')->where('tm_id', $tm_id)->pluck('id')->toArray();
         $count_teams = DB::table('teams')

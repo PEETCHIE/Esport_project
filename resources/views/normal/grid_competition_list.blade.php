@@ -132,3 +132,12 @@
     }
 </script>      
 </x-app-layout>
+<script>
+@if (session('alert'))
+Swal.fire({
+    icon: '{{ session('alert')['icon'] }}',
+    title: '{{ session('alert')['title'] }}',
+    text: '{{ session('alert')['text'] }}',
+});
+@endif
+</script>

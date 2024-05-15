@@ -53,7 +53,7 @@
                             
                                     <div class="cols mx-2 col-span-1">
                                         <x-input-label for="c_tel{{ $i }}" class="block text-sm font-medium text-gray-900 dark:text-white py-2">เบอร์โทร</x-input-label>
-                                        <input type="text" name="c_tel{{ $i }}" id="c_tel{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <input type="text" maxlength="10" name="c_tel{{ $i }}" id="c_tel{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         <x-input-error :messages="$errors->get('c_tel{{ $i }}')" class="mt-2"/>
                                     </div>
                                 @endfor
@@ -83,7 +83,7 @@
                             
                                     <div class="cols mx-2 col-span-1">
                                         <x-input-label for="c_tel{{ $i }}" class="block text-sm font-medium text-gray-900 dark:text-white py-2">เบอร์โทร</x-input-label>
-                                        <input type="text" name="c_tel{{ $i }}" id="c_tel{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <input type="text" maxlength="10" name="c_tel{{ $i }}" id="c_tel{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         <x-input-error :messages="$errors->get('c_tel{{ $i }}')" class="mt-2"/>
                                     </div>
                                 @endfor
@@ -113,7 +113,7 @@
                             
                                     <div class="cols mx-2 col-span-1">
                                         <x-input-label for="c_tel{{ $i }}" class="block text-sm font-medium text-gray-900 dark:text-white py-2">เบอร์โทร</x-input-label>
-                                        <input type="text" name="c_tel{{ $i }}" id="c_tel{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <input type="text" maxlength="10" name="c_tel{{ $i }}" id="c_tel{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         <x-input-error :messages="$errors->get('c_tel{{ $i }}')" class="mt-2"/>
                                     </div>
                                 @endfor
@@ -143,7 +143,7 @@
                             
                                     <div class="cols mx-2 col-span-1">
                                         <x-input-label for="c_tel{{ $i }}" class="block text-sm font-medium text-gray-900 dark:text-white py-2">เบอร์โทร</x-input-label>
-                                        <input type="text" name="c_tel{{ $i }}" id="c_tel{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <input type="text" maxlength="10" name="c_tel{{ $i }}" id="c_tel{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         <x-input-error :messages="$errors->get('c_tel{{ $i }}')" class="mt-2"/>
                                     </div>
                                 @endfor
@@ -173,7 +173,7 @@
                             
                                     <div class="cols mx-2 col-span-1">
                                         <x-input-label for="c_tel{{ $i }}" class="block text-sm font-medium text-gray-900 dark:text-white py-2">เบอร์โทร</x-input-label>
-                                        <input type="text" name="c_tel{{ $i }}" id="c_tel{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <input type="text" maxlength="10" name="c_tel{{ $i }}" id="c_tel{{ $i }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         <x-input-error :messages="$errors->get('c_tel{{ $i }}')" class="mt-2"/>
                                     </div>
                                 @endfor
@@ -263,3 +263,11 @@
     </script> --}}
 
 </x-app-layout>
+
+@if (session('alert'))
+Swal.fire({
+    icon: '{{ session('alert')['icon'] }}',
+    title: '{{ session('alert')['title'] }}',
+    text: '{{ session('alert')['text'] }}',
+});
+@endif

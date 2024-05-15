@@ -84,9 +84,12 @@
                     </td>
                     
                 </tr>
-                @endforeach
+                @endforeach 
             </tbody>
         </table>    
+        <div class="flex justify-center mt-4">
+            {{ $list_competitions->links() }}
+        </div>
     </div>
     
     {{-- <script>

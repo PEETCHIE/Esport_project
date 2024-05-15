@@ -23,8 +23,8 @@ class ManagerController extends Controller
             $count_not_end = DB::table('competition_lists')->where('competition_end_date', '>', $today)->count();
             $tm_id = DB::table('tournament_managers')->where('user_id', Auth()->id())->pluck('id')->first();
             $dataList = DB::table('competition_lists')->where('tm_id', $tm_id)->paginate(10);
-            $dataList_ongoing = DB::table('competition_lists')->where('tm_id', $tm_id)->where('competition_end_date', '>', $today)->paginate(10);
-            $dataList_ended = DB::table('competition_lists')->where('tm_id', $tm_id)->where('competition_end_date', '<=', $today)->paginate(10);
+            $dataList_ongoing = DB::table('competition_lists')->where('tm_id', $tm_id)->where('competition_end_date', '>', $today)->paginate(5);
+            $dataList_ended = DB::table('competition_lists')->where('tm_id', $tm_id)->where('competition_end_date', '<=', $today)->paginate(5);
             $list_cl_id = DB::table('competition_lists')->where('tm_id', $tm_id)->pluck('id')->toArray();
             $count_teams = DB::table('teams')
                 ->select('cl_id', DB::raw('count(*) as team_count'))

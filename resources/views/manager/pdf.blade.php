@@ -76,31 +76,26 @@
         <p>Copyright &copy; <?php echo date('Y'); ?></p>
     </footer>
     <main>
-        <table class="min-w-full  border-gray-300  rounded-md border-collapse border-[1px]"
-            style="background-color: #f5f5f5;">
+        <table class="min-w-full  rounded-md border-collapse border-[1px]">
             <thead class="text-xs">
                 <tr>
-                    <th scope="col" class="border px-4 py-3 text-left text-base font-medium ">
-                        รหัส
-                    </th>
-                    <th scope="col" class="border px-4 py-3 text-left text-base font-medium ">
+                    <th scope="col" class="border px-4 py-2 text-left text-base font-medium ">
                         ชื่อรายการแข่งขัน
                     </th>
-                    <th scope="col" class="border px-4 py-3 text-left text-base font-medium ">
+                    <th scope="col" class="border px-4 py-2 text-left text-base font-medium ">
                         จำนวนทีมที่รับเข้าแข่งขัน
                     </th>
-                    <th scope="col" class="border px-4 py-3 text-left text-base font-medium ">
+                    <th scope="col" class="border px-4 py-2 text-left text-base font-medium ">
                         จำนวนทีมที่เข้าแข่งขัน
                     </th>
+                    <th scope="col" class="border px-2 py-2 text-center">จำนวนคนในทีม</th>
+                    <th scope="col" class="border px-2 py-2 text-center">วันที่จบการแข่งขัน</th>
                 </tr>
             </thead>
             <tbody>
                 @if ($data->count() > 0)
                     @foreach ($data as $item)
                         <tr>
-                            <td class="border px-3 " scope="row">
-                                <div class="text-sm">{{ $item->id }}</div>
-                            </td>
                             <td class="border px-3 " scope="row">
                                 <div class="text-sm">{{ $item->competition_name }}</div>
                             </td>
@@ -115,6 +110,12 @@
                                         @endif
                                     @endforeach
                                 </div>
+                            </td>
+                            <td class="border px-2 text-center">{{ $item->amount_contestant }}</td>
+                            <td class="border px-2 text-center">
+                                {{ \Carbon\Carbon::parse($item->competition_end_date)->format('d') }}
+                                {{ \Carbon\Carbon::parse($item->competition_end_date)->locale('th')->monthName }}
+                                {{ \Carbon\Carbon::parse($item->competition_end_date)->year + 543 }}
                             </td>
                         </tr>
                     @endforeach
