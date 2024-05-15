@@ -101,7 +101,7 @@
                                 </x-slot>
                                 <x-slot name="content">
                                     <x-nav-link :href="route('twitch-streams')" :active="request()->routeIs('twitch-streams')">
-                                        {{ __('ถ่ายทอดสด TWITCH') }}
+                                        {{ __('ถ่ายทอดสด') }}
                                     </x-nav-link>
 
                                     {{-- <x-nav-link :href="route('youtube-streams')" :active="request()->routeIs('youtube-streams')">
@@ -109,7 +109,7 @@
                                     </x-nav-link> --}}
 
                                     <x-nav-link :href="route('formTwitch')" :active="request()->routeIs('formTwitch')">
-                                        {{ __('TWITCH FORM  ') }}
+                                        {{ __('FORM API') }}
                                     </x-nav-link>
 
                                     {{-- <x-nav-link :href="route('formYoutube')" :active="request()->routeIs('formYoutube')">
@@ -137,12 +137,12 @@
                             </x-nav-link>
 
                             <x-nav-link :href="route('twitch-streams')" :active="request()->routeIs('twitch-streams')">
-                                {{ __('ถ่ายทอดสด TWICH') }}
+                                {{ __('ถ่ายทอดสด') }}
                             </x-nav-link>
 
-                            <x-nav-link :href="route('youtube-streams')" :active="request()->routeIs('youtube-streams')">
+                            {{-- <x-nav-link :href="route('youtube-streams')" :active="request()->routeIs('youtube-streams')">
                                 {{ __('ถ่ายทอดสด YOUTBE') }}
-                            </x-nav-link>
+                            </x-nav-link> --}}
 
                         </div>
                     @endif

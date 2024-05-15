@@ -12,7 +12,7 @@ use Carbon\Carbon;
 class ManagerController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
         try {
             $currentDate = Carbon::now();
@@ -23,6 +23,8 @@ class ManagerController extends Controller
             $count_not_end = DB::table('competition_lists')->where('competition_end_date', '>', $today)->count();
             $tm_id = DB::table('tournament_managers')->where('user_id', Auth()->id())->pluck('id')->first();
             $dataList = DB::table('competition_lists')->where('tm_id', $tm_id)->paginate(10);
+            $dataList_ongoing = DB::table('competition_lists')->where('tm_id', $tm_id)->where('competition_end_date', '>', $today)->paginate(10);
+            $dataList_ended = DB::table('competition_lists')->where('tm_id', $tm_id)->where('competition_end_date', '<=', $today)->paginate(10);
             $list_cl_id = DB::table('competition_lists')->where('tm_id', $tm_id)->pluck('id')->toArray();
             $count_teams = DB::table('teams')
                 ->select('cl_id', DB::raw('count(*) as team_count'))
@@ -30,8 +32,15 @@ class ManagerController extends Controller
                 ->groupBy('cl_id')
                 ->get();
             $count_competition_lists = DB::table('competition_lists')->where('tm_id', $tm_id)->count();
-
-            return view('manager.manager_home', compact('count_teams', 'count_competition_lists', 'count_end', 'count_not_end','dataList'));
+            return view('manager.manager_home', compact(
+                'count_teams',
+                'count_competition_lists',
+                'count_end',
+                'count_not_end',
+                'dataList',
+                'dataList_ongoing',
+                'dataList_ended',
+            ));
         } catch (\Exception $e) {
             Log::debug($e->getMessage());
             echo $e->getMessage();

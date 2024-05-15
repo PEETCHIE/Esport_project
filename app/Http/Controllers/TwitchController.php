@@ -17,9 +17,7 @@ class TwitchController extends Controller
     public function getStreams()
     {
         try {
-            $id = Auth()->id();
-            $tm_id = DB::table('tournament_managers')->where('user_id', $id)->pluck("id")->first();
-            $credentials = DB::table('stream_twitch_api')->where('tm_id', $tm_id)->get();
+            $credentials = DB::table('stream_twitch_api')->get();
             $streamsData = [];
             foreach ($credentials as $credential) {
                 $twitchClientId = $credential->twitch_client_id;
@@ -43,8 +41,6 @@ class TwitchController extends Controller
                                 'Client-ID' => $twitchClientId,
                             ]
                         ]);
-
-                        // แปลงข้อมูล JSON ใน response เป็น array
                         $data = json_decode($response->getBody()->getContents(), true);
                         $streamsData[$username] = $data['data'];
                     }
