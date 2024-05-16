@@ -76,7 +76,11 @@ class ContestantController extends Controller
                                 'score' => $item->score,
                                 'link' => $item->link,
                                 'competition_amount' => $item->competition_amount,
-                                'cl_round' => $item->cl_round
+                                'cl_round' => $item->cl_round,
+                                'match_date' => $item->match_date,
+                                'match_time' => $item->match_time,
+                                'matches' => $item->matches,
+                                'round' => $item->round
                             ];
                         }
                     }
