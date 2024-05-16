@@ -32,7 +32,7 @@ class TeamController extends Controller
             $competition_amount = DB::table('competition_lists')->WHERE('id', $id)->value('competition_amount');
             $competitionAmountInt = (int) $competition_amount;
         }
-        return view('normal.grid_competition_list', compact('competition_lists'));
+        return view('normal.grid_competition_list', compact('competition_lists', 'currentDate'));
     }
 
     public function detailShow($id)
@@ -42,7 +42,8 @@ class TeamController extends Controller
         $count_clid = DB::table('teams')->WHERE('cl_id', $id)->join('competition_lists', 'teams.cl_id', '=', 'competition_lists.id')->groupBy('teams.cl_id')->select(DB::raw('COUNT(*) as count'))->count();
         $competition_amount = DB::table('competition_lists')->WHERE('id', $id)->value('competition_amount');
         $competitionAmountInt = (int) $competition_amount;
-        return view('normal.competition_detail', compact('competition_list', 'count_clid', 'competitionAmountInt'));
+
+        return view('normal.competition_detail', compact('competition_list', 'count_clid', 'competitionAmountInt', ));
     }
 
     /**
@@ -71,6 +72,7 @@ class TeamController extends Controller
         try {
             $competition_list = DB::table('competition_lists')->WHERE('id', $id)->pluck('id')->first();
             $amount_contestant = DB::table('competition_lists')->WHERE('id', $id)->pluck('amount_contestant')->first();
+
             $count_clid = DB::table('teams')->WHERE('cl_id', $id)->join('competition_lists', 'teams.cl_id', '=', 'competition_lists.id')->groupBy('teams.cl_id')->select(DB::raw('COUNT(*) as count'))->count();
             $competition_amount = DB::table('competition_lists')->WHERE('id', $id)->value('competition_amount');
             $competitionAmountInt = (int) $competition_amount;
@@ -104,7 +106,7 @@ class TeamController extends Controller
                         return redirect()->route('contestants.index')->with('alert', [
                             'icon' => 'success',
                             'title' => 'ลงทะเบียนสำเร็จ',
-                            'text' => 'ลงทะเบียนเรียบร้',
+                            'text' => 'ลงทะเบียนเรียบร้อยแล้ว',
                             'confirmButtonText' => 'OK',
                         ]);
                         break;
@@ -115,17 +117,17 @@ class TeamController extends Controller
                             $new_cont_id = IdGenerator::generate($config_contestant); // สร้าง ID ใหม่ทุกครั้งก่อนที่จะ insert
                             $contesttantInsert = contestant::insert([
                                 'id' => $new_cont_id,
-                                'c_name' => $request1->c_name1,
-                                'c_inGameName' => $request1->c_inGameName1,
-                                'c_email' => $request1->c_email1,
-                                'c_tel' => $request1->c_tel1,
-                                't_id' => DB::table('teams')->orderBy('id', 'desc')->first()->id
+                                'c_name' => $request->input('c_name' . $i),
+                                'c_inGameName' => $request->input('c_inGameName' . $i),
+                                'c_email' => $request->input('c_email' . $i),
+                                'c_tel' => $request->input('c_tel' . $i),
+                                't_id' => $team_id
                             ]);
                         }
                         return redirect()->route('contestants.index')->with('alert', [
                             'icon' => 'success',
                             'title' => 'ลงทะเบียนสำเร็จ',
-                            'text' => 'ลงทะเบียนเรียบร้',
+                            'text' => 'ลงทะเบียนเรียบร้อยแล้ว',
                             'confirmButtonText' => 'OK',
                         ]);
                         break;
@@ -136,17 +138,17 @@ class TeamController extends Controller
                             $new_cont_id = IdGenerator::generate($config_contestant); // สร้าง ID ใหม่ทุกครั้งก่อนที่จะ insert
                             $contesttantInsert = contestant::insert([
                                 'id' => $new_cont_id,
-                                'c_name' => $request1->c_name1,
-                                'c_inGameName' => $request1->c_inGameName1,
-                                'c_email' => $request1->c_email1,
-                                'c_tel' => $request1->c_tel1,
-                                't_id' => DB::table('teams')->orderBy('id', 'desc')->first()->id
+                                'c_name' => $request->input('c_name' . $i),
+                                'c_inGameName' => $request->input('c_inGameName' . $i),
+                                'c_email' => $request->input('c_email' . $i),
+                                'c_tel' => $request->input('c_tel' . $i),
+                                't_id' => $team_id
                             ]);
                         }
                         return redirect()->route('contestants.index')->with('alert', [
                             'icon' => 'success',
                             'title' => 'ลงทะเบียนสำเร็จ',
-                            'text' => 'ลงทะเบียนเรียบร้',
+                            'text' => 'ลงทะเบียนเรียบร้อยแล้ว',
                             'confirmButtonText' => 'OK',
                         ]);
                         return redirect()->route('contestants.index')->with('alert', [
@@ -162,17 +164,17 @@ class TeamController extends Controller
                             $new_cont_id = IdGenerator::generate($config_contestant);
                             $contesttantInsert = contestant::insert([
                                 'id' => $new_cont_id,
-                                'c_name' => $request1->c_name1,
-                                'c_inGameName' => $request1->c_inGameName1,
-                                'c_email' => $request1->c_email1,
-                                'c_tel' => $request1->c_tel1,
-                                't_id' => DB::table('teams')->orderBy('id', 'desc')->first()->id
+                                'c_name' => $request->input('c_name' . $i),
+                                'c_inGameName' => $request->input('c_inGameName' . $i),
+                                'c_email' => $request->input('c_email' . $i),
+                                'c_tel' => $request->input('c_tel' . $i),
+                                't_id' => $team_id
                             ]);
                         }
                         return redirect()->route('contestants.index')->with('alert', [
                             'icon' => 'success',
                             'title' => 'ลงทะเบียนสำเร็จ',
-                            'text' => 'ลงทะเบียนเรียบร้',
+                            'text' => 'ลงทะเบียนเรียบร้อยแล้ว',
                             'confirmButtonText' => 'OK',
                         ]);
 

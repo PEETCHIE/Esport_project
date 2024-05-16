@@ -22,14 +22,15 @@ class ManagerController extends Controller
             $count_end = DB::table('competition_lists')->where('competition_end_date', '<=', $today)->count();
             $count_not_end = DB::table('competition_lists')->where('competition_end_date', '>', $today)->count();
             $tm_id = DB::table('tournament_managers')->where('user_id', Auth()->id())->pluck('id')->first();
-            $dataList = DB::table('competition_lists')->where('tm_id', $tm_id)->paginate(10);
+            $dataList = DB::table('competition_lists')->where('tm_id', $tm_id)->paginate(5);
             $dataList_ongoing = DB::table('competition_lists')->where('tm_id', $tm_id)->where('competition_end_date', '>', $today)->paginate(5);
             $dataList_ended = DB::table('competition_lists')->where('tm_id', $tm_id)->where('competition_end_date', '<=', $today)->paginate(5);
             $list_cl_id = DB::table('competition_lists')->where('tm_id', $tm_id)->pluck('id')->toArray();
-            $count_teams = DB::table('teams')
-                ->select('cl_id', DB::raw('count(*) as team_count'))
-                ->whereIn('cl_id', $list_cl_id)
-                ->groupBy('cl_id')
+            $count_teams = DB::table('competition_lists as cl')
+                ->leftJoin('teams as t', 'cl.id', '=', 't.cl_id')
+                ->select('cl.id as cl_id', DB::raw('count(t.id) as team_count'))
+                ->whereIn('cl.id', $list_cl_id)
+                ->groupBy('cl.id')
                 ->get();
             $count_competition_lists = DB::table('competition_lists')->where('tm_id', $tm_id)->count();
             return view('manager.manager_home', compact(

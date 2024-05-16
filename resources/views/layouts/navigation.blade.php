@@ -61,10 +61,6 @@
                     @if (auth()->check() && auth()->user()->role == 'admin')
                         <!-- Navigation Links -->
                         <div class="hidden space-x-3 sm:-my-px sm:ms-10 sm:flex ">
-                            <x-nav-link :href="route('admin.home')" :active="request()->routeIs('admin.home')" class="font-semibold text-[20px]">
-                                {{ __('หน้าหลัก') }}
-                            </x-nav-link>
-
                             <x-nav-link :href="route('list_tmg')" :active="request()->routeIs('list_tmg')" class="font-semibold text-[20px]">
                                 {{ __('รายชื่อร้องขอเป็นผู้จัดการแข่ง') }}
                             </x-nav-link>

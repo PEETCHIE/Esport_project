@@ -187,9 +187,6 @@ class CompetitionResultsController extends Controller
                                             case 'R3':
                                                 $next_round = 'R4';
                                                 break;
-                                            case 'R4':
-                                                $next_round = 'R5';
-                                                break;
                                             default:
                                                 return redirect()->back()->with(
                                                     'alert',
@@ -226,9 +223,6 @@ class CompetitionResultsController extends Controller
                                                 break;
                                             case 'R4':
                                                 $next_round = 'R5';
-                                                break;
-                                            case 'R5':
-                                                $next_round = 'R6';
                                                 break;
                                             default:
                                                 return redirect()->back()->with(
@@ -268,9 +262,6 @@ class CompetitionResultsController extends Controller
                                                 break;
                                             case 'R5':
                                                 $next_round = 'R6';
-                                                break;
-                                            case 'R6':
-                                                $next_round = 'R7';
                                                 break;
                                             default:
                                                 return redirect()->back()->with(
@@ -433,9 +424,6 @@ class CompetitionResultsController extends Controller
                                             case 'R3':
                                                 $next_round = 'R4';
                                                 break;
-                                            case 'R4':
-                                                $next_round = 'R5';
-                                                break;
                                             default:
                                                 return redirect()->back()->with(
                                                     'alert',
@@ -472,9 +460,6 @@ class CompetitionResultsController extends Controller
                                                 break;
                                             case 'R4':
                                                 $next_round = 'R5';
-                                                break;
-                                            case 'R5':
-                                                $next_round = 'R6';
                                                 break;
                                             default:
                                                 return redirect()->back()->with(
@@ -514,9 +499,6 @@ class CompetitionResultsController extends Controller
                                                 break;
                                             case 'R5':
                                                 $next_round = 'R6';
-                                                break;
-                                            case 'R6':
-                                                $next_round = 'R7';
                                                 break;
                                             default:
                                                 return redirect()->back()->with(
@@ -655,9 +637,6 @@ class CompetitionResultsController extends Controller
                                             case 'R3':
                                                 $next_round = 'R4';
                                                 break;
-                                            case 'R4':
-                                                $next_round = 'R5';
-                                                break;
                                             default:
                                                 return redirect()->back()->with(
                                                     'alert',
@@ -694,9 +673,6 @@ class CompetitionResultsController extends Controller
                                                 break;
                                             case 'R4':
                                                 $next_round = 'R5';
-                                                break;
-                                            case 'R5':
-                                                $next_round = 'R6';
                                                 break;
                                             default:
                                                 return redirect()->back()->with(
@@ -736,9 +712,6 @@ class CompetitionResultsController extends Controller
                                                 break;
                                             case 'R5':
                                                 $next_round = 'R6';
-                                                break;
-                                            case 'R6':
-                                                $next_round = 'R7';
                                                 break;
                                             default:
                                                 return redirect()->back()->with(

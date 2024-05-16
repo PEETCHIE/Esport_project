@@ -44,10 +44,21 @@
                     </th>
                     <td class="px-5 py-4">
                         <p>ชื่อรายการแข่ง: {{ $list_competition->game_name}}</p>
-                        <p>วันที่เปิดรับสมัคร:{{ \Carbon\Carbon::parse($list_competition->opening_date)->format('d/m/Y') }}</p>
-                        <p>วันที่ปิดรับสมัคร: {{ \Carbon\Carbon::parse($list_competition->end_date)->format('d/m/Y') }}</p>
-                        <p>วันเริ่มการแข่งขัน: {{ \Carbon\Carbon::parse($list_competition->start_date)->format('d/m/Y')}}</p>
-                        <p>วันสิ้น: {{ \Carbon\Carbon::parse($list_competition->competition_end_date)->format('d/m/Y')}}</p>
+                        <p>วันที่เปิดรับสมัคร: {{ \Carbon\Carbon::parse($list_competition->opening_date)->format('d') }}
+                            {{ \Carbon\Carbon::parse($list_competition->opening_date)->locale('th')->monthName }}
+                            {{ \Carbon\Carbon::parse($list_competition->opening_date)->year + 543 }}</p>
+                        <p>วันที่ปิดรับสมัคร: 
+                            {{ \Carbon\Carbon::parse($list_competition->end_date)->format('d') }}
+                            {{ \Carbon\Carbon::parse($list_competition->end_date)->locale('th')->monthName }}
+                            {{ \Carbon\Carbon::parse($list_competition->end_date)->year + 543 }}</p>
+                        <p>วันเริ่มการแข่งขัน: 
+                            {{ \Carbon\Carbon::parse($list_competition->start_date)->format('d') }}
+                            {{ \Carbon\Carbon::parse($list_competition->start_date)->locale('th')->monthName }}
+                            {{ \Carbon\Carbon::parse($list_competition->start_date)->year + 543 }}</p>
+                        <p>วันสิ้น: {{ \Carbon\Carbon::parse($list_competition->competition_end_date)->format('d/m/Y')}}
+                            {{ \Carbon\Carbon::parse($list_competition->competition_end_date)->format('d') }}
+                            {{ \Carbon\Carbon::parse($list_competition->competition_end_date)->locale('th')->monthName }}
+                            {{ \Carbon\Carbon::parse($list_competition->competition_end_date)->year + 543 }}</p>
                         <p>จำนวนทีม: {{ $list_competition->competition_amount}}</p>
                         <p>จำนวนคนในทีม: {{ $list_competition->amount_contestant}}</p>
                         <p class="text text-red-800">จำนวนทีมที่สมัครเข้ามาปัจจุบัน: 
@@ -85,9 +96,11 @@
                     
                 </tr>
                 @endforeach 
+                
             </tbody>
+            
         </table>    
-        <div class="flex justify-center mt-4">
+        <div class="flex justify-center mt-4 p-2">
             {{ $list_competitions->links() }}
         </div>
     </div>

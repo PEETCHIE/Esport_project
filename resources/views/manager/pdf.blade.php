@@ -77,42 +77,48 @@
     </footer>
     <main>
         <table class="min-w-full  rounded-md border-collapse border-[1px]">
-            <thead class="text-xs">
+            <thead>
                 <tr>
-                    <th scope="col" class="border px-4 py-2 text-left text-base font-medium ">
+                    <th scope="col" class="border px-2 py-1 text-left text-sm font-medium ">
                         ชื่อรายการแข่งขัน
                     </th>
-                    <th scope="col" class="border px-4 py-2 text-left text-base font-medium ">
+                    <th scope="col" class="border px-2 py-1 text-left text-sm font-medium ">
                         จำนวนทีมที่รับเข้าแข่งขัน
                     </th>
-                    <th scope="col" class="border px-4 py-2 text-left text-base font-medium ">
+                    <th scope="col" class="border px-2 py-1 text-left text-sm font-medium ">
                         จำนวนทีมที่เข้าแข่งขัน
                     </th>
-                    <th scope="col" class="border px-2 py-2 text-center">จำนวนคนในทีม</th>
-                    <th scope="col" class="border px-2 py-2 text-center">วันที่จบการแข่งขัน</th>
+                    <th scope="col" class="border px-1 py-1 text-center text-sm font-medium">จำนวนคนในทีม</th>
+                    <th scope="col" class="border px-1 py-1 text-center text-sm font-medium">วันที่จบการแข่งขัน</th>
                 </tr>
             </thead>
             <tbody>
                 @if ($data->count() > 0)
                     @foreach ($data as $item)
                         <tr>
-                            <td class="border px-3 " scope="row">
+                            <td class="border px-1 text-xs " scope="row">
                                 <div class="text-sm">{{ $item->competition_name }}</div>
                             </td>
-                            <td class="border px-3  text-center" scope="row">
+                            <td class="border px-1 text-xs  text-center" scope="row">
                                 <div class="text-sm">{{ $item->competition_amount }}</div>
                             </td>
-                            <td class="border px-3 text-center" scope="row">
+                            <td class="border px-1 text-xs text-center" scope="row">
                                 <div class="text-sm">
+                                    @php
+                                        $teamCountFound = false;
+                                    @endphp
                                     @foreach ($count_teams as $count)
                                         @if ($count->cl_id == $item->id)
                                             {{ $count->team_count }}
+                                            @php
+                                                $teamCountFound = true;
+                                            @endphp
                                         @endif
                                     @endforeach
                                 </div>
                             </td>
-                            <td class="border px-2 text-center">{{ $item->amount_contestant }}</td>
-                            <td class="border px-2 text-center">
+                            <td class="border px-1 text-xs text-center">{{ $item->amount_contestant }}</td>
+                            <td class="border px-1 text-xs text-center">
                                 {{ \Carbon\Carbon::parse($item->competition_end_date)->format('d') }}
                                 {{ \Carbon\Carbon::parse($item->competition_end_date)->locale('th')->monthName }}
                                 {{ \Carbon\Carbon::parse($item->competition_end_date)->year + 543 }}
@@ -121,7 +127,7 @@
                     @endforeach
                 @else
                     <tr>
-                        <td class="border px-4 py-2 text-center" colspan="5">ไม่พบข้อมูล</td>
+                        <td class="border px-4 py-1 text-xs text-center" colspan="5">ไม่พบข้อมูล</td>
                     </tr>
                 @endif
             </tbody>
