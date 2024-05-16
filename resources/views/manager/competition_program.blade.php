@@ -136,6 +136,9 @@
                     @switch($item->cl_round)
                     @case('1')
                         @if ($item->competition_amount == 8)
+                            @if ($item->score == 1)
+                                <img src="https://avatars.githubusercontent.com/u/108270321?v=4" class="object-cover w-6 h-6 rounded-md mt-[-15px]">
+                            @endif
                             <div class="border-2 ring-2  @if ($item->score == 1) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
                         @else
                             <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
@@ -143,6 +146,9 @@
                     @break
                     @case('3')
                         @if ($item->competition_amount == 8)
+                            @if ($item->score == 2)
+                                <img src="https://avatars.githubusercontent.com/u/108270321?v=4" class="object-cover w-6 h-6 rounded-md mt-[-15px]">
+                            @endif
                             <div class="border-2 ring-2  @if ($item->score == 2) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
                         @else
                             <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
@@ -150,6 +156,9 @@
                     @break
                     @case('5')
                         @if ($item->competition_amount == 8)
+                            @if ($item->score == 3)
+                                <img src="https://avatars.githubusercontent.com/u/108270321?v=4" class="object-cover w-6 h-6 rounded-md mt-[-15px]">
+                            @endif
                             <div class="border-2 ring-2  @if ($item->score == 3) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
                         @else
                             <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
@@ -201,6 +210,9 @@
                         @switch($item->cl_round)
                     @case('1')
                         @if ($item->competition_amount == 16)
+                            @if ($item->score == 1)
+                                <img src="https://avatars.githubusercontent.com/u/108270321?v=4" class="object-cover w-6 h-6 rounded-md mt-[-15px]">
+                            @endif
                             <div class="border-2 ring-2  @if ($item->score == 1) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
                         @else
                             <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
@@ -208,6 +220,9 @@
                     @break
                     @case('3')
                         @if ($item->competition_amount == 16)
+                            @if ($item->score == 2)
+                                <img src="https://avatars.githubusercontent.com/u/108270321?v=4" class="object-cover w-6 h-6 rounded-md mt-[-15px]">
+                            @endif
                             <div class="border-2 ring-2  @if ($item->score == 2) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
                         @else
                             <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
@@ -215,6 +230,9 @@
                     @break
                     @case('5')
                         @if ($item->competition_amount == 16)
+                            @if ($item->score == 3)
+                                <img src="https://avatars.githubusercontent.com/u/108270321?v=4" class="object-cover w-6 h-6 rounded-md mt-[-15px]">
+                            @endif
                             <div class="border-2 ring-2  @if ($item->score == 3) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
                         @else
                             <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
@@ -267,6 +285,9 @@
                     @switch($item->cl_round)
                     @case('1')
                         @if ($item->competition_amount == 32)
+                            @if ($item->score == 1)
+                                <img src="https://avatars.githubusercontent.com/u/108270321?v=4" class="object-cover w-6 h-6 rounded-md mt-[-15px]">
+                            @endif
                             <div class="border-2 ring-2  @if ($item->score == 1) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
                         @else
                             <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
@@ -274,6 +295,9 @@
                     @break
                     @case('3')
                         @if ($item->competition_amount == 32)
+                            @if ($item->score == 2)
+                                <img src="https://avatars.githubusercontent.com/u/108270321?v=4" class="object-cover w-6 h-6 rounded-md mt-[-15px]">
+                            @endif
                             <div class="border-2 ring-2  @if ($item->score == 2) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
                         @else
                             <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
@@ -281,6 +305,9 @@
                     @break
                     @case('5')
                         @if ($item->competition_amount == 32)
+                            @if ($item->score == 3)
+                                <img src="https://avatars.githubusercontent.com/u/108270321?v=4" class="object-cover w-6 h-6 rounded-md mt-[-15px]">
+                            @endif
                             <div class="border-2 ring-2  @if ($item->score == 3) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
                         @else
                             <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">

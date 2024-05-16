@@ -41,13 +41,451 @@
                         </div>
                     </div>
                     <!-- Content for Tab 3 -->
-                    <div id="tab3" class="hidden tab-content">
+                    <div id="tab1" class="tab-content">
                         <div class="grid grid-cols-5 grid-flow-row dark:text-gray-200 leading-tight grid-md flex flex-wrap">
-                            
+                            <div class="ml-[60px]">
+                            <div class="relative overflow-x-auto shadow-md w-[1300px]">
+                                <table class="w-full text-sm text-left rtl:text-right text-blue-100 dark:text-blue-100">
+                                    <thead class="text-[15px] text-white uppercase bg-rose-700 dark:text-white text-center">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3">
+                                                No.
+                                            </th>
+                                            <th scope="col" class="px-6 py-3">
+                                                รอบ
+                                            </th>
+                                            <th scope="col" class="px-6 py-3">
+                                                วัน-เวลา
+                                            </th>
+                                            <th scope="col" class="px-6 py-3">
+                                                คู่แข่งขัน
+                                            </th>
+                                            <th scope="col" class="px-6 py-3">
+                                                คะแนน
+                                            </th>
+                                            <th scope="col" class="px-6 py-3">
+                                                ข้อมูล
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($buckets as $bucket)
+                                            @php
+                                                $printedMatch = false;
+                                            @endphp
+                                            @foreach ($bucket['R1'] as $item)
+                                                @if ($item->matches && !$printedMatch)
+                                                    <tr class="bg-[#01142E] border-b border-blue-400 text-center">
+                                                        <td class="px-6 py-4">
+                                                            1
+                                                        </td>
+                                                        <td class="px-6 py-4">
+                                                            @if($item->competition_amount == 8)
+                                                                @if ($item->round == 'R1')
+                                                                    ROUND1
+                                                                @elseif ($item->round == 'R2')
+                                                                    Semi Final
+                                                                @elseif ($item->round == 'R3')
+                                                                    Final
+                                                                @endif
+                                                            @elseif($item->competition_amount == 16)
+                                                                @if ($item->round == 'R1')
+                                                                    ROUND1
+                                                                @elseif ($item->round == 'R2')
+                                                                    ROUND2
+                                                                @elseif ($item->round == 'R3')
+                                                                    Semi Final
+                                                                @elseif ($item->round == 'R4')
+                                                                    Final
+                                                                @endif
+                                                            @elseif($item->competition_amount == 32)
+                                                                @if ($item->round == 'R1')
+                                                                    ROUND1
+                                                                @elseif ($item->round == 'R2')
+                                                                    ROUND2
+                                                                @elseif ($item->round == 'R3')
+                                                                    ROUND3
+                                                                @elseif ($item->round == 'R4')
+                                                                    Semi Final
+                                                                @elseif ($item->round == 'R5')
+                                                                    Final
+                                                                @endif
+                                                            @endif
+                                                        </td>
+                                                        <td class="px-6 py-4">
+                                                            {{ \Carbon\Carbon::parse($item->match_date . ' ' . $item->match_time)->timezone('Asia/Bangkok')->locale('th_TH')->isoFormat('ddd D MMM YY, HH:mm') }}
+                                                        </td>
+                                                        <td scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
+                                                            @foreach ($bucket['R1'] as $team)
+                                                                @if ($item->matches && $team->t_id != $item->t_id)
+                                                                <div class="flex items-center justify-center">
+                                                                    {{ $item->t_name }} <img class="rounded-full w-[45px] h-[40px] mx-1" src="{{ $item->logo }}"> 
+                                                                    <div class="flex">
+                                                                        <span class="text-red-500 font-bold">V</span>
+                                                                        <span class="text-blue-500 font-bold">S</span>
+                                                                    </div> 
+                                                                    <img class="rounded-full w-[45px] h-[40px] mx-1" src="{{ $team->logo }}"> {{ $team->t_name }}
+                                                                </div>
+                                                                @endif
+                                                            @endforeach
+                                                        </td>
+                                                        <td class="px-6 py-4">
+                                                            @foreach ($bucket['R1'] as $team)
+                                                                @if ($team->t_id != $item->t_id)
+                                                                    {{ $item->score }} : {{ $team->score }}
+                                                                @endif
+                                                            @endforeach
+                                                        </td>
+                                                        <td class="px-6 py-4">
+                                                            <button onclick="Link('{{ $item->cp_id }}-{{ $item->t_id }}', '{{ $item->link }}')" target="_blank" class="px-1 py-1 text-xs font-medium text-center text-white bg-rose-700 rounded-lg hover:bg-rose-800 focus:ring-4 focus:outline-none focus:ring-rose-300 dark:bg-blue-600 dark:hover:bg-rose-700 dark:focus:ring-rose-800">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
+                                                                </svg>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                    @php
+                                                        $printedMatch = true; 
+                                                    @endphp
+                                                @endif
+                                            @endforeach
+                                        @endforeach
+
+                                        @foreach ($buckets as $bucket)
+                                            @php
+                                                $printedMatch = false;
+                                            @endphp
+                                            @foreach ($bucket['R2'] as $item)
+                                                @if ($item->matches && !$printedMatch)
+                                                    <tr class="bg-[#01142E] border-b border-blue-400 text-center">
+                                                        <td class="px-6 py-4">
+                                                            1
+                                                        </td>
+                                                        <td class="px-6 py-4">
+                                                        @if($item->competition_amount == 8)
+                                                                @if ($item->round == 'R1')
+                                                                    ROUND1
+                                                                @elseif ($item->round == 'R2')
+                                                                    Semi Final
+                                                                @elseif ($item->round == 'R3')
+                                                                    Final
+                                                                @endif
+                                                            @elseif($item->competition_amount == 16)
+                                                                @if ($item->round == 'R1')
+                                                                    ROUND1
+                                                                @elseif ($item->round == 'R2')
+                                                                    ROUND2
+                                                                @elseif ($item->round == 'R3')
+                                                                    Semi Final
+                                                                @elseif ($item->round == 'R4')
+                                                                    Final
+                                                                @endif
+                                                            @elseif($item->competition_amount == 32)
+                                                                @if ($item->round == 'R1')
+                                                                    ROUND1
+                                                                @elseif ($item->round == 'R2')
+                                                                    ROUND2
+                                                                @elseif ($item->round == 'R3')
+                                                                    ROUND3
+                                                                @elseif ($item->round == 'R4')
+                                                                    Semi Final
+                                                                @elseif ($item->round == 'R5')
+                                                                    Final
+                                                                @endif
+                                                            @endif
+                                                        </td>
+                                                        <td class="px-6 py-4">
+                                                            {{ \Carbon\Carbon::parse($item->match_date . ' ' . $item->match_time)->timezone('Asia/Bangkok')->locale('th_TH')->isoFormat('ddd D MMM YY, HH:mm') }}
+                                                        </td>
+                                                        <td scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
+                                                            @foreach ($bucket['R2'] as $team)
+                                                                @if ($item->matches && $team->t_id != $item->t_id)
+                                                                <div class="flex items-center justify-center">
+                                                                    {{ $item->t_name }} <img class="rounded-full w-[45px] h-[40px] mx-1" src="{{ $item->logo }}"> 
+                                                                    <div class="flex">
+                                                                        <span class="text-red-500 font-bold">V</span>
+                                                                        <span class="text-blue-500 font-bold">S</span>
+                                                                    </div> 
+                                                                    <img class="rounded-full w-[45px] h-[40px] mx-1" src="{{ $team->logo }}"> {{ $team->t_name }}
+                                                                </div>
+                                                                @endif
+                                                            @endforeach
+                                                        </td>
+                                                        <td class="px-6 py-4">
+                                                            @foreach ($bucket['R2'] as $team)
+                                                                @if ($team->t_id != $item->t_id)
+                                                                    {{ $item->score }} : {{ $team->score }}
+                                                                @endif
+                                                            @endforeach
+                                                        </td>
+                                                        <td class="px-6 py-4">
+                                                            <button onclick="Link('{{ $item->cp_id }}-{{ $item->t_id }}', '{{ $item->link }}')" target="_blank" class="px-1 py-1 text-xs font-medium text-center text-white bg-rose-700 rounded-lg hover:bg-rose-800 focus:ring-4 focus:outline-none focus:ring-rose-300 dark:bg-blue-600 dark:hover:bg-rose-700 dark:focus:ring-rose-800">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
+                                                                </svg>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                    @php
+                                                        $printedMatch = true; 
+                                                    @endphp
+                                                @endif
+                                            @endforeach
+                                        @endforeach
+                                        
+                                        @foreach ($buckets as $bucket)
+                                            @php
+                                                $printedMatch = false;
+                                            @endphp
+                                            @foreach ($bucket['R3'] as $item)
+                                                @if ($item->matches && !$printedMatch)
+                                                    <tr class="bg-[#01142E] border-b border-blue-400 text-center">
+                                                        <td class="px-6 py-4">
+                                                            1
+                                                        </td>
+                                                        <td class="px-6 py-4">
+                                                        @if($item->competition_amount == 8)
+                                                                @if ($item->round == 'R1')
+                                                                    ROUND1
+                                                                @elseif ($item->round == 'R2')
+                                                                    Semi Final
+                                                                @elseif ($item->round == 'R3')
+                                                                    Final
+                                                                @endif
+                                                            @elseif($item->competition_amount == 16)
+                                                                @if ($item->round == 'R1')
+                                                                    ROUND1
+                                                                @elseif ($item->round == 'R2')
+                                                                    ROUND2
+                                                                @elseif ($item->round == 'R3')
+                                                                    Semi Final
+                                                                @elseif ($item->round == 'R4')
+                                                                    Final
+                                                                @endif
+                                                            @elseif($item->competition_amount == 32)
+                                                                @if ($item->round == 'R1')
+                                                                    ROUND1
+                                                                @elseif ($item->round == 'R2')
+                                                                    ROUND2
+                                                                @elseif ($item->round == 'R3')
+                                                                    ROUND3
+                                                                @elseif ($item->round == 'R4')
+                                                                    Semi Final
+                                                                @elseif ($item->round == 'R5')
+                                                                    Final
+                                                                @endif
+                                                            @endif
+                                                        </td>
+                                                        <td class="px-6 py-4">
+                                                            {{ \Carbon\Carbon::parse($item->match_date . ' ' . $item->match_time)->timezone('Asia/Bangkok')->locale('th_TH')->isoFormat('ddd D MMM YY, HH:mm') }}
+                                                        </td>
+                                                        <td scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
+                                                            @foreach ($bucket['R3'] as $team)
+                                                                @if ($item->matches && $team->t_id != $item->t_id)
+                                                                <div class="flex items-center justify-center">
+                                                                    {{ $item->t_name }} <img class="rounded-full w-[45px] h-[40px] mx-1" src="{{ $item->logo }}"> 
+                                                                    <div class="flex">
+                                                                        <span class="text-red-500 font-bold">V</span>
+                                                                        <span class="text-blue-500 font-bold">S</span>
+                                                                    </div> 
+                                                                    <img class="rounded-full w-[45px] h-[40px] mx-1" src="{{ $team->logo }}"> {{ $team->t_name }}
+                                                                </div>
+                                                                @endif
+                                                            @endforeach
+                                                        </td>
+                                                        <td class="px-6 py-4">
+                                                            @foreach ($bucket['R3'] as $team)
+                                                                @if ($team->t_id != $item->t_id)
+                                                                    {{ $item->score }} : {{ $team->score }}
+                                                                @endif
+                                                            @endforeach
+                                                        </td>
+                                                        <td class="px-6 py-4">
+                                                            <button onclick="Link('{{ $item->cp_id }}-{{ $item->t_id }}', '{{ $item->link }}')" target="_blank" class="px-1 py-1 text-xs font-medium text-center text-white bg-rose-700 rounded-lg hover:bg-rose-800 focus:ring-4 focus:outline-none focus:ring-rose-300 dark:bg-blue-600 dark:hover:bg-rose-700 dark:focus:ring-rose-800">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
+                                                                </svg>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                    @php
+                                                        $printedMatch = true; 
+                                                    @endphp
+                                                @endif
+                                            @endforeach
+                                        @endforeach
+
+                                        @foreach ($buckets as $bucket)
+                                            @php
+                                                $printedMatch = false;
+                                            @endphp
+                                            @foreach ($bucket['R4'] as $item)
+                                                @if ($item->matches && !$printedMatch)
+                                                    <tr class="bg-[#01142E] border-b border-blue-400 text-center">
+                                                        <td class="px-6 py-4">
+                                                            1
+                                                        </td>
+                                                        <td class="px-6 py-4">
+                                                        @if($item->competition_amount == 8)
+                                                                @if ($item->round == 'R1')
+                                                                    ROUND1
+                                                                @elseif ($item->round == 'R2')
+                                                                    Semi Final
+                                                                @elseif ($item->round == 'R3')
+                                                                    Final
+                                                                @endif
+                                                            @elseif($item->competition_amount == 16)
+                                                                @if ($item->round == 'R1')
+                                                                    ROUND1
+                                                                @elseif ($item->round == 'R2')
+                                                                    ROUND2
+                                                                @elseif ($item->round == 'R3')
+                                                                    Semi Final
+                                                                @elseif ($item->round == 'R4')
+                                                                    Final
+                                                                @endif
+                                                            @elseif($item->competition_amount == 32)
+                                                                @if ($item->round == 'R1')
+                                                                    ROUND1
+                                                                @elseif ($item->round == 'R2')
+                                                                    ROUND2
+                                                                @elseif ($item->round == 'R3')
+                                                                    ROUND3
+                                                                @elseif ($item->round == 'R4')
+                                                                    Semi Final
+                                                                @elseif ($item->round == 'R5')
+                                                                    Final
+                                                                @endif
+                                                            @endif
+                                                        </td>
+                                                        <td class="px-6 py-4">
+                                                            {{ \Carbon\Carbon::parse($item->match_date . ' ' . $item->match_time)->timezone('Asia/Bangkok')->locale('th_TH')->isoFormat('ddd D MMM YY, HH:mm') }}
+                                                        </td>
+                                                        <td scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
+                                                            @foreach ($bucket['R4'] as $team)
+                                                                @if ($item->matches && $team->t_id != $item->t_id)
+                                                                <div class="flex items-center justify-center">
+                                                                    {{ $item->t_name }} <img class="rounded-full w-[45px] h-[40px] mx-1" src="{{ $item->logo }}"> 
+                                                                    <div class="flex">
+                                                                        <span class="text-red-500 font-bold">V</span>
+                                                                        <span class="text-blue-500 font-bold">S</span>
+                                                                    </div> 
+                                                                    <img class="rounded-full w-[45px] h-[40px] mx-1" src="{{ $team->logo }}"> {{ $team->t_name }}
+                                                                </div>
+                                                                @endif
+                                                            @endforeach
+                                                        </td>
+                                                        <td class="px-6 py-4">
+                                                            @foreach ($bucket['R4'] as $team)
+                                                                @if ($team->t_id != $item->t_id)
+                                                                    {{ $item->score }} : {{ $team->score }}
+                                                                @endif
+                                                            @endforeach
+                                                        </td>
+                                                        <td class="px-6 py-4">
+                                                            <button onclick="Link('{{ $item->cp_id }}-{{ $item->t_id }}', '{{ $item->link }}')" target="_blank" class="px-1 py-1 text-xs font-medium text-center text-white bg-rose-700 rounded-lg hover:bg-rose-800 focus:ring-4 focus:outline-none focus:ring-rose-300 dark:bg-blue-600 dark:hover:bg-rose-700 dark:focus:ring-rose-800">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
+                                                                </svg>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                    @php
+                                                        $printedMatch = true; 
+                                                    @endphp
+                                                @endif
+                                            @endforeach
+                                        @endforeach
+
+                                        @foreach ($buckets as $bucket)
+                                            @php
+                                                $printedMatch = false;
+                                            @endphp
+                                            @foreach ($bucket['R5'] as $item)
+                                                @if ($item->matches && !$printedMatch)
+                                                    <tr class="bg-[#01142E] border-b border-blue-400 text-center">
+                                                        <td class="px-6 py-4">
+                                                            1
+                                                        </td>
+                                                        <td class="px-6 py-4">
+                                                        @if($item->competition_amount == 8)
+                                                                @if ($item->round == 'R1')
+                                                                    ROUND1
+                                                                @elseif ($item->round == 'R2')
+                                                                    Semi Final
+                                                                @elseif ($item->round == 'R3')
+                                                                    Final
+                                                                @endif
+                                                            @elseif($item->competition_amount == 16)
+                                                                @if ($item->round == 'R1')
+                                                                    ROUND1
+                                                                @elseif ($item->round == 'R2')
+                                                                    ROUND2
+                                                                @elseif ($item->round == 'R3')
+                                                                    Semi Final
+                                                                @elseif ($item->round == 'R4')
+                                                                    Final
+                                                                @endif
+                                                            @elseif($item->competition_amount == 32)
+                                                                @if ($item->round == 'R1')
+                                                                    ROUND1
+                                                                @elseif ($item->round == 'R2')
+                                                                    ROUND2
+                                                                @elseif ($item->round == 'R3')
+                                                                    ROUND3
+                                                                @elseif ($item->round == 'R4')
+                                                                    Semi Final
+                                                                @elseif ($item->round == 'R5')
+                                                                    Final
+                                                                @endif
+                                                            @endif
+                                                        </td>
+                                                        <td class="px-6 py-4">
+                                                            {{ \Carbon\Carbon::parse($item->match_date . ' ' . $item->match_time)->timezone('Asia/Bangkok')->locale('th_TH')->isoFormat('ddd D MMM YY, HH:mm') }}
+                                                        </td>
+                                                        <td scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
+                                                            @foreach ($bucket['R5'] as $team)
+                                                                @if ($item->matches && $team->t_id != $item->t_id)
+                                                                <div class="flex items-center justify-center">
+                                                                    {{ $item->t_name }} <img class="rounded-full w-[45px] h-[40px] mx-1" src="{{ $item->logo }}"> 
+                                                                    <div class="flex">
+                                                                        <span class="text-red-500 font-bold">V</span>
+                                                                        <span class="text-blue-500 font-bold">S</span>
+                                                                    </div> 
+                                                                    <img class="rounded-full w-[45px] h-[40px] mx-1" src="{{ $team->logo }}"> {{ $team->t_name }}
+                                                                </div>
+                                                                @endif
+                                                            @endforeach
+                                                        </td>
+                                                        <td class="px-6 py-4">
+                                                            @foreach ($bucket['R5'] as $team)
+                                                                @if ($team->t_id != $item->t_id)
+                                                                    {{ $item->score }} : {{ $team->score }}
+                                                                @endif
+                                                            @endforeach
+                                                        </td>
+                                                        <td class="px-6 py-4">
+                                                            <button onclick="Link('{{ $item->cp_id }}-{{ $item->t_id }}', '{{ $item->link }}')" target="_blank" class="px-1 py-1 text-xs font-medium text-center text-white bg-rose-700 rounded-lg hover:bg-rose-800 focus:ring-4 focus:outline-none focus:ring-rose-300 dark:bg-blue-600 dark:hover:bg-rose-700 dark:focus:ring-rose-800">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
+                                                                </svg>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                    @php
+                                                        $printedMatch = true; 
+                                                    @endphp
+                                                @endif
+                                            @endforeach
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            </div>
                         </div>
                     </div>
                     <!-- Content for Tab 1 -->
-                    <div id="tab1" class="tab-content">
+                    <div id="tab3" class=" hidden tab-content">
                     @foreach ($buckets as $bucket)
                         @if ($loop->first)
                             @foreach ($bucket['R1'] as $item)
@@ -128,7 +566,7 @@
 
                             <div>
                                 @foreach ($buckets as $bucket)
-                                    <div class="mx-8 w-36 grid-cols-4 gap-3">
+                                    <div class="mx-8 w-36 grid-cols-4 gap-3 mt-[58px]">
                                         @foreach ($bucket['R2'] as $item)
                                             <br>
                                             <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
@@ -159,12 +597,15 @@
                             </div>
                             <div>
                                 @foreach ($buckets as $bucket)
-                                    <div class="mx-8 w-36 grid-cols-4 gap-3">
+                                    <div class="mx-8 w-36 grid-cols-4 gap-3 mt-[145px]">
                                         @foreach ($bucket['R3'] as $item)
                                             <br>
                                             @switch($item->cl_round)
                                             @case('1')
                                                 @if ($item->competition_amount == 8)
+                                                    @if ($item->score == 1)
+                                                        <img src="https://avatars.githubusercontent.com/u/108270321?v=4" class="object-cover w-6 h-6 rounded-md mt-[-15px]">
+                                                    @endif
                                                     <div class="border-2 ring-2  @if ($item->score == 1) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
                                                 @else
                                                     <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
@@ -172,6 +613,9 @@
                                             @break
                                             @case('3')
                                                 @if ($item->competition_amount == 8)
+                                                    @if ($item->score == 2)
+                                                        <img src="https://avatars.githubusercontent.com/u/108270321?v=4" class="object-cover w-6 h-6 rounded-md mt-[-15px]">
+                                                    @endif
                                                     <div class="border-2 ring-2  @if ($item->score == 2) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
                                                 @else
                                                     <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
@@ -179,6 +623,9 @@
                                             @break
                                             @case('5')
                                                 @if ($item->competition_amount == 8)
+                                                    @if ($item->score == 3)
+                                                        <img src="https://avatars.githubusercontent.com/u/108270321?v=4" class="object-cover w-6 h-6 rounded-md mt-[-15px]">
+                                                    @endif
                                                     <div class="border-2 ring-2  @if ($item->score == 3) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
                                                 @else
                                                     <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
@@ -213,12 +660,15 @@
                             <div>
                                 @foreach ($buckets as $bucket)
                                 @if ($item->competition_amount > 8)
-                                    <div class="mx-8 w-36 grid-cols-4 gap-3">
+                                    <div class="mx-8 w-36 grid-cols-4 gap-3 mt-[270px]">
                                         @foreach ($bucket['R4'] as $item)
                                             <br>
                                             @switch($item->cl_round)
                                             @case('1')
                                                 @if ($item->competition_amount == 16)
+                                                    @if ($item->score == 1)
+                                                        <img src="https://avatars.githubusercontent.com/u/108270321?v=4" class="object-cover w-6 h-6 rounded-md mt-[-15px]">
+                                                    @endif
                                                     <div class="border-2 ring-2  @if ($item->score == 1) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
                                                 @else
                                                     <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
@@ -226,6 +676,9 @@
                                             @break
                                             @case('3')
                                                 @if ($item->competition_amount == 16)
+                                                    @if ($item->score == 2)
+                                                        <img src="https://avatars.githubusercontent.com/u/108270321?v=4" class="object-cover w-6 h-6 rounded-md mt-[-15px]">
+                                                    @endif
                                                     <div class="border-2 ring-2  @if ($item->score == 2) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
                                                 @else
                                                     <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
@@ -233,6 +686,9 @@
                                             @break
                                             @case('5')
                                                 @if ($item->competition_amount == 16)
+                                                    @if ($item->score == 3)
+                                                        <img src="https://avatars.githubusercontent.com/u/108270321?v=4" class="object-cover w-6 h-6 rounded-md mt-[-15px]">
+                                                    @endif
                                                     <div class="border-2 ring-2  @if ($item->score == 3) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
                                                 @else
                                                     <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
@@ -268,12 +724,15 @@
                             <div>
                                 @foreach ($buckets as $bucket)
                                 @if ($item->competition_amount > 16)
-                                    <div class="mx-8 w-36 grid-cols-4 gap-3">
+                                    <div class="mx-8 w-36 grid-cols-4 gap-3 mt-[470px]">
                                         @foreach ($bucket['R5'] as $item)
                                             <br>
                                             @switch($item->cl_round)
                                             @case('1')
                                                 @if ($item->competition_amount == 32)
+                                                    @if ($item->score == 1)
+                                                        <img src="https://avatars.githubusercontent.com/u/108270321?v=4" class="object-cover w-6 h-6 rounded-md mt-[-15px]">
+                                                    @endif
                                                     <div class="border-2 ring-2  @if ($item->score == 1) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
                                                 @else
                                                     <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
@@ -281,6 +740,9 @@
                                             @break
                                             @case('3')
                                                 @if ($item->competition_amount == 32)
+                                                    @if ($item->score == 2)
+                                                        <img src="https://avatars.githubusercontent.com/u/108270321?v=4" class="object-cover w-6 h-6 rounded-md mt-[-15px]">
+                                                    @endif
                                                     <div class="border-2 ring-2  @if ($item->score == 2) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
                                                 @else
                                                     <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
@@ -288,6 +750,9 @@
                                             @break
                                             @case('5')
                                                 @if ($item->competition_amount == 32)
+                                                    @if ($item->score == 3)
+                                                        <img src="https://avatars.githubusercontent.com/u/108270321?v=4" class="object-cover w-6 h-6 rounded-md mt-[-15px]">
+                                                    @endif
                                                     <div class="border-2 ring-2  @if ($item->score == 3) bg-yellow-500 @else bg-gradient-to-r from-slate-800 to-slate-300 @endif text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
                                                 @else
                                                     <div class="border-2 ring-2 bg-gradient-to-r from-slate-800 to-slate-300 text-white flex justify-between grid-cols-4 gap-2 relative h-[35px] w-[165px] overflow-hidden">
@@ -346,14 +811,15 @@
                 title: "ยังไม่มีลิ้งค์ถ่ายทอดสด...",
                 width: 600,
                 padding: "3em",
-                color: "#716add",
-                background: "#fff url(/asset/img/1714366794.jpg)",
+                color: "#ffff",
+                background: "#01142E url(/asset/img/XOsX.gif)",
                 backdrop: `
                     rgba(0,0,123,0.4)
                     url("/asset/img/XOsX.gif")
                     left
                     no-repeat
                 `,
+                confirmButtonColor: 'green',
                 });
         }
     }
