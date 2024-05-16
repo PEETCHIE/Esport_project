@@ -49,9 +49,6 @@
                                     <thead class="text-[15px] text-white uppercase bg-rose-700 dark:text-white text-center">
                                         <tr>
                                             <th scope="col" class="px-6 py-3">
-                                                No.
-                                            </th>
-                                            <th scope="col" class="px-6 py-3">
                                                 รอบ
                                             </th>
                                             <th scope="col" class="px-6 py-3">
@@ -76,9 +73,6 @@
                                             @foreach ($bucket['R1'] as $item)
                                                 @if ($item->matches && !$printedMatch)
                                                     <tr class="bg-[#01142E] border-b border-blue-400 text-center">
-                                                        <td class="px-6 py-4">
-                                                            1
-                                                        </td>
                                                         <td class="px-6 py-4">
                                                             @if($item->competition_amount == 8)
                                                                 @if ($item->round == 'R1')
@@ -159,9 +153,6 @@
                                                 @if ($item->matches && !$printedMatch)
                                                     <tr class="bg-[#01142E] border-b border-blue-400 text-center">
                                                         <td class="px-6 py-4">
-                                                            1
-                                                        </td>
-                                                        <td class="px-6 py-4">
                                                         @if($item->competition_amount == 8)
                                                                 @if ($item->round == 'R1')
                                                                     ROUND1
@@ -240,9 +231,6 @@
                                             @foreach ($bucket['R3'] as $item)
                                                 @if ($item->matches && !$printedMatch)
                                                     <tr class="bg-[#01142E] border-b border-blue-400 text-center">
-                                                        <td class="px-6 py-4">
-                                                            1
-                                                        </td>
                                                         <td class="px-6 py-4">
                                                         @if($item->competition_amount == 8)
                                                                 @if ($item->round == 'R1')
@@ -323,9 +311,6 @@
                                                 @if ($item->matches && !$printedMatch)
                                                     <tr class="bg-[#01142E] border-b border-blue-400 text-center">
                                                         <td class="px-6 py-4">
-                                                            1
-                                                        </td>
-                                                        <td class="px-6 py-4">
                                                         @if($item->competition_amount == 8)
                                                                 @if ($item->round == 'R1')
                                                                     ROUND1
@@ -404,9 +389,6 @@
                                             @foreach ($bucket['R5'] as $item)
                                                 @if ($item->matches && !$printedMatch)
                                                     <tr class="bg-[#01142E] border-b border-blue-400 text-center">
-                                                        <td class="px-6 py-4">
-                                                            1
-                                                        </td>
                                                         <td class="px-6 py-4">
                                                         @if($item->competition_amount == 8)
                                                                 @if ($item->round == 'R1')
@@ -812,7 +794,7 @@
                 width: 600,
                 padding: "3em",
                 color: "#ffff",
-                background: "#01142E url(/asset/img/XOsX.gif)",
+                background: "#38B6FF",
                 backdrop: `
                     rgba(0,0,123,0.4)
                     url("/asset/img/XOsX.gif")
