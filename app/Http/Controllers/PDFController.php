@@ -21,12 +21,12 @@ class PDFController extends Controller
         $tel = DB::table('tournament_managers')->where('user_id', Auth()->id())->pluck('tel')->first();
         $today = Carbon::now();
         $cl_id = DB::table('competition_lists')->where('tm_id', $tm_id)->pluck('id')->toArray();
-        $count_teams = DB::table('teams')
-            ->select('cl_id', DB::raw('count(*) as team_count'))
-            ->whereIn('cl_id', $cl_id)
-            ->groupBy('cl_id')
+        $count_teams = DB::table('competition_lists as cl')
+            ->leftJoin('teams as t', 'cl.id', '=', 't.cl_id')
+            ->select('cl.id as cl_id', DB::raw('count(t.id) as team_count'))
+            ->whereIn('cl.id', $cl_id)
+            ->groupBy('cl.id')
             ->get();
-
         $listType = $request->input('listType', 'all');
 
         switch ($listType) {

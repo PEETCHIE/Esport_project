@@ -45,7 +45,7 @@
                 <div class="border m-2 rounded p-1">
                     <div class="grid grid-cols-2 grid-flow-row">
                         <div class="my-4 text-left mx-4 grid-cols-2">
-                            <label for="listType" class="text-gray-700">Select List Type:</label>
+                            <label for="listType" class="text-gray-700">เลือก :</label>
                             <select id="listType" name="listType" class="ml-2 border rounded -px-2 py-1">
                                 <option value="all" selected>รายการแข่งขันทั้งหมด</option>
                                 <option value="ongoing">รายการแข่งขันที่กำลังดำเนินการ</option>
@@ -91,9 +91,15 @@
                                         <td class="border px-4 py-2">{{ $item->competition_name }}</td>
                                         <td class="border px-4 py-2 text-center">{{ $item->competition_amount }}</td>
                                         <td class="border px-4 py-2 text-center">
+                                            @php
+                                                $teamCountFound = false;
+                                            @endphp
                                             @foreach ($count_teams as $count)
                                                 @if ($count->cl_id == $item->id)
                                                     {{ $count->team_count }}
+                                                    @php
+                                                        $teamCountFound = true;
+                                                    @endphp
                                                 @endif
                                             @endforeach
                                         </td>
