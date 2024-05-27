@@ -9,7 +9,7 @@
         {{-- <button style="background-color: #4caf50; color: white;" class="hover:bg-#45a049 font-bold py-2 px-4 rounded">
             อีกแบบ
         </button> --}}
-            <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded  float-right mr-6" onclick="{{ route('managers_competition.create') }}"><a href="{{route('managers_competition.create')}}">เพิ่มรายการแข่ง</a></button>
+            <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 rounded  float-right mr-6" onclick="{{ route('managers_competition.create') }}"><a href="{{route('managers_competition.create')}}">เพิ่มรายการแข่ง</a></button>
             <br>
     </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
